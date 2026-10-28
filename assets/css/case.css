@@ -21,7 +21,7 @@
 .case-section > * { width: 100%; max-width: 816px; }
 .case-section > .wide { max-width: none; }
 .case-body > .wide { width: 100%; }
-.case-h2 { font-family: var(--f-head); font-weight: 500; font-size: 40px; line-height: 48px; }
+.case-h2 { font-family: var(--f-head); font-weight: 500; font-size: 32px; line-height: 40px; }
 .case-sub { display: flex; flex-direction: column; gap: 12px; }
 .case-h3 { font-family: var(--f-head); font-weight: 600; font-size: 24px; line-height: 32px; }
 .prose p + p { margin-top: 12px; }
