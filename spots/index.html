@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SPOTS — кейс Максата Хаймулдина</title>
+  <meta name="description" content="Мобильное приложение для поиска городских событий и сообществ: исследование, интервью, прототип, usability-тест, UI-kit и метрики.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://maxatkhaimuldin.com/spots/">
+  <meta property="og:title" content="SPOTS — кейс Максата Хаймулдина">
+  <meta property="og:description" content="Мобильное приложение для поиска городских событий и сообществ: исследование, интервью, прототип, usability-тест, UI-kit и метрики.">
+  <meta property="og:image" content="https://maxatkhaimuldin.com/assets/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+  <link rel="preload" href="../assets/fonts/geologica.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/case.css">
+</head>
+<body>
+
+<header class="header" id="top">
+  <div class="container header__row">
+    <a class="logo" href="../">Maxat Khaimuldin</a>
+
+    <nav class="nav" aria-label="Разделы">
+      <a href="../">Главная</a>
+      <a href="../#cases" aria-current="page">Кейсы</a>
+      <a href="../#experience">Опыт</a>
+      <a class="nav__cv" href="../cv/Maxat-Khaimuldin-CV.pdf" target="_blank" rel="noopener">Скачать CV</a>
+    </nav>
+
+    <div class="header__actions">
+      <div class="contact contact--dark">
+        <button class="contact__btn" type="button" aria-expanded="false" aria-haspopup="true">
+          Давайте сотрудничать
+          <svg class="contact__arrow" viewBox="0 0 7 6" aria-hidden="true"><path d="M3.46 0 6.93 6H0z"/></svg>
+        </button>
+        <div class="contact__list">
+          <a href="mailto:khaimuldin.maxat@gmail.com"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M15 4.17H5a2.5 2.5 0 0 0-2.5 2.5v6.67a2.5 2.5 0 0 0 2.5 2.5h10a2.5 2.5 0 0 0 2.5-2.5V6.67a2.5 2.5 0 0 0-2.5-2.5Z" stroke-width="1.5"/><path d="M3.33 5.83 10 10.83l6.67-5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Email</a>
+          <a href="https://www.linkedin.com/in/maxat-khaimuldin/" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M11.67 3.33h5v5M16.67 3.33l-7.5 7.5M15 11.67V15c0 .92-.75 1.67-1.67 1.67H5c-.92 0-1.67-.75-1.67-1.67V6.67C3.33 5.75 4.08 5 5 5h3.33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>LinkedIn</a>
+          <a href="https://t.me/mr_chiller312" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M11.67 3.33h5v5M16.67 3.33l-7.5 7.5M15 11.67V15c0 .92-.75 1.67-1.67 1.67H5c-.92 0-1.67-.75-1.67-1.67V6.67C3.33 5.75 4.08 5 5 5h3.33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Telegram</a>
+        </div>
+      </div>
+    </div>
+
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Открыть меню">
+      <span class="burger__icon" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+
+  <nav class="menu" id="menu" aria-label="Меню">
+    <div class="container">
+      <a href="../">Главная</a>
+      <a href="../#cases" aria-current="page">Кейсы</a>
+      <a href="../#experience">Опыт</a>
+      <a class="menu__cv" href="../cv/Maxat-Khaimuldin-CV.pdf" target="_blank" rel="noopener">Скачать CV</a>
+      <hr>
+      <a href="mailto:khaimuldin.maxat@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/maxat-khaimuldin/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://t.me/mr_chiller312" target="_blank" rel="noopener">Telegram</a>
+    </div>
+  </nav>
+</header>
+
+<main class="page-main">
+  <div class="container">
+    <section class="case-hero" aria-label="О кейсе">
+      <div class="case-hero__head">
+        <h1 class="case-title">SPOTS</h1>
+        <span class="tags tags--stack"><span class="tag">EventTech</span><span class="tag">Community</span><span class="tag">Mobile</span></span>
+      </div>
+      <dl class="case-meta"><div><dt>Проект</dt><dd>Tech Orda</dd></div><div><dt>Тип</dt><dd>Мобильное приложение</dd></div><div><dt>Срок</dt><dd>Апрель — сентябрь 2026</dd></div></dl>
+      <div class="case-cover cover--spots">
+        <picture>
+          <source media="(max-width: 1023px)" srcset="../assets/img/spots/header-mobile-335.webp 335w, ../assets/img/spots/header-mobile-670.webp 670w, ../assets/img/spots/header-mobile-1005.webp 1005w" sizes="min(600px, 100vw - 40px)">
+          <img src="../assets/img/spots/header-desktop-2480.webp" srcset="../assets/img/spots/header-desktop-1240.webp 1240w, ../assets/img/spots/header-desktop-2480.webp 2480w" sizes="min(1240px, 88vw)" width="1240" height="465" alt="Экраны приложения SPOTS: онбординг, главная и страница события">
+        </picture>
+      </div>
+    </section>
+    <div class="case-body">
+    <section class="case-section">
+      <h2 class="case-h2">Коротко о кейсе</h2>
+      <div class="cards wide"><div class="card"><h3 class="card__title">Проблема</h3><p class="card__text">Анонсы разбросаны по Instagram, Telegram-каналам и закрытым чатам. Поиск отнимает столько времени, что человек остаётся дома. Организаторы тратят часы на сбор «плюсиков» и напоминания.</p></div><div class="card"><h3 class="card__title">Решение</h3><p class="card__text">Одно приложение для городских событий и постоянных сообществ. Главный экран сразу предлагает, куда пойти, а карточка показывает время, место, цену и участников.</p></div><div class="card"><h3 class="card__title">Результат</h3><p class="card__text">Прототип — 33 экрана: от первого запуска с онбордингом и входом до записи на событие или вступления в сообщество.</p></div></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">О проекте</h2>
+      <div class="prose"><p>Spots — мобильное приложение для поиска городских событий и сообществ по интересам. Это мой итоговый проект на курсе продуктового дизайна Tech Orda.</p><p>Над проектом я работал один с апреля по сентябрь 2026 года: исследовал рынок и аудиторию, провёл интервью, спроектировал сценарии, собрал прототип и UI-kit, провёл usability-тестирование с реальными респондентами и описал метрики продукта.</p></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Контекст</h2>
+      <div class="prose"><p>Локального досуга в городе много, но его трудно найти. Путь пользователя разорван между Instagram-афишами, Telegram-каналами и закрытыми чатами.</p></div>
+      <div class="prose"><p><strong>Долгий поиск.</strong> Чтобы собрать варианты, нужно пролистать десятки источников. Пока ищешь, желание куда-то идти пропадает.</p><p><strong>Социальный барьер.</strong> Графики друзей не совпадают, а сформировавшиеся компании сидят в закрытых чатах. Идти одному к незнакомым людям некомфортно.</p><p><strong>Организационный хаос.</strong> Встречи координируют в мессенджерах: организатор вручную считает «плюсики», а адрес и время теряются в переписке.</p></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Цель и задачи</h2>
+      <div class="prose"><p>Цель — помочь людям легко находить городские события и компанию по интересам. Для этого Spots объединяет разовые события и постоянные сообщества в одном приложении.</p></div>
+      <ol class="case-list"><li>Исследовать рынок и целевую аудиторию.</li><li>Спроектировать путь пользователя от онбординга до записи на событие и вступления в сообщество.</li><li>Собрать интерактивный прототип и провести usability-тест.</li><li>Разработать UI-kit и финальные макеты.</li></ol>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Исследование рынка</h2>
+      <div class="prose"><p>Я разобрал 11 прямых и косвенных конкурентов. Прямые: Telegram- и WhatsApp-группы, Meetup, Luma, Timeleft, TABLER, Radiate и Plots. Косвенные: Ticketon, Sxodim, Strava и Tinder.</p><p>Четыре главных — Meetup, Luma, Ticketon и Telegram-группы — сравнил по популярности в СНГ, онбордингу, навигации и ключевым функциям. Сценарии Meetup и Luma прошёл по шагам, экран за экраном.</p></div>
+      <div class="ctable ctable--competitors wide only-desktop" role="table" aria-label="Сравнение конкурентов"><div class="ctable__head" role="row"><span role="columnheader">Критерий</span><span role="columnheader">Meetup</span><span role="columnheader">Luma</span><span role="columnheader">Ticketon</span><span role="columnheader">Группы в Telegram</span></div><div class="ctable__row" role="row"><span class="ctable__key" role="rowheader">Популярность</span><span role="cell">Высокая в мире, но в СНГ аудитория узкая: в основном IT, бизнес, экспаты</span><span role="cell">Средняя, особенно в зарубежной IT- и креативной среде</span><span role="cell">Высокая, но только в нише платных развлечений</span><span role="cell">Высокая</span></div><div class="ctable__row" role="row"><span class="ctable__key" role="rowheader">Общее впечатление от UX</span><span role="cell">Перегруженный и местами устаревший</span><span role="cell">Минималистичный, эстетичный и современный</span><span role="cell">Привычный, понятный</span><span role="cell">Привычно, но часто перегруженно: всё происходит на одном экране</span></div><div class="ctable__row" role="row"><span class="ctable__key" role="rowheader">Онбординг</span><span role="cell">Многошаговый. Заставляет выбрать десятки тегов, прежде чем пустит внутрь</span><span role="cell">Быстрый. Вход в один клик, сразу можно создать событие или смотреть ленту</span><span role="cell">Привычный: ввести номер, почту и т. д. Ничего особенного</span><span role="cell">Зависит от группы: от простого добавления в чат до закреплённых правил и приветственных ботов</span></div><div class="ctable__row" role="row"><span class="ctable__key" role="rowheader">Навигация</span><span role="cell">Не очень интуитивная. Много вкладок, категорий и подкатегорий — можно запутаться</span><span role="cell">Простая и интуитивная</span><span role="cell">Каталог — понятная структура</span><span role="cell">Сплошная лента. Важное быстро уезжает вверх, спасают только закреплённые сообщения</span></div><div class="ctable__row" role="row"><span class="ctable__key" role="rowheader">Ключевые функции</span><span role="cell">Поиск событий, сообщества, обсуждения и чат</span><span role="cell">Поиск событий по городам, сообщества (календари), чат</span><span role="cell">Поиск событий, покупка билетов, выбор мест на схеме зала, оплата</span><span role="cell">Общение, опросы, реакции</span></div><div class="ctable__row" role="row"><span class="ctable__key" role="rowheader">Интерактивность</span><span role="cell">Базовые механики: карта с поиском событий, зум и скролл. Интерфейс часто ощущается тяжёлым</span><span role="cell">Плавная смена состояний, удобные всплывающие окна, аккуратные анимации</span><span role="cell">Масштабируемые схемы залов, быстрый отклик без анимаций</span><span role="cell">Отзывчивый интерфейс: свайп для ответа, долгое нажатие для реакций, анимации стикеров</span></div><div class="ctable__row" role="row"><span class="ctable__key" role="rowheader">Минусы</span><span role="cell">Создание сообщества платное</span><span role="cell">Упор на веб-версию: создать календарь сообщества можно только в ней</span><span role="cell">Обычный пользователь не может создать событие. Нет общения</span><span role="cell">Детали встречи теряются в переписке, участников считают по «+», нет напоминаний, новые группы по интересам не найти</span></div></div>
+      <div class="comp-cards only-mobile"><div class="comp-card"><h3>Meetup</h3><dl><div><dt>Популярность</dt><dd>Высокая в мире, но в СНГ аудитория узкая: в основном IT, бизнес, экспаты</dd></div><div><dt>Общее впечатление от UX</dt><dd>Перегруженный и местами устаревший</dd></div><div><dt>Онбординг</dt><dd>Многошаговый. Заставляет выбрать десятки тегов, прежде чем пустит внутрь</dd></div><div><dt>Навигация</dt><dd>Не очень интуитивная. Много вкладок, категорий и подкатегорий — можно запутаться</dd></div><div><dt>Ключевые функции</dt><dd>Поиск событий, сообщества, обсуждения и чат</dd></div><div><dt>Интерактивность</dt><dd>Базовые механики: карта с поиском событий, зум и скролл. Интерфейс часто ощущается тяжёлым</dd></div><div><dt>Минусы</dt><dd>Создание сообщества платное</dd></div></dl></div><div class="comp-card"><h3>Luma</h3><dl><div><dt>Популярность</dt><dd>Средняя, особенно в зарубежной IT- и креативной среде</dd></div><div><dt>Общее впечатление от UX</dt><dd>Минималистичный, эстетичный и современный</dd></div><div><dt>Онбординг</dt><dd>Быстрый. Вход в один клик, сразу можно создать событие или смотреть ленту</dd></div><div><dt>Навигация</dt><dd>Простая и интуитивная</dd></div><div><dt>Ключевые функции</dt><dd>Поиск событий по городам, сообщества (календари), чат</dd></div><div><dt>Интерактивность</dt><dd>Плавная смена состояний, удобные всплывающие окна, аккуратные анимации</dd></div><div><dt>Минусы</dt><dd>Упор на веб-версию: создать календарь сообщества можно только в ней</dd></div></dl></div><div class="comp-card"><h3>Ticketon</h3><dl><div><dt>Популярность</dt><dd>Высокая, но только в нише платных развлечений</dd></div><div><dt>Общее впечатление от UX</dt><dd>Привычный, понятный</dd></div><div><dt>Онбординг</dt><dd>Привычный: ввести номер, почту и т. д. Ничего особенного</dd></div><div><dt>Навигация</dt><dd>Каталог — понятная структура</dd></div><div><dt>Ключевые функции</dt><dd>Поиск событий, покупка билетов, выбор мест на схеме зала, оплата</dd></div><div><dt>Интерактивность</dt><dd>Масштабируемые схемы залов, быстрый отклик без анимаций</dd></div><div><dt>Минусы</dt><dd>Обычный пользователь не может создать событие. Нет общения</dd></div></dl></div><div class="comp-card"><h3>Группы в Telegram</h3><dl><div><dt>Популярность</dt><dd>Высокая</dd></div><div><dt>Общее впечатление от UX</dt><dd>Привычно, но часто перегруженно: всё происходит на одном экране</dd></div><div><dt>Онбординг</dt><dd>Зависит от группы: от простого добавления в чат до закреплённых правил и приветственных ботов</dd></div><div><dt>Навигация</dt><dd>Сплошная лента. Важное быстро уезжает вверх, спасают только закреплённые сообщения</dd></div><div><dt>Ключевые функции</dt><dd>Общение, опросы, реакции</dd></div><div><dt>Интерактивность</dt><dd>Отзывчивый интерфейс: свайп для ответа, долгое нажатие для реакций, анимации стикеров</dd></div><div><dt>Минусы</dt><dd>Детали встречи теряются в переписке, участников считают по «+», нет напоминаний, новые группы по интересам не найти</dd></div></dl></div></div>
+      <div class="case-sub"><h3 class="case-h3">Слабые места конкурентов</h3><div class="prose"><p>Meetup перегружен, а онбординг заставляет выбрать десятки тегов до входа. Luma удобна, но сообщество можно создать только в веб-версии. В Ticketon нет общения, и обычный пользователь не может создать событие. В Telegram-группах информация о встрече тонет в переписке, участников считают по «плюсикам», напоминаний нет.</p></div></div>
+      <div class="case-sub"><h3 class="case-h3">Что взял у конкурентов</h3><ul class="case-list"><li>У Meetup — карту с событиями и календарь на странице сообщества.</li><li>У Luma — карту прямо на странице события.</li><li>У Ticketon — горизонтальную ленту дат, чтобы выбрать день в одно касание.</li></ul></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Интервью</h2>
+      <div class="prose"><p>Чтобы понять реальный опыт, я провёл три глубинных интервью. Двое респондентов обычно сами собирают людей, третий присоединяется к готовым планам.</p></div>
+      <ul class="case-list"><li>Фариза, 24 года, SMM-специалистка — организатор.</li><li>Игорь, 35 лет, пиарщик — организатор.</li><li>Янис, 27 лет, бэкенд-разработчик — участник.</li></ul>
+      <div class="prose"><p>Вопросы разбил на блоки: как люди проводят и ищут свободное время, путь организатора или участника и проверка главной гипотезы о сообществах.</p></div>
+      <figure class="quote"><blockquote>«Весь день только на поиски уходит, а потом уже и не хочется никуда»</blockquote><figcaption>Янис, бэкенд-разработчик</figcaption></figure>
+      <figure class="quote"><blockquote>«Приходилось напоминать постоянно о многих вещах (дата, деньги и т. д.). Некоторые читают и игнорят просто»</blockquote><figcaption>Фариза, SMM-специалистка</figcaption></figure>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Инсайты</h2>
+      <div class="prose"><p>Из интервью я выделил пять инсайтов и каждый превратил в требование к продукту.</p></div>
+      <div class="ctable ctable--insights" role="table" aria-label="Инсайты и решения"><div class="ctable__head" role="row"><span role="columnheader">Инсайт</span><span role="columnheader">Решение для продукта</span></div><div class="ctable__row" role="row"><div class="ctable__cell" role="cell"><span class="ctable__key">Быстрая оценка события</span><span class="muted">Люди не хотят искать базовую информацию. С первых секунд им важно понять формат, время, место и цену.</span></div><span role="cell">Вся ключевая информация — на первом экране карточки события.</span></div><div class="ctable__row" role="row"><div class="ctable__cell" role="cell"><span class="ctable__key">Социальный комфорт</span><span class="muted">Среди «не своих» некомфортно. Перед записью важно понимать, кто придёт.</span></div><span role="cell">Участники видны на страницах событий и сообществ.</span></div><div class="ctable__row" role="row"><div class="ctable__cell" role="cell"><span class="ctable__key">Потребность в своём круге</span><span class="muted">Разовые события — лотерея. Хочется собираться проверенной компанией без посторонних.</span></div><span role="cell">Сообщества, открытые и закрытые.</span></div><div class="ctable__row" role="row"><div class="ctable__cell" role="cell"><span class="ctable__key">Утомительный поиск</span><span class="muted">Из-за долгого скроллинга каналов человек часто остаётся дома.</span></div><span role="cell">Главный экран на рекомендациях: готовое предложение вместо поиска.</span></div><div class="ctable__row" role="row"><div class="ctable__cell" role="cell"><span class="ctable__key">Информационный шум</span><span class="muted">Детали встречи тонут во флуде мессенджеров.</span></div><span role="cell">Пуш-напоминания и быстрый доступ к важной информации.</span></div></div>
+      <div class="prose"><p>Общий вывод: людям важна предсказуемость. Ценность Spots — снять неопределённость: подсказать, куда пойти, и заранее показать, кто там будет.</p></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Персоны и сценарии</h2>
+      <div class="prose"><p>На основе интервью я описал две персоны.</p></div>
+      <div class="prose"><p><strong>Янис, 27 лет, — искатель.</strong> Работает на удалёнке, ему не хватает живого общения. Сам ничего не организует и присоединяется к готовым планам. Боится оказаться в неподходящей компании и бросает поиск, если он затягивается.</p><p><strong>Фариза, 24 года, — организатор.</strong> Собирает друзей сама, потому что хочет контролировать место и формат. Устала по нескольку раз отвечать на одни и те же вопросы и напоминать о встрече.</p></div>
+      <div class="pair-grid"><img class="case-img" src="../assets/img/spots/persona-seeker-1176.webp" srcset="../assets/img/spots/persona-seeker-392.webp 392w, ../assets/img/spots/persona-seeker-784.webp 784w, ../assets/img/spots/persona-seeker-1176.webp 1176w" sizes="(max-width: 1023px) min(600px, 100vw - 40px), 392px" width="392" height="654" alt="Персона «Искатель»: Янис, 27 лет" loading="lazy"><img class="case-img" src="../assets/img/spots/persona-initiator-1176.webp" srcset="../assets/img/spots/persona-initiator-392.webp 392w, ../assets/img/spots/persona-initiator-784.webp 784w, ../assets/img/spots/persona-initiator-1176.webp 1176w" sizes="(max-width: 1023px) min(600px, 100vw - 40px), 392px" width="392" height="654" alt="Персона «Организатор»: Фариза, 24 года" loading="lazy"></div>
+      <div class="case-sub"><h3 class="case-h3">Основной сценарий</h3><div class="prose"><p>Задачи персон я описал в формате user stories и job stories, а затем свёл их в основной сценарий MVP:</p></div><figure class="quote"><blockquote>«Когда у пользователя выдались свободные выходные, он открывает приложение, находит событие или сообщество через рекомендации или карту, изучает детали и состав участников и присоединяется в одно касание»</blockquote><figcaption>Основной сценарий искателя</figcaption></figure><div class="prose"><p>В прототип вошли сценарии искателя: запись на событие и вступление в сообщество. Сценарий организатора — создание событий и сообществ — оставил на следующий этап.</p></div></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Гипотезы</h2>
+      <div class="prose"><p>Перед проектированием я сформулировал три гипотезы и проверил их на интервью и usability-тесте.</p></div>
+    </section>
+    <div class="cards wide case-follow"><div class="card"><span class="tag">Подтвердилась</span><h3 class="card__title">Люди приходят на события, а остаются в сообществах</h3><p class="card__text">События привлекают, но удерживают сообщества: в них складывается постоянная компания. Сообщества оставил и добавил требование — открытые и закрытые.</p></div><div class="card"><span class="tag">Частично</span><h3 class="card__title">Людей держит авторитет организатора, а не дружба внутри группы</h3><p class="card__text">На настолках и квизах держит компания, на тренировках и мастер-классах — лидер. Поэтому на странице события видны и организатор, и участники.</p></div><div class="card"><span class="tag">Не подтвердилась</span><h3 class="card__title">Пользователи будут путать сообщество и событие</h3><p class="card__text">Респонденты сами объясняли разницу без подсказок. Обе сущности оставил, навигацию менять не пришлось.</p></div></div>
+    <section class="case-section">
+      <h2 class="case-h2">Пользовательский сценарий</h2>
+      <div class="prose"><p>Путь от первого запуска до записи: три экрана онбординга, персонализация, вход и главная. Онбординг и персонализацию можно пропустить. С главной пользователь идёт к событию или сообществу, и каждая ветка заканчивается подтверждением — «Вы участвуете!» или «Вы вступили!».</p></div>
+      <div class="wide"><img class="case-img" src="../assets/img/spots/flow-2480.webp" srcset="../assets/img/spots/flow-1240.webp 1240w, ../assets/img/spots/flow-2480.webp 2480w" sizes="(max-width: 1023px) min(600px, 100vw - 40px), min(1240px, 88vw)" width="1240" height="497" alt="Схема пользовательского сценария: от онбординга до записи на событие или вступления в сообщество" loading="lazy"></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Вайрфреймы</h2>
+      <div class="prose"><p>По пути от скетчей к вайрфреймам структура стала проще.</p></div>
+      <div class="prose"><p><strong>«Споты» → «Сообщества».</strong> Понятное слово, к которому пользователи уже привыкли.</p><p><strong>«Ты» → «вы».</strong> Один тон во всём приложении.</p><p><strong>Меньше разделов.</strong> Убрал дубли «Споты» и «События» из категорий, добавил «Избранное».</p></div>
+      <div class="pair-grid sketches"><div class="sketch-group"><h3 class="case-h3">Главная</h3><div class="sketch-pair"><figure style="flex: 0 1 192px"><figcaption>Скетч</figcaption><img src="../assets/img/spots/sketch-home-576.webp" srcset="../assets/img/spots/sketch-home-192.webp 192w, ../assets/img/spots/sketch-home-384.webp 384w, ../assets/img/spots/sketch-home-576.webp 576w" sizes="(max-width: 1023px) 160px, 192px" width="192" height="380" alt="Скетч экрана «Главная»" loading="lazy"></figure><span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M10 7L15 12L10 17" stroke="#8C8C8C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><figure style="flex: 0 1 176px"><figcaption>Вайрфрейм</figcaption><img src="../assets/img/spots/wire-home-528.webp" srcset="../assets/img/spots/wire-home-176.webp 176w, ../assets/img/spots/wire-home-352.webp 352w, ../assets/img/spots/wire-home-528.webp 528w" sizes="(max-width: 1023px) 150px, 176px" width="176" height="380" alt="Вайрфрейм экрана «Главная»" loading="lazy"></figure></div></div><div class="sketch-group"><h3 class="case-h3">Сообщество</h3><div class="sketch-pair"><figure style="flex: 0 1 184px"><figcaption>Скетч</figcaption><img src="../assets/img/spots/sketch-community-552.webp" srcset="../assets/img/spots/sketch-community-184.webp 184w, ../assets/img/spots/sketch-community-368.webp 368w, ../assets/img/spots/sketch-community-552.webp 552w" sizes="(max-width: 1023px) 160px, 184px" width="184" height="380" alt="Скетч экрана «Сообщество»" loading="lazy"></figure><span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M10 7L15 12L10 17" stroke="#8C8C8C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><figure style="flex: 0 1 176px"><figcaption>Вайрфрейм</figcaption><img src="../assets/img/spots/wire-community-528.webp" srcset="../assets/img/spots/wire-community-176.webp 176w, ../assets/img/spots/wire-community-352.webp 352w, ../assets/img/spots/wire-community-528.webp 528w" sizes="(max-width: 1023px) 150px, 176px" width="176" height="380" alt="Вайрфрейм экрана «Сообщество»" loading="lazy"></figure></div></div></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Прототип</h2>
+      <div class="prose"><p>Прототип из 33 экранов покрывает два сценария: от первого запуска до записи на событие и до вступления в сообщество. Переходы собраны на Smart Animate, есть состояния нажатия и переключение вкладок.</p></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Usability-тест</h2>
+      <div class="prose"><p>Прототип был собран целиком, но со стороны его ещё никто не проходил. Нужно было понять, читается ли структура продукта и доходит ли новичок до записи на событие без подсказок.</p></div>
+      <div class="case-sub"><h3 class="case-h3">Метод</h3><div class="prose"><p>Модерируемый usability-тест по кликабельному прототипу: 3 респондента, 45–60 минут, респондент думает вслух. Опрос не подходил: он ответит «сколько», а нужно было увидеть, где человек тормозит. Глубинное интервью тоже: продукта в руках у людей ещё нет.</p></div></div>
+      <div class="case-sub"><h3 class="case-h3">Респонденты</h3><div class="prose"><p>20–45 лет, Алматы и Астана, ищут, чем заняться, через Instagram и Telegram. Одна респондентка переехала в город меньше года назад, двое — местные: Темирлан, 24 года, Фариза, 23 года, и Рустам, 31 год.</p></div></div>
+      <div class="case-sub"><h3 class="case-h3">Сценарии</h3><div class="prose"><p>Пять сценариев: первый запуск, первое впечатление от главной, запись на событие, поиск сообщества и объяснение разницы между сообществом и событием. Для каждого заранее определил, что считается провалом: например, человек искал сообщество, а записался на событие.</p></div></div>
+      <div class="ctable ctable--results" role="table" aria-label="Результаты usability-теста"><div class="ctable__head" role="row"><span role="columnheader">Сценарий</span><span class="c m-hide" role="columnheader">Темирлан, 24, местный</span><span class="c m-hide" role="columnheader">Фариза, 23, переехала</span><span class="c m-hide" role="columnheader">Рустам, 31, местный</span><span class="r" role="columnheader">Итог</span></div><div class="ctable__row" role="row"><span class="ctable__key" role="rowheader">1. Первый запуск</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="r" role="cell">3 из 3</span></div><div class="ctable__row" role="row"><span class="ctable__key" role="rowheader">2. Первое впечатление</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="r" role="cell">3 из 3</span></div><div class="ctable__row" role="row"><span class="ctable__key" role="rowheader">3. Сходить на событие</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="r" role="cell">3 из 3</span></div><div class="ctable__row" role="row"><span class="ctable__key" role="rowheader">4. Найти сообщество</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="r" role="cell">3 из 3</span></div><div class="ctable__row" role="row"><span class="ctable__key" role="rowheader">5. Разница между сообществом и событием</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="c m-hide" role="cell" aria-label="прошёл">✓</span><span class="r" role="cell">3 из 3</span></div></div>
+      <div class="prose"><p>Все три респондента прошли все пять сценариев.</p></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Что показал тест</h2>
+      <div class="prose"><p>Главный вывод: разницу между сообществом и событием считывают без подсказок, структуру менять не нужно. Работать надо над видимостью участников и быстрым доступом к тому, что происходит рядом.</p></div>
+      <div class="case-sub"><h3 class="case-h3">Участники</h3><div class="prose"><p>Двое из трёх сами, без вопроса модератора, заметили одно и то же: цифра участников есть, а людей за ней не видно.</p></div><figure class="quote"><blockquote>«Для меня всегда важно понимать, какой вайб у людей, посещающих мероприятие»</blockquote><figcaption>Респондент usability-теста</figcaption></figure><div class="prose"><p>Решение: экран участников с аватарками и списком тех, кто идёт, отметка присутствия после события и рейтинг посещаемости в профиле.</p></div></div>
+      <div class="case-sub"><h3 class="case-h3">Дата на карточке</h3><div class="prose"><p>При быстром скролле дата теряется среди других данных карточки.</p></div><figure class="quote"><blockquote>«Когда быстро листаешь ленту, хочется сразу цепляться взглядом — это сегодня вечером или вообще через месяц?»</blockquote><figcaption>Рустам, 31 год</figcaption></figure><div class="prose"><p>Решение: дату вынес в отдельную таблетку «Сегодня» / «Завтра», точное время — второй строкой.</p></div></div>
+      <div class="case-sub"><h3 class="case-h3">Кнопка «+» в таббаре</h3><div class="prose"><p>Двое из трёх пришли искать, а не создавать. Центр таббара занимала кнопка создания, которая нужна только организаторам.</p></div><figure class="quote"><blockquote>«Плюсик на панели в самой середине не очень актуален именно для меня — как для человека, который пришёл искать событие или сообщество, а не создавать»</blockquote><figcaption>Фариза, 23 года</figcaption></figure><div class="prose"><p>Решение: карту уже вынес на главную. Следующий шаг — перенести создание в профиль, а центр таббара отдать карте ближайших событий.</p></div></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Что изменил после теста</h2>
+      <ul class="case-list"><li>Вместо счётчика участников — полный список: кто идёт и сколько раз уже ходил.</li><li>Дата на карточке — таблетка «Сегодня» / «Завтра».</li><li>На главной — горизонтальная лента актуальных событий и лента дат.</li><li>Карта доступна прямо с главной.</li><li>Обновил онбординг.</li></ul>
+      <div class="prose"><p>Следующим шагом будет раздел «Мои планы» с сохранёнными и предстоящими событиями.</p></div>
+      <div class="shot-notes"><img class="case-img" src="../assets/img/spots/ekrany-posle-testa-1176.webp" srcset="../assets/img/spots/ekrany-posle-testa-392.webp 392w, ../assets/img/spots/ekrany-posle-testa-784.webp 784w, ../assets/img/spots/ekrany-posle-testa-1176.webp 1176w" sizes="(max-width: 1023px) min(600px, 100vw - 40px), 392px" width="392" height="400" alt="Экраны после теста: подборка на главной, карта и лента дат" loading="lazy"><div class="shot-notes__list"><div class="note"><p class="note__title">Подборка актуальных событий и сообществ</p><p class="note__text">Готовый вариант вместо поиска</p></div><div class="note"><p class="note__title">Карта в лёгкой доступности</p><p class="note__text">Просили, чтобы карта была под рукой сразу на главной</p></div><div class="note"><p class="note__title">Лента дат на главной</p><p class="note__text">Горизонтальный барабан с датами — до событий на нужный день в один тап</p></div></div></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">UI-kit</h2>
+      <div class="prose"><p>Визуальный язык должен давать ощущение принадлежности и доверия, поэтому стиль тёплый и дружелюбный: оранжевый акцент #FF5100, светлые нейтральные фоны и шрифт Golos Text.</p><p>Цвета заведены семантическими переменными — bg/brand, bg/accent, text/default и другими. В типографике 6 уровней, компоненты собраны в отдельную библиотеку.</p></div>
+      <img class="case-img" src="../assets/img/spots/uikit-1632.webp" srcset="../assets/img/spots/uikit-816.webp 816w, ../assets/img/spots/uikit-1632.webp 1632w" sizes="(max-width: 1023px) min(600px, 100vw - 40px), 816px" width="816" height="306" alt="UI-kit SPOTS: цвета, типографика и компоненты" loading="lazy">
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Итоговый дизайн</h2>
+      <div class="prose"><p>Онбординг, выбор интересов, главная с подборкой и лентой дат, список сообществ и страница события.</p></div>
+    </section>
+    <div class="wide case-follow"><img class="case-img" src="../assets/img/spots/final-2480.webp" srcset="../assets/img/spots/final-1240.webp 1240w, ../assets/img/spots/final-2480.webp 2480w" sizes="(max-width: 1023px) min(600px, 100vw - 40px), min(1240px, 88vw)" width="1240" height="502" alt="Итоговые экраны SPOTS: онбординг, выбор интересов, главная, сообщества и событие" loading="lazy"></div>
+    <section class="case-section">
+      <h2 class="case-h2">Ключевые экраны</h2>
+      <div class="prose"><p>Три экрана, на которых держится основной сценарий: найти, куда пойти, понять, что это за событие, и увидеть, кто там будет.</p></div>
+    </section>
+    <div class="screens wide case-follow"><figure class="screen"><img src="../assets/img/spots/main-1176.webp" srcset="../assets/img/spots/main-392.webp 392w, ../assets/img/spots/main-784.webp 784w, ../assets/img/spots/main-1176.webp 1176w" sizes="(max-width: 1023px) min(600px, 100vw - 40px), 392px" width="392" height="848" alt="Экран «Главная»" loading="lazy"><figcaption>Главная</figcaption></figure><figure class="screen"><img src="../assets/img/spots/event-1176.webp" srcset="../assets/img/spots/event-392.webp 392w, ../assets/img/spots/event-784.webp 784w, ../assets/img/spots/event-1176.webp 1176w" sizes="(max-width: 1023px) min(600px, 100vw - 40px), 392px" width="392" height="848" alt="Экран «Страница события»" loading="lazy"><figcaption>Страница события</figcaption></figure><figure class="screen"><img src="../assets/img/spots/participants-1176.webp" srcset="../assets/img/spots/participants-392.webp 392w, ../assets/img/spots/participants-784.webp 784w, ../assets/img/spots/participants-1176.webp 1176w" sizes="(max-width: 1023px) min(600px, 100vw - 40px), 392px" width="392" height="848" alt="Экран «Участники»" loading="lazy"><figcaption>Участники</figcaption></figure></div>
+    <section class="case-section">
+      <h2 class="case-h2">Метрики продукта</h2>
+      <div class="prose"><p>Чтобы понимать, приносит ли продукт пользу, я выбрал North Star Metric — подтверждённые посещения событий в месяц.</p></div>
+      <div class="case-sub"><h3 class="case-h3">Почему эта метрика</h3><div class="prose"><p>Ценность Spots — встреча офлайн, а не скачивание или регистрация. Так же Airbnb считает забронированные ночи, а Zoom — состоявшиеся звонки. Установки, MAU и записи могут расти, даже когда люди перестали ходить на встречи.</p></div></div>
+      <div class="case-sub"><h3 class="case-h3">Как считается</h3><div class="prose"><p>Сумма подтверждённых визитов по всем событиям за месяц: один человек на четырёх встречах — четыре посещения. Визит засчитывается, когда присутствие подтвердил организатор или обе стороны. Если статус не отметили в течение 48 часов после события, визит не учитывается.</p></div></div>
+      <div class="case-sub"><h3 class="case-h3">Дерево метрик</h3><div class="prose"><p>NSM раскладывается на четыре множителя: активные пользователи за месяц × доля пользователей с записью × среднее число записей × доля записей, которые закончились визитом. Под ними — метрики интерфейса, на которые влияет дизайн: отток на онбординге, доля заполнивших интересы, ошибки при вводе почты и телефона, просмотры списка участников.</p></div></div>
+      <div class="wide"><img class="case-img" src="../assets/img/spots/tree-2480.webp" srcset="../assets/img/spots/tree-1240.webp 1240w, ../assets/img/spots/tree-2480.webp 2480w" sizes="(max-width: 1023px) min(600px, 100vw - 40px), min(1240px, 88vw)" width="1240" height="555" alt="Дерево метрик SPOTS" loading="lazy"></div>
+      <div class="case-sub"><h3 class="case-h3">Связь экранов с метриками</h3><div class="prose"><p>Каждому шагу сценария назначил событие аналитики и метрику — от onboarding_complete до attendance_confirmed. Воронку посчитал на условных числах, чтобы показать логику: из 1000 открывших приложение до встречи доходят 125.</p></div></div>
+      <div class="wide"><img class="case-img" src="../assets/img/spots/screens-2480.webp" srcset="../assets/img/spots/screens-1240.webp 1240w, ../assets/img/spots/screens-2480.webp 2480w" sizes="(max-width: 1023px) min(600px, 100vw - 40px), min(1240px, 88vw)" width="1240" height="517" alt="Экраны сценария с событиями аналитики и воронкой" loading="lazy"></div>
+    </section>
+    <section class="case-section">
+      <h2 class="case-h2">Итог</h2>
+      <div class="prose"><p>За пять месяцев я прошёл весь цикл продуктового дизайна: от исследования рынка до прототипа, теста и метрик.</p></div>
+      <ul class="case-list"><li>Прототип из 33 экранов с двумя сценариями.</li><li>UI-kit: семантические переменные, 6 уровней типографики и библиотека компонентов.</li><li>На тесте 3 из 3 респондентов приняли прототип за готовое приложение.</li></ul>
+      <figure class="quote"><blockquote>«Выглядит как реально готовое приложение, которое скачаешь и оставишь в телефоне, потому что полезно»</blockquote><figcaption>Респондент usability-теста</figcaption></figure>
+    </section>
+    <div class="cards wide case-follow"><div class="card"><h3 class="card__title">Сложности</h3><p class="card__text">Две сущности и несколько сценариев легко перегружают интерфейс. Решил это информационной архитектурой от общего к частному: главная отвечает только на вопрос «куда пойти», а детали и действия открываются на следующих шагах.</p></div><div class="card"><h3 class="card__title">Что понял</h3><p class="card__text">Сначала конкуренты и исследование потенциальной аудитории и только потом дизайн экранов. UI-kit и переменные нужны с первого дня: они экономят часы на каждой итерации.</p></div><div class="card"><h3 class="card__title">Что дальше</h3><p class="card__text">Профили участников с историей посещений, сценарий организатора, рейтинг организаторов и участников.</p></div></div>
+    </div>
+    <section class="more" aria-labelledby="more-title">
+      <h2 class="section__title" id="more-title">Другие кейсы</h2>
+      <div class="more__row">
+        <a class="case-card" href="../cult-jenos/">
+          <span class="cover cover--small cover--jenos">
+            <picture>
+              <source media="(max-width: 1023px)" srcset="../assets/img/covers/cultjenos-mobile-335.webp 335w, ../assets/img/covers/cultjenos-mobile-670.webp 670w, ../assets/img/covers/cultjenos-mobile-1005.webp 1005w" sizes="min(600px, 100vw - 40px)">
+              <img src="../assets/img/covers/cultjenos-small-1208.webp" width="604" height="340" alt="Макеты сайта cult.Jenos для десктопа и телефона" loading="lazy">
+            </picture>
+            <span class="cover__title">cult.Jenos</span>
+          </span>
+          <span class="case-card__caption">
+            <span class="case-card__title">Концепт сайта магазина кожаных изделий</span>
+            <span class="tags"><span class="tag">E-commerce</span><span class="tag">Desktop</span><span class="tag">Mobile</span></span>
+          </span>
+        </a>
+        <a class="case-card" href="../heros-journey/">
+          <span class="cover cover--small cover--heros">
+            <picture>
+              <source media="(max-width: 1023px)" srcset="../assets/img/covers/herosjourney-mobile-335.webp 335w, ../assets/img/covers/herosjourney-mobile-670.webp 670w, ../assets/img/covers/herosjourney-mobile-1005.webp 1005w" sizes="min(600px, 100vw - 40px)">
+              <img src="../assets/img/covers/herosjourney-small-1208.webp" width="604" height="340" alt="Экраны редизайна приложения Hero’s Journey" loading="lazy">
+            </picture>
+            <span class="cover__title">Hero’s Journey</span>
+          </span>
+          <span class="case-card__caption">
+            <span class="case-card__title">Редизайн приложения сети фитнес-клубов</span>
+            <span class="tags"><span class="tag">Fitness</span><span class="tag">Mobile</span><span class="tag">Redesign</span></span>
+          </span>
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="footer on-dark">
+  <div class="container footer__inner">
+    <div class="footer__top">
+      <h2 class="footer__title">Давайте сотрудничать</h2>
+      <p class="footer__text">Я&nbsp;открыт для новых возможностей: работы в&nbsp;штате, проектного сотрудничества или фриланса. Если у&nbsp;вас есть идея, продукт или задача, в&nbsp;которой я&nbsp;могу быть полезен&nbsp;— напишите мне.</p>
+      <div class="contact contact--light contact--footer">
+        <button class="contact__btn" type="button" aria-expanded="false" aria-haspopup="true">
+          Написать сообщение
+          <svg class="contact__arrow" viewBox="0 0 7 6" aria-hidden="true"><path d="M3.46 0 6.93 6H0z"/></svg>
+        </button>
+        <div class="contact__list">
+          <a href="mailto:khaimuldin.maxat@gmail.com"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M15 4.17H5a2.5 2.5 0 0 0-2.5 2.5v6.67a2.5 2.5 0 0 0 2.5 2.5h10a2.5 2.5 0 0 0 2.5-2.5V6.67a2.5 2.5 0 0 0-2.5-2.5Z" stroke-width="1.5"/><path d="M3.33 5.83 10 10.83l6.67-5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Email</a>
+          <a href="https://www.linkedin.com/in/maxat-khaimuldin/" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M11.67 3.33h5v5M16.67 3.33l-7.5 7.5M15 11.67V15c0 .92-.75 1.67-1.67 1.67H5c-.92 0-1.67-.75-1.67-1.67V6.67C3.33 5.75 4.08 5 5 5h3.33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>LinkedIn</a>
+          <a href="https://t.me/mr_chiller312" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M11.67 3.33h5v5M16.67 3.33l-7.5 7.5M15 11.67V15c0 .92-.75 1.67-1.67 1.67H5c-.92 0-1.67-.75-1.67-1.67V6.67C3.33 5.75 4.08 5 5 5h3.33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Telegram</a>
+        </div>
+      </div>
+    </div>
+    <nav class="footer__links" aria-label="Ссылки">
+      <div class="footer__col">
+        <a href="../">Главная</a>
+        <a href="../#cases">Кейсы</a>
+        <a href="../#experience">Опыт</a>
+      </div>
+      <div class="footer__col">
+        <a href="https://www.linkedin.com/in/maxat-khaimuldin/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://t.me/mr_chiller312" target="_blank" rel="noopener">Telegram</a>
+        <a href="../cv/Maxat-Khaimuldin-CV.pdf" target="_blank" rel="noopener">Скачать CV</a>
+      </div>
+    </nav>
+  </div>
+</footer>
+<div class="bottom">© 2026 Maxat Khaimuldin</div>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
