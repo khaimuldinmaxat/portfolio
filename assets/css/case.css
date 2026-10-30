@@ -20,6 +20,10 @@
 .case-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 24px; }
 .case-section > * { width: 100%; max-width: 816px; }
 .case-section > .wide { max-width: none; }
+.case-section--parts { gap: 40px; }
+.case-part { width: 100%; max-width: none; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.case-part > * { width: 100%; max-width: 816px; }
+.case-part > .wide { max-width: none; }
 .case-body > .wide { width: 100%; }
 .case-h2 { font-family: var(--f-head); font-weight: 500; font-size: 32px; line-height: 40px; }
 .case-sub { display: flex; flex-direction: column; gap: 12px; }
