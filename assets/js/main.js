@@ -158,3 +158,12 @@
     if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); }
   });
 })();
+
+// Закреплённая шапка: тонкая линия снизу появляется, когда страницу прокрутили.
+(function () {
+  const header = document.querySelector('.header');
+  if (!header) return;
+  const update = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+})();
