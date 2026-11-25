@@ -89,8 +89,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   justify-content: space-between;
 }
 .sidebar__top { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
-.sidebar__logo { color: var(--text); justify-content: flex-start; gap: 8px; white-space: nowrap; }
-.sidebar__face { width: 24px; height: 24px; flex: none; image-rendering: pixelated; }
+.sidebar__logo { color: var(--text); justify-content: flex-start; }
 .sidebar__menu { display: flex; flex-direction: column; gap: 12px; }
 .sidebar__theme { width: 100%; color: var(--text); }
 
@@ -105,8 +104,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   text-align: left;
   transition: color 150ms ease;
 }
-.nav-item:hover, .nav-item[aria-current="page"], .sidebar__logo { color: var(--text); justify-content: flex-start; gap: 8px; white-space: nowrap; }
-.sidebar__face { width: 24px; height: 24px; flex: none; image-rendering: pixelated; }
+.nav-item:hover, .nav-item[aria-current="page"], .sidebar__logo { color: var(--text); }
 .nav-item--sub { padding: 4px 0; }
 .nav-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
 .nav-row > .nav-item { flex: 1; }
