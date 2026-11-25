@@ -23,6 +23,17 @@
     });
   }
 
+  // «Настройки» внизу меню: день ↔ ночь. Выбор запоминается, без него тема идёт по времени устройства.
+  document.querySelectorAll('.js-theme').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const root = document.documentElement;
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try { localStorage.setItem('theme', next); } catch (e) {}
+      document.dispatchEvent(new CustomEvent('themechange', { detail: next }));
+    });
+  });
+
   document.querySelectorAll('.js-copy').forEach((btn) => {
     const hint = btn.parentElement.querySelector('.copy-hint');
     let timer;

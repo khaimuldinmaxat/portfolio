@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="ru">
 <head>
+  <script>
+    // Ночь — тёмная тема по времени устройства (с 20:00 до 6:00). Выбор в меню «Настройки» запоминается.
+    (function () {
+      var h = new Date().getHours(), t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      document.documentElement.dataset.theme = t || (h >= 20 || h < 6 ? 'dark' : 'light');
+    })();
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SPOTS — кейс Максата Хаймулдина</title>
@@ -24,7 +32,7 @@
       <div class="sidebar__name-block">
         <button class="sidebar__name" type="button" aria-expanded="false" aria-controls="contacts">
           <span><span class="en">Maxat Khaimuldin</span><span class="ru">Максат Хаймулдин</span></span>
-          <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="#7D7D75"><path d="M5 9H3v2h2zM7 7H5v2h2zM9 5H7v2h2zM11 7H9v2h2zM13 9h-2v2h2z"/></svg>
+          <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 9H3v2h2zM7 7H5v2h2zM9 5H7v2h2zM11 7H9v2h2zM13 9h-2v2h2z"/></svg>
         </button>
         <ul class="sidebar__contacts nav-group" id="contacts">
           <li><a class="nav-item nav-item--sub" href="https://t.me/mr_chiller312" target="_blank" rel="noopener">Telegram</a></li>
@@ -38,7 +46,7 @@
           <div class="sidebar__cases">
             <button class="nav-item sidebar__cases-btn" type="button" data-href="../#cases" aria-expanded="true" style="width:100%">
               <span>Кейсы</span>
-              <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="#7D7D75"><path d="M5 9H3v2h2zM7 7H5v2h2zM9 5H7v2h2zM11 7H9v2h2zM13 9h-2v2h2z"/></svg>
+              <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 9H3v2h2zM7 7H5v2h2zM9 5H7v2h2zM11 7H9v2h2zM13 9h-2v2h2z"/></svg>
             </button>
             <ul class="sidebar__case-list nav-group">
               <li><a class="nav-item nav-item--sub" href="./" aria-current="page">SPOTS</a></li>
@@ -51,6 +59,10 @@
         </div>
       </nav>
     </div>
+    <button class="nav-item sidebar__theme js-theme" type="button" aria-label="Переключить день и ночь">
+      <span>Настройки</span>
+      <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 1h2v2h-2zM7 1h2v2h-2zM9 1h2v2h-2zM3 3h2v2h-2zM9 3h2v2h-2zM11 3h2v2h-2zM1 5h2v2h-2zM1 7h2v2h-2zM1 9h2v2h-2zM9 5h2v2h-2zM11 5h2v2h-2zM13 5h2v2h-2zM9 7h2v2h-2zM11 7h2v2h-2zM13 7h2v2h-2zM9 9h2v2h-2zM11 9h2v2h-2zM13 9h2v2h-2zM3 11h2v2h-2zM9 11h2v2h-2zM11 11h2v2h-2zM5 13h2v2h-2zM7 13h2v2h-2zM9 13h2v2h-2z"/></svg>
+    </button>
   </aside>
 
   <main class="main">
@@ -63,7 +75,8 @@
 
       <p class="callout">Spots — приложение для поиска и организации городских событий и сообществ. Я вёл проект от исследования до финальных макетов: изучил рынок, провел глубинные интервью с 10+ респондентами, спроектировал путь пользователя, создал UI-kit, собрал прототип и провёл usability-тестирование на 5 респондентах.</p>
 
-      <img class="case-img" src="../assets/img/v2/spots-cover-1344.webp" alt="Три экрана приложения SPOTS: главная, онбординг и страница сообщества" width="672" height="420">
+      <img class="case-img only-light" src="../assets/img/v2/spots-cover-1344.webp" alt="Три экрана приложения SPOTS: главная, онбординг и страница сообщества" width="672" height="420">
+      <img class="case-img only-dark" loading="lazy" src="../assets/img/v2/spots-cover-1344-dark.webp" alt="Три экрана приложения SPOTS: главная, онбординг и страница сообщества" width="672" height="420">
 
       <section>
         <h2 class="section-header">Проблема</h2>
@@ -84,7 +97,8 @@
         <p>Цель SPOTS — стать единой точкой входа в активную городскую жизнь, где можно находить события, присоединяться к сообществам и создавать собственные мероприятия.</p>
       </section>
 
-      <img class="case-img" src="../assets/img/v2/spots-visual.webp" alt="Логотип SPOTS и два экрана приложения: главная и страница сообщества" width="672" height="360" loading="lazy">
+      <img class="case-img only-light" loading="lazy" src="../assets/img/v2/spots-visual.webp" alt="Логотип SPOTS и два экрана приложения: главная и страница сообщества" width="672" height="360" loading="lazy">
+      <img class="case-img only-dark" loading="lazy" src="../assets/img/v2/spots-visual-dark.webp" alt="Логотип SPOTS и два экрана приложения: главная и страница сообщества" width="672" height="360" loading="lazy">
 
       <section>
         <h2 class="section-header">Исследование</h2>
@@ -114,14 +128,16 @@
             <p>Эти инсайты легли в основу структуры продукта, которая объединяет ленту событий и сообщества с собственным календарём, списком участников и встроенным чатом.</p>
           </div>
 
-          <img class="case-img" src="../assets/img/v2/spots-ia-map.webp" alt="Информационная архитектура SPOTS: главная, событие, сообщество, создание, избранное, чаты и профиль" width="672" height="1260" loading="lazy">
+          <img class="case-img only-light" loading="lazy" src="../assets/img/v2/spots-ia-map.webp" alt="Информационная архитектура SPOTS: главная, событие, сообщество, создание, избранное, чаты и профиль" width="672" height="1260" loading="lazy">
+      <img class="case-img only-dark" loading="lazy" src="../assets/img/v2/spots-ia-map-dark.webp" alt="Информационная архитектура SPOTS: главная, событие, сообщество, создание, избранное, чаты и профиль" width="672" height="1260" loading="lazy">
 
           <div class="text">
             <p>В рамках конкурентного анализа изучил более 10 решений на рынках event-tech и community platforms.</p>
             <p>На основе ранее проведённых интервью сформировал критерии для сравнения. Для сравнительной матрицы отобрал пять наиболее показательных продуктов: Telegram как основной способ поиска событий сегодня, международные платформы Meetup и Luma, а также локальные сервисы Ticketon и Sxodim.com.</p>
           </div>
 
-          <img class="case-img" src="../assets/img/v2/spots-comparison.webp" alt="Сравнение Telegram, Meetup, Luma, Ticketon и Sxodim.com по рекомендациям, событиям, сообществам, составу участников и созданию событий" width="672" height="453" loading="lazy">
+          <img class="case-img only-light" loading="lazy" src="../assets/img/v2/spots-comparison.webp" alt="Сравнение Telegram, Meetup, Luma, Ticketon и Sxodim.com по рекомендациям, событиям, сообществам, составу участников и созданию событий" width="672" height="453" loading="lazy">
+      <img class="case-img only-dark" loading="lazy" src="../assets/img/v2/spots-comparison-dark.webp" alt="Сравнение Telegram, Meetup, Luma, Ticketon и Sxodim.com по рекомендациям, событиям, сообществам, составу участников и созданию событий" width="672" height="453" loading="lazy">
 
           <p>Анализ показал, что современные решения на рынке закрывают лишь отдельную часть пользовательских потребностей. Одни сервисы помогают находить события, другие сосредоточены на сообществах или организации мероприятий, однако ни один из них не охватывает все ключевые сценарии одновременно.</p>
         </div>
@@ -135,7 +151,8 @@
             <p>Поэтому дизайн строился вокруг принципа социальной предсказуемости. Вместо абстрактного списка мероприятий пользователь получает достаточно контекста для принятия решения: видит формат события, участников, организатора и связанное сообщество ещё до регистрации.</p>
             <p>При проектировании я опирался на паттерны современных социальных и event-платформ: единые механики навигации между событиями и сообществами, высокая информативность карточек, минимальное количество уникальных сценариев и постепенное раскрытие информации по мере вовлечения пользователя.</p>
           </div>
-          <img class="case-img" src="../assets/img/v2/spots-solutions.webp" alt="Карточка события, карточка участников и экран события с форматом, участниками и организатором" width="672" height="504" loading="lazy">
+          <img class="case-img only-light" loading="lazy" src="../assets/img/v2/spots-solutions.webp" alt="Карточка события, карточка участников и экран события с форматом, участниками и организатором" width="672" height="504" loading="lazy">
+      <img class="case-img only-dark" loading="lazy" src="../assets/img/v2/spots-solutions-dark.webp" alt="Карточка события, карточка участников и экран события с форматом, участниками и организатором" width="672" height="504" loading="lazy">
           <p>Для проверки ключевых сценариев собрал интерактивный прототип из 33 экранов и провёл usability-тест с 5 респондентами. Проверял, понимают ли пользователи связь между событиями и сообществами, быстро ли находят нужную информацию и проходят ли основные сценарии без подсказок. Тест помог выявить проблемы в навигации, восприятии участников события и первом знакомстве с продуктом — они легли в основу следующей итерации.</p>
         </div>
       </section>

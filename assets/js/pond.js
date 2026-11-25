@@ -1,7 +1,7 @@
 // Пиксельный мир на главной: шапка-пруд и пруд в футере.
 // Поведение — по документу «pixel-world-concept» (проект «Сайт-резюме»):
-// моргание, дыхание и охота лягушки, стрекозы в зоне полёта, реплика по букве.
-// Рябь, камыши и кувшинки анимирует CSS (site.css).
+// моргание, дыхание и охота лягушки, днём стрекозы, ночью светлячки, реплики по букве.
+// Рябь, камыши и кувшинки анимирует CSS (site.css). Ночь = тёмная тема (data-theme="dark").
 (function () {
   const stages = Array.from(document.querySelectorAll('.stage'));
   if (!stages.length) return;
@@ -25,6 +25,7 @@
   }
 
   const scene = document.querySelector('.scene .stage');
+  const pond = document.querySelector('.pond__scene .stage');
   if (!scene) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // статичный кадр
 
@@ -32,10 +33,12 @@
   const src = (name) => dir + name + '.png';
   const rnd = (a, b) => a + Math.random() * (b - a);
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const isNight = () => document.documentElement.dataset.theme === 'dark';
+  const snap = (v) => Math.round(v / 3) * 3; // двигаемся по сетке пикселя ×3
 
   const sprites = {};
   ['head-open', 'head-closed', 'frog-idle', 'frog-blink', 'frog-breath', 'frog-look-left',
-    'frog-mouth-open', 'frog-gulp', 'dragonfly1', 'dragonfly2'].forEach((n) => {
+    'frog-mouth-open', 'frog-gulp', 'dragonfly1', 'dragonfly2', 'firefly-on', 'firefly-off'].forEach((n) => {
     const im = new Image();
     im.src = src(n);
     sprites[n] = im;
@@ -52,7 +55,7 @@
 
   // ---------- Лягушка: дыхание ~600 мс, моргание 150 мс раз в 6–10 с ----------
   const frog = scene.querySelector('.hero__frog');
-  let frogBusy = false;   // охотится
+  let frogBusy = false;
   let frogFrame = 'idle';
   function setFrog(name, mirror) {
     frogFrame = name;
@@ -76,85 +79,126 @@
     }, rnd(6000, 10000));
   })();
 
-  // ---------- Стрекозы ----------
-  // Зона полёта — овал над водой и головой (слой «Flight zone» в макете: 331,0 · 530×170).
-  const ZONE = { cx: 596, cy: 85, rx: 265, ry: 85 };
-  const FW = 18, FH = 9;
-  function pointInZone(k) {
-    const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * (k || 0.85);
-    return { x: ZONE.cx + Math.cos(a) * r * ZONE.rx - FW / 2, y: ZONE.cy + Math.sin(a) * r * ZONE.ry - FH / 2 };
+  // ---------- Летающие: днём стрекозы, ночью светлячки ----------
+  // Зона полёта в шапке — овал над водой и головой (слой «Flight zone»: 331,0 · 530×170).
+  const HEAD_ZONE = { oval: true, cx: 596, cy: 85, rx: 265, ry: 85 };
+  const POND_ZONE = { oval: false, x0: 20, y0: 10, x1: 1160, y1: 150 };
+  function pointIn(zone, w, h, k) {
+    if (zone.oval) {
+      const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * (k || 0.85);
+      return { x: zone.cx + Math.cos(a) * r * zone.rx - w / 2, y: zone.cy + Math.sin(a) * r * zone.ry - h / 2 };
+    }
+    return { x: rnd(zone.x0, zone.x1 - w), y: rnd(zone.y0, zone.y1 - h) };
   }
-  const snap = (v) => Math.round(v / 3) * 3; // двигаемся по сетке пикселя ×3
 
-  const flies = Array.from(scene.querySelectorAll('.fly')).map((el, i) => {
+  const creatures = [];
+  function makeCreature(el, kind, zone, stage) {
     const x = parseFloat(el.style.left), y = parseFloat(el.style.top);
     el.style.left = '0px';
     el.style.top = '0px';
-    const f = { el, img: el.querySelector('img'), x, y, fx: x, fy: y, tx: x, ty: y, t0: 0, dur: 0,
-      mode: 'hover', until: performance.now() + rnd(400, 1400), wing: i, phase: Math.random() * 6 };
-    el.addEventListener('click', () => catchFly(f));
-    return f;
-  });
-
-  function dartTo(f, p, now, dur) {
-    f.fx = f.x; f.fy = f.y; f.tx = p.x; f.ty = p.y;
-    f.t0 = now; f.dur = dur || rnd(350, 700);
-    f.mode = 'dart';
-    if (Math.abs(f.tx - f.fx) > 3) f.el.classList.toggle('is-right', f.tx > f.fx); // спрайт смотрит влево
+    const c = {
+      el, img: el.querySelector('img'), kind, zone, stage,
+      w: kind === 'dragonfly' ? 18 : 15, h: kind === 'dragonfly' ? 9 : 15,
+      x, y, x0: x, y0: y, fx: x, fy: y, tx: x, ty: y, t0: 0, dur: 0,
+      mode: 'hover', until: performance.now() + rnd(400, 1400),
+      wing: 0, on: el.dataset.on !== '0', phase: Math.random() * 6,
+    };
+    el.addEventListener('click', () => catchCreature(c, 'visitor'));
+    creatures.push(c);
+    return c;
   }
-  function respawn(f) {
+  scene.querySelectorAll('.fly').forEach((el) => makeCreature(el, 'dragonfly', HEAD_ZONE, scene));
+  scene.querySelectorAll('.firefly').forEach((el) => makeCreature(el, 'firefly', HEAD_ZONE, scene));
+  if (pond) pond.querySelectorAll('.firefly').forEach((el) => makeCreature(el, 'firefly', POND_ZONE, pond));
+
+  const active = (c) => (c.kind === 'firefly') === isNight();
+
+  function moveTo(c, p, now, dur) {
+    c.fx = c.x; c.fy = c.y; c.tx = p.x; c.ty = p.y;
+    c.t0 = now;
+    c.dur = dur || (c.kind === 'dragonfly' ? rnd(350, 700) : rnd(1400, 2600));
+    c.mode = 'dart';
+    if (c.kind === 'dragonfly' && Math.abs(c.tx - c.fx) > 3) c.el.classList.toggle('is-right', c.tx > c.fx); // спрайт смотрит влево
+  }
+  function respawn(c) {
     setTimeout(() => {
-      const fromLeft = Math.random() < 0.5;
-      f.x = fromLeft ? ZONE.cx - ZONE.rx - 30 : ZONE.cx + ZONE.rx + 12;
-      f.y = rnd(20, 120);
-      f.el.classList.remove('is-gone');
-      dartTo(f, pointInZone(0.7), performance.now(), 900);
+      const z = c.zone;
+      if (z.oval) {
+        const fromLeft = Math.random() < 0.5;
+        c.x = fromLeft ? z.cx - z.rx - 30 : z.cx + z.rx + 12;
+        c.y = rnd(20, 120);
+      } else {
+        c.x = Math.random() < 0.5 ? -30 : 1200;
+        c.y = rnd(z.y0, z.y1 - c.h);
+      }
+      c.el.classList.remove('is-gone');
+      moveTo(c, pointIn(z, c.w, c.h, 0.7), performance.now(), c.kind === 'dragonfly' ? 900 : 2400);
       kick();
     }, rnd(3000, 6000));
   }
-  function catchFly(f) {
-    if (f.mode === 'gone' || f.mode === 'held') return;
-    f.mode = 'gone';
-    f.el.classList.add('is-gone');
-    respawn(f);
+  function catchCreature(c, who) {
+    if (c.mode === 'gone' || c.mode === 'held') return;
+    c.mode = 'gone';
+    c.el.classList.add('is-gone');
+    respawn(c);
+    if (who === 'visitor' && c.stage === scene) sayNow('more'); // «...ещё один!»
   }
 
-  let wingTick = 0, raf = 0, visible = true;
+  // Мерцание светлячков: On / Off раз в 1–2 с, у каждого своя фаза
+  creatures.filter((c) => c.kind === 'firefly').forEach((c) => {
+    (function flicker() {
+      setTimeout(() => {
+        c.on = !c.on;
+        c.img.src = src(c.on ? 'firefly-on' : 'firefly-off');
+        flicker();
+      }, rnd(1000, 2000));
+    })();
+  });
+
+  let wingTick = 0, raf = 0;
+  const visible = new Map([[scene, true], [pond, true]]);
   function frame(now) {
     raf = 0;
-    if (now - wingTick > 80) { // взмах крыльев: 2 кадра по 80 мс
+    if (now - wingTick > 80) { // взмах крыльев стрекозы: 2 кадра по 80 мс
       wingTick = now;
-      flies.forEach((f) => { f.wing ^= 1; f.img.src = src(f.wing ? 'dragonfly2' : 'dragonfly1'); });
+      creatures.forEach((c) => {
+        if (c.kind !== 'dragonfly' || !active(c)) return;
+        c.wing ^= 1;
+        c.img.src = src(c.wing ? 'dragonfly2' : 'dragonfly1');
+      });
     }
-    flies.forEach((f) => {
-      let dx = f.x, dy = f.y;
-      if (f.mode === 'dart') {
-        const p = Math.min(1, (now - f.t0) / f.dur);
-        const e = 1 - Math.pow(1 - p, 3);
-        f.x = f.fx + (f.tx - f.fx) * e;
-        f.y = f.fy + (f.ty - f.fy) * e;
-        dx = f.x; dy = f.y;
-        if (p === 1) { f.mode = 'hover'; f.until = now + rnd(500, 1600); }
-      } else if (f.mode === 'hover') {
-        dy = f.y + (Math.sin(now / 160 + f.phase) > 0 ? 0 : 3); // зависает и чуть подрагивает
-        if (now > f.until) dartTo(f, pointInZone(), now);
+    let any = false;
+    creatures.forEach((c) => {
+      if (!active(c) || !visible.get(c.stage)) return;
+      any = true;
+      let dx = c.x, dy = c.y;
+      if (c.mode === 'dart') {
+        const p = Math.min(1, (now - c.t0) / c.dur);
+        const e = c.kind === 'dragonfly' ? 1 - Math.pow(1 - p, 3) : p * p * (3 - 2 * p);
+        c.x = c.fx + (c.tx - c.fx) * e;
+        c.y = c.fy + (c.ty - c.fy) * e;
+        dx = c.x; dy = c.y;
+        if (p === 1) { c.mode = 'hover'; c.until = now + (c.kind === 'dragonfly' ? rnd(500, 1600) : rnd(800, 2000)); }
+      } else if (c.mode === 'hover') {
+        if (c.kind === 'dragonfly') dy = c.y + (Math.sin(now / 160 + c.phase) > 0 ? 0 : 3); // зависает и подрагивает
+        if (now > c.until) moveTo(c, pointIn(c.zone, c.w, c.h), now);
       }
-      if (f.mode !== 'gone') f.el.style.transform = 'translate(' + snap(dx) + 'px,' + snap(dy) + 'px)';
+      if (c.mode !== 'gone') c.el.style.transform = 'translate(' + snap(dx) + 'px,' + snap(dy) + 'px)';
     });
-    if (visible) raf = requestAnimationFrame(frame);
+    if (any) raf = requestAnimationFrame(frame);
   }
-  function kick() { if (!raf && visible) raf = requestAnimationFrame(frame); }
+  function kick() { if (!raf) raf = requestAnimationFrame(frame); }
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver((entries) => {
-      visible = entries[0].isIntersecting;
-      kick();
-    }).observe(scene.parentElement);
+    [scene, pond].forEach((st) => {
+      if (!st) return;
+      new IntersectionObserver((entries) => { visible.set(st, entries[0].isIntersecting); kick(); }).observe(st.parentElement);
+    });
   }
   kick();
 
   // ---------- Охота лягушки ----------
-  // Сама ловит стрекозу, если та ближе 75 px ко рту, не чаще раза в 10–20 с.
-  // Look left 200 мс → Mouth open, язык до цели 120 мс → обратно со стрекозой 120 мс → Gulp 300 мс.
+  // Сама ловит ближайшее существо, если оно ближе 75 px ко рту, не чаще раза в 10–20 с.
+  // Look left 200 мс → Mouth open, язык до цели 120 мс → обратно с добычей 120 мс → Gulp 300 мс.
   const canvas = scene.querySelector('.tongue');
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
@@ -183,7 +227,10 @@
     ctx.fillStyle = '#f69ca0';
     pts.forEach(([x, y]) => ctx.fillRect(x, y, 1, 1));
     ctx.fillRect(ex, ey, 2, 2); // кончик 2×2
-    if (prey.carried) ctx.drawImage(sprites.dragonfly1, ex - 2, ey - 1, 6, 3);
+    if (prey.carried) {
+      if (prey.kind === 'dragonfly') ctx.drawImage(sprites.dragonfly1, ex - 2, ey - 1, 6, 3);
+      else ctx.drawImage(sprites['firefly-on'], ex - 2, ey - 2, 5, 5);
+    }
   }
   function tween(ms, ease, fn) {
     return new Promise((res) => {
@@ -195,18 +242,18 @@
       })(t0);
     });
   }
-  async function hunt(f) {
+  async function hunt(c) {
     frogBusy = true;
-    f.mode = 'held';
-    const cx = snap(f.x) + FW / 2, cy = snap(f.y) + FH / 2;
+    c.mode = 'held';
+    const cx = snap(c.x) + c.w / 2, cy = snap(c.y) + c.h / 2;
     const toLeft = cx < MOUTH.x;
-    const prey = { tux: cx / 3, tuy: cy / 3, carried: false };
+    const prey = { tux: cx / 3, tuy: cy / 3, carried: false, kind: c.kind };
     setFrog('look-left', !toLeft);
     await wait(200);
     setFrog('mouth-open', !toLeft);
     await tween(120, (p) => 1 - Math.pow(1 - p, 3), (t) => drawTongue(t, prey));
-    f.mode = 'gone';
-    f.el.classList.add('is-gone');
+    c.mode = 'gone';
+    c.el.classList.add('is-gone');
     prey.carried = true;
     await tween(120, (p) => p * p * p, (t) => drawTongue(1 - t, prey));
     drawTongue(0, prey);
@@ -215,44 +262,89 @@
     setFrog('idle');
     frogBusy = false;
     nextHunt = performance.now() + rnd(10000, 20000);
-    respawn(f);
+    respawn(c);
+    sayNow('frog'); // «...наелась, ква?»
   }
   setInterval(() => {
     const now = performance.now();
-    if (frogBusy || now < nextHunt || !visible || document.hidden) return;
-    const target = flies.find((f) => (f.mode === 'hover' || f.mode === 'dart') &&
-      Math.hypot(f.x + FW / 2 - MOUTH.x, f.y + FH / 2 - MOUTH.y) <= 75);
+    if (frogBusy || now < nextHunt || !visible.get(scene) || document.hidden) return;
+    const target = creatures.find((c) => c.stage === scene && active(c) && (c.mode === 'hover' || c.mode === 'dart') &&
+      Math.hypot(c.x + c.w / 2 - MOUTH.x, c.y + c.h / 2 - MOUTH.y) <= 75);
     if (target) hunt(target);
   }, 300);
 
-  // ---------- Реплика ----------
-  // Печатается по букве (40 мс на символ), мигающий курсор, висит 3–4 с, исчезает за 150 мс.
-  // Пока есть только приветствие: остальные реплики появятся, когда на сайте будет шрифт GNF.
+  // ---------- Реплики ----------
+  // Печатаются по букве (40 мс на символ), мигающий курсор, висят 3–4 с, исчезают за 150 мс.
+  // Сначала приветствие, дальше раз в 15–20 с случайная реплика по времени суток.
+  // Каждая реплика — текст шрифтом GNF из Figma (кривые), для печати по букве хранится
+  // правый край каждого символа. Реплики без готового текста из Figma не показываются.
   const speech = scene.querySelector('.speech');
   const clip = speech.querySelector('.speech__clip');
   const cursor = speech.querySelector('.speech__cursor');
-  const X0 = 0.73, GAP = 4.35;
-  // Правый край каждого символа «...привет, я максат!» (пробелы повторяют предыдущий)
-  const GREET = [1.46, 4.24, 7.02, 15.66, 24.3, 32.94, 41.58, 50.22, 58.86, 61.64, 61.64,
-    74.52, 74.52, 87.41, 96.04, 103.22, 111.86, 120.5, 129.14, 131.92];
-  function show(w, i) {
-    clip.style.width = w + 'px';
-    cursor.style.left = X0 + w + (i ? GAP : 0) + 'px';
-  }
-  function say(widths, done) {
+  const X0 = 0.73;
+  const PHRASES = {
+    // «...привет, я максат!» (буквы с трекингом −1 %, как в шапке)
+    greet: { gap: 4.35, edges: [1.46, 4.24, 7.02, 15.66, 24.3, 32.94, 41.58, 50.22, 58.86, 61.64, 61.64,
+      74.52, 74.52, 87.41, 96.04, 103.22, 111.86, 120.5, 129.14, 131.92] },
+    // «...лови светлячков!» — только ночью
+    fireflies: { gap: 4.5, when: 'night', edges: [1.46, 4.39, 7.32, 16.11, 24.9, 33.69, 42.48, 42.48,
+      55.66, 64.45, 73.24, 82.03, 90.82, 99.61, 106.93, 114.26, 123.05, 131.84, 134.77] },
+  };
+  Object.keys(PHRASES).forEach((k) => {
+    PHRASES[k].svg = clip.querySelector('[data-phrase="' + k + '"]');
+    if (!PHRASES[k].svg) delete PHRASES[k];
+  });
+  let speaking = false, loopTimer = 0;
+
+  function say(key, done) {
+    const ph = PHRASES[key];
+    if (!ph) { if (done) done(); return; }
+    speaking = true;
+    Object.values(PHRASES).forEach((p) => { p.svg.hidden = p !== ph; });
+    speech.style.left = ph.svg.dataset.left + 'px';
+    clip.style.width = '0px';
     speech.classList.remove('is-hidden', 'is-idle');
     let i = 0;
     (function step() {
-      show(i ? widths[i - 1] : 0, i);
-      if (i < widths.length) { i++; setTimeout(step, 40); return; }
+      const w = i ? ph.edges[i - 1] : 0;
+      clip.style.width = w + 'px';
+      cursor.style.left = X0 + w + (i ? ph.gap : 0) + 'px';
+      if (i < ph.edges.length) { i++; setTimeout(step, 40); return; }
       speech.classList.add('is-idle');
       setTimeout(() => {
         speech.classList.add('is-hidden');
-        setTimeout(done || (() => {}), 150);
+        setTimeout(() => { speaking = false; if (done) done(); }, 150);
       }, rnd(3000, 4000));
     })();
   }
+  function pool() {
+    return Object.keys(PHRASES).filter((k) => {
+      const w = PHRASES[k].when;
+      return k !== 'greet' && (!w || (w === 'night') === isNight());
+    });
+  }
+  function schedule() {
+    clearTimeout(loopTimer);
+    loopTimer = setTimeout(() => {
+      const list = pool();
+      if (!list.length || speaking) return schedule();
+      say(list[Math.floor(Math.random() * list.length)], schedule);
+    }, rnd(15000, 20000));
+  }
+  // Реакция на поимку: ждёт текст из Figma, пока такой реплики нет — молчим
+  function sayNow(key) { if (PHRASES[key] && !speaking) say(key, schedule); }
+
   speech.classList.add('is-hidden');
-  show(0, 0);
-  setTimeout(() => say(GREET), 700);
+  setTimeout(() => say('greet', schedule), 700);
+
+  // ---------- Смена дня и ночи из меню ----------
+  document.addEventListener('themechange', () => {
+    creatures.forEach((c) => {
+      if (c.mode === 'held') return;
+      c.mode = 'hover';
+      c.until = performance.now() + rnd(300, 1200);
+      c.el.classList.remove('is-gone');
+    });
+    kick();
+  });
 })();

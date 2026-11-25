@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="ru">
 <head>
+  <script>
+    // Ночь — тёмная тема по времени устройства (с 20:00 до 6:00). Выбор в меню «Настройки» запоминается.
+    (function () {
+      var h = new Date().getHours(), t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      document.documentElement.dataset.theme = t || (h >= 20 || h < 6 ? 'dark' : 'light');
+    })();
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Максат Хаймулдин — продуктовый дизайнер</title>
@@ -25,7 +33,7 @@
       <div class="sidebar__name-block">
         <button class="sidebar__name" type="button" aria-expanded="false" aria-controls="contacts">
           <span><span class="en">Maxat Khaimuldin</span><span class="ru">Максат Хаймулдин</span></span>
-          <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="#7D7D75"><path d="M5 9H3v2h2zM7 7H5v2h2zM9 5H7v2h2zM11 7H9v2h2zM13 9h-2v2h2z"/></svg>
+          <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 9H3v2h2zM7 7H5v2h2zM9 5H7v2h2zM11 7H9v2h2zM13 9h-2v2h2z"/></svg>
         </button>
         <ul class="sidebar__contacts nav-group" id="contacts">
           <li><a class="nav-item nav-item--sub" href="https://t.me/mr_chiller312" target="_blank" rel="noopener">Telegram</a></li>
@@ -39,7 +47,7 @@
           <div class="sidebar__cases">
             <button class="nav-item sidebar__cases-btn" type="button" data-href="#cases" aria-expanded="true" style="width:100%">
               <span>Кейсы</span>
-              <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="#7D7D75"><path d="M5 9H3v2h2zM7 7H5v2h2zM9 5H7v2h2zM11 7H9v2h2zM13 9h-2v2h2z"/></svg>
+              <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 9H3v2h2zM7 7H5v2h2zM9 5H7v2h2zM11 7H9v2h2zM13 9h-2v2h2z"/></svg>
             </button>
             <ul class="sidebar__case-list nav-group">
               <li><a class="nav-item nav-item--sub" href="spots/">SPOTS</a></li>
@@ -52,6 +60,10 @@
         </div>
       </nav>
     </div>
+    <button class="nav-item sidebar__theme js-theme" type="button" aria-label="Переключить день и ночь">
+      <span>Настройки</span>
+      <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 1h2v2h-2zM7 1h2v2h-2zM9 1h2v2h-2zM3 3h2v2h-2zM9 3h2v2h-2zM11 3h2v2h-2zM1 5h2v2h-2zM1 7h2v2h-2zM1 9h2v2h-2zM9 5h2v2h-2zM11 5h2v2h-2zM13 5h2v2h-2zM9 7h2v2h-2zM11 7h2v2h-2zM13 7h2v2h-2zM9 9h2v2h-2zM11 9h2v2h-2zM13 9h2v2h-2zM3 11h2v2h-2zM9 11h2v2h-2zM11 11h2v2h-2zM5 13h2v2h-2zM7 13h2v2h-2zM9 13h2v2h-2z"/></svg>
+    </button>
   </aside>
 
   <main class="main">
@@ -66,11 +78,25 @@
         <div class="spr reeds" style="left:1003px;top:274px"><img src="assets/img/px/reeds-right.png" alt="" width="39" height="72"><i class="reeds__wave"></i></div>
         <div class="spr lily" style="left:120px;top:244px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"></div>
         <div class="spr lily" style="left:803px;top:146px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/flower-pink-header.png" alt="" width="93" height="51"></div>
-        <span class="spr fly" style="left:531px;top:98px"><img src="assets/img/px/dragonfly1.png" alt="" width="18" height="9"></span>
-        <span class="spr fly" style="left:672px;top:69px"><img src="assets/img/px/dragonfly2.png" alt="" width="18" height="9"></span>
+        <span class="spr fly day-only" style="left:531px;top:98px"><img src="assets/img/px/dragonfly1.png" alt="" width="18" height="9"></span>
+        <span class="spr fly day-only" style="left:672px;top:69px"><img src="assets/img/px/dragonfly2.png" alt="" width="18" height="9"></span>
+        <img class="spr lily-glow night-only" src="assets/img/px/lily-glow.png" alt="" width="60" height="42" style="left:819px;top:137px">
+        <img class="spr star star--big night-only" src="assets/img/px/star-big.png" alt="" width="9" height="9" style="left:81px;top:39px">
+        <img class="spr star star--small night-only" src="assets/img/px/star-small.png" alt="" width="3" height="3" style="left:228px;top:90px">
+        <img class="spr star star--small night-only" src="assets/img/px/star-small.png" alt="" width="3" height="3" style="left:300px;top:21px">
+        <img class="spr star star--big night-only" src="assets/img/px/star-big.png" alt="" width="9" height="9" style="left:948px;top:51px">
+        <img class="spr star star--small night-only" src="assets/img/px/star-small.png" alt="" width="3" height="3" style="left:1101px;top:111px">
+        <img class="spr star star--small night-only" src="assets/img/px/star-small.png" alt="" width="3" height="3" style="left:1041px;top:18px">
+        <img class="spr star star--small night-only" src="assets/img/px/star-small.png" alt="" width="3" height="3" style="left:150px;top:150px">
+        <img class="spr star star--big night-only" src="assets/img/px/star-big.png" alt="" width="9" height="9" style="left:1140px;top:60px">
+        <span class="spr firefly night-only" style="left:420px;top:60px" data-on="1"><img src="assets/img/px/firefly-on.png" alt="" width="15" height="15"></span>
+        <span class="spr firefly night-only" style="left:470px;top:120px" data-on="0"><img src="assets/img/px/firefly-off.png" alt="" width="15" height="15"></span>
+        <span class="spr firefly night-only" style="left:600px;top:40px" data-on="1"><img src="assets/img/px/firefly-on.png" alt="" width="15" height="15"></span>
+        <span class="spr firefly night-only" style="left:760px;top:90px" data-on="1"><img src="assets/img/px/firefly-on.png" alt="" width="15" height="15"></span>
+        <span class="spr firefly night-only" style="left:800px;top:130px" data-on="0"><img src="assets/img/px/firefly-off.png" alt="" width="15" height="15"></span>
         <canvas class="tongue" width="400" height="134"></canvas>
         <div class="spr speech" style="left:681px;top:246px">
-          <span class="speech__clip"><svg width="132" height="14" viewBox="0 0 132 14"><path fill="currentColor" d="M0 8.78906H1.46484V10.2539H0V8.78906ZM2.77969 8.78906H4.24453V10.2539H2.77969V8.78906ZM5.55937 8.78906H7.02422V10.2539H5.55937V8.78906ZM8.33906 10.2539V2.92969H15.6633V10.2539H14.1984V4.39453H9.80391V10.2539H8.33906ZM16.9781 2.92969H22.8375V4.39453H24.3023V8.78906H22.8375V10.2539H18.443V13.1836H16.9781V2.92969ZM22.8375 4.39453H18.443V8.78906H22.8375V4.39453ZM31.4766 2.92969H32.9414V10.2539H27.082V8.78906H31.4766V2.92969ZM27.082 2.92969H25.6172V8.78906H27.082V2.92969ZM40.1156 2.92969V4.39453H35.7211V5.85938H40.1156V7.32422H35.7211V8.78906H40.1156V10.2539H34.2562V2.92969H40.1156ZM40.1156 4.39453V5.85938H41.5805V4.39453H40.1156ZM40.1156 7.32422V8.78906H41.5805V7.32422H40.1156ZM42.8953 4.39453H44.3602V5.85938H48.7547V4.39453H50.2195V7.32422H44.3602V8.78906H42.8953V4.39453ZM44.3602 2.92969H48.7547V4.39453H44.3602V2.92969ZM44.3602 8.78906H50.2195V10.2539H44.3602V8.78906ZM51.5344 2.92969H58.8586V4.39453H55.9289V10.2539H54.4641V4.39453H51.5344V2.92969ZM60.1734 8.78906H61.6383V11.7188H60.1734V8.78906ZM68.6625 2.92969H74.5219V10.2539H73.057V7.32422H68.6625V5.85938H67.1977V4.39453H68.6625V2.92969ZM68.6625 4.39453V5.85938H73.057V4.39453H68.6625ZM68.6625 7.32422V10.2539H67.1977V7.32422H68.6625ZM80.0813 2.92969H81.5461V4.39453H83.0109V5.85938H81.5461V10.2539H80.0813V2.92969ZM84.4758 4.39453H85.9406V2.92969H87.4055V10.2539H85.9406V5.85938H84.4758V4.39453ZM83.0109 5.85938H84.4758V7.32422H83.0109V5.85938ZM94.5797 4.39453H96.0445V10.2539H90.1852V8.78906H94.5797V7.32422H90.1852V5.85938H94.5797V4.39453ZM94.5797 4.39453V2.92969H90.1852V4.39453H94.5797ZM90.1852 7.32422H88.7203V8.78906H90.1852V7.32422ZM101.754 2.92969V4.39453H103.219V2.92969H101.754ZM101.754 8.78906V10.2539H103.219V8.78906H101.754ZM100.289 7.32422V8.78906H101.754V7.32422H100.289ZM100.289 4.39453V5.85938H101.754V4.39453H100.289ZM98.8242 2.92969V5.85938H100.289V7.32422H98.8242V10.2539H97.3594V2.92969H98.8242ZM105.998 2.92969H110.393V4.39453H105.998V2.92969ZM110.393 4.39453H111.858V5.85938H110.393V4.39453ZM110.393 7.32422H111.858V8.78906H110.393V7.32422ZM105.998 8.78906H110.393V10.2539H105.998V8.78906ZM105.998 4.39453V8.78906H104.534V4.39453H105.998ZM119.032 4.39453H120.497V10.2539H114.637V8.78906H119.032V7.32422H114.637V5.85938H119.032V4.39453ZM119.032 4.39453V2.92969H114.637V4.39453H119.032ZM114.637 7.32422H113.173V8.78906H114.637V7.32422ZM121.812 2.92969H129.136V4.39453H126.206V10.2539H124.741V4.39453H121.812V2.92969ZM130.451 0H131.916V7.32422H130.451V0ZM130.451 8.78906H131.916V10.2539H130.451V8.78906Z"/></svg></span>
+          <span class="speech__clip"><svg data-phrase="greet" data-left="681" width="132" height="14" viewBox="0 0 132 14"><path fill="currentColor" d="M0 8.78906H1.46484V10.2539H0V8.78906ZM2.77969 8.78906H4.24453V10.2539H2.77969V8.78906ZM5.55937 8.78906H7.02422V10.2539H5.55937V8.78906ZM8.33906 10.2539V2.92969H15.6633V10.2539H14.1984V4.39453H9.80391V10.2539H8.33906ZM16.9781 2.92969H22.8375V4.39453H24.3023V8.78906H22.8375V10.2539H18.443V13.1836H16.9781V2.92969ZM22.8375 4.39453H18.443V8.78906H22.8375V4.39453ZM31.4766 2.92969H32.9414V10.2539H27.082V8.78906H31.4766V2.92969ZM27.082 2.92969H25.6172V8.78906H27.082V2.92969ZM40.1156 2.92969V4.39453H35.7211V5.85938H40.1156V7.32422H35.7211V8.78906H40.1156V10.2539H34.2562V2.92969H40.1156ZM40.1156 4.39453V5.85938H41.5805V4.39453H40.1156ZM40.1156 7.32422V8.78906H41.5805V7.32422H40.1156ZM42.8953 4.39453H44.3602V5.85938H48.7547V4.39453H50.2195V7.32422H44.3602V8.78906H42.8953V4.39453ZM44.3602 2.92969H48.7547V4.39453H44.3602V2.92969ZM44.3602 8.78906H50.2195V10.2539H44.3602V8.78906ZM51.5344 2.92969H58.8586V4.39453H55.9289V10.2539H54.4641V4.39453H51.5344V2.92969ZM60.1734 8.78906H61.6383V11.7188H60.1734V8.78906ZM68.6625 2.92969H74.5219V10.2539H73.057V7.32422H68.6625V5.85938H67.1977V4.39453H68.6625V2.92969ZM68.6625 4.39453V5.85938H73.057V4.39453H68.6625ZM68.6625 7.32422V10.2539H67.1977V7.32422H68.6625ZM80.0813 2.92969H81.5461V4.39453H83.0109V5.85938H81.5461V10.2539H80.0813V2.92969ZM84.4758 4.39453H85.9406V2.92969H87.4055V10.2539H85.9406V5.85938H84.4758V4.39453ZM83.0109 5.85938H84.4758V7.32422H83.0109V5.85938ZM94.5797 4.39453H96.0445V10.2539H90.1852V8.78906H94.5797V7.32422H90.1852V5.85938H94.5797V4.39453ZM94.5797 4.39453V2.92969H90.1852V4.39453H94.5797ZM90.1852 7.32422H88.7203V8.78906H90.1852V7.32422ZM101.754 2.92969V4.39453H103.219V2.92969H101.754ZM101.754 8.78906V10.2539H103.219V8.78906H101.754ZM100.289 7.32422V8.78906H101.754V7.32422H100.289ZM100.289 4.39453V5.85938H101.754V4.39453H100.289ZM98.8242 2.92969V5.85938H100.289V7.32422H98.8242V10.2539H97.3594V2.92969H98.8242ZM105.998 2.92969H110.393V4.39453H105.998V2.92969ZM110.393 4.39453H111.858V5.85938H110.393V4.39453ZM110.393 7.32422H111.858V8.78906H110.393V7.32422ZM105.998 8.78906H110.393V10.2539H105.998V8.78906ZM105.998 4.39453V8.78906H104.534V4.39453H105.998ZM119.032 4.39453H120.497V10.2539H114.637V8.78906H119.032V7.32422H114.637V5.85938H119.032V4.39453ZM119.032 4.39453V2.92969H114.637V4.39453H119.032ZM114.637 7.32422H113.173V8.78906H114.637V7.32422ZM121.812 2.92969H129.136V4.39453H126.206V10.2539H124.741V4.39453H121.812V2.92969ZM130.451 0H131.916V7.32422H130.451V0ZM130.451 8.78906H131.916V10.2539H130.451V8.78906Z"/></svg><svg data-phrase="fireflies" data-left="677" width="135" height="11" viewBox="0 0 135 11" hidden><path fill="currentColor" d="M0 8.78906H1.46484V10.2539H0V8.78906ZM2.92969 8.78906H4.39453V10.2539H2.92969V8.78906ZM5.85938 8.78906H7.32422V10.2539H5.85938V8.78906ZM11.7188 2.92969H16.1133V10.2539H14.6484V4.39453H11.7188V2.92969ZM8.78906 5.85938H10.2539V10.2539H8.78906V5.85938ZM10.2539 4.39453H11.7188V5.85938H10.2539V4.39453ZM19.043 2.92969H23.4375V4.39453H24.9023V8.78906H23.4375V10.2539H19.043V8.78906H17.5781V4.39453H19.043V2.92969ZM19.043 4.39453V8.78906H23.4375V4.39453H19.043ZM32.2266 2.92969V4.39453H27.832V5.85938H32.2266V7.32422H27.832V8.78906H32.2266V10.2539H26.3672V2.92969H32.2266ZM32.2266 4.39453V5.85938H33.6914V4.39453H32.2266ZM32.2266 7.32422V8.78906H33.6914V7.32422H32.2266ZM41.0156 2.92969H42.4805V10.2539H36.6211V8.78906H41.0156V2.92969ZM36.6211 2.92969H35.1562V8.78906H36.6211V2.92969ZM49.8047 2.92969H54.1992V4.39453H49.8047V2.92969ZM54.1992 4.39453H55.6641V5.85938H54.1992V4.39453ZM54.1992 7.32422H55.6641V8.78906H54.1992V7.32422ZM49.8047 8.78906H54.1992V10.2539H49.8047V8.78906ZM49.8047 4.39453V8.78906H48.3398V4.39453H49.8047ZM62.9883 2.92969V4.39453H58.5938V5.85938H62.9883V7.32422H58.5938V8.78906H62.9883V10.2539H57.1289V2.92969H62.9883ZM62.9883 4.39453V5.85938H64.4531V4.39453H62.9883ZM62.9883 7.32422V8.78906H64.4531V7.32422H62.9883ZM65.918 4.39453H67.3828V5.85938H71.7773V4.39453H73.2422V7.32422H67.3828V8.78906H65.918V4.39453ZM67.3828 2.92969H71.7773V4.39453H67.3828V2.92969ZM67.3828 8.78906H73.2422V10.2539H67.3828V8.78906ZM74.707 2.92969H82.0312V4.39453H79.1016V10.2539H77.6367V4.39453H74.707V2.92969ZM86.4258 2.92969H90.8203V10.2539H89.3555V4.39453H86.4258V2.92969ZM83.4961 5.85938H84.9609V10.2539H83.4961V5.85938ZM84.9609 4.39453H86.4258V5.85938H84.9609V4.39453ZM93.75 2.92969H99.6094V10.2539H98.1445V7.32422H93.75V5.85938H92.2852V4.39453H93.75V2.92969ZM93.75 4.39453V5.85938H98.1445V4.39453H93.75ZM93.75 7.32422V10.2539H92.2852V7.32422H93.75ZM101.074 2.92969H102.539V5.85938H101.074V2.92969ZM105.469 2.92969H106.934V10.2539H105.469V7.32422H102.539V5.85938H105.469V2.92969ZM112.793 2.92969V4.39453H114.258V2.92969H112.793ZM112.793 8.78906V10.2539H114.258V8.78906H112.793ZM111.328 7.32422V8.78906H112.793V7.32422H111.328ZM111.328 4.39453V5.85938H112.793V4.39453H111.328ZM109.863 2.92969V5.85938H111.328V7.32422H109.863V10.2539H108.398V2.92969H109.863ZM117.188 2.92969H121.582V4.39453H123.047V8.78906H121.582V10.2539H117.188V8.78906H115.723V4.39453H117.188V2.92969ZM117.188 4.39453V8.78906H121.582V4.39453H117.188ZM130.371 2.92969V4.39453H125.977V5.85938H130.371V7.32422H125.977V8.78906H130.371V10.2539H124.512V2.92969H130.371ZM130.371 4.39453V5.85938H131.836V4.39453H130.371ZM130.371 7.32422V8.78906H131.836V7.32422H130.371ZM133.301 0H134.766V7.32422H133.301V0ZM133.301 8.78906H134.766V10.2539H133.301V8.78906Z"/></svg></span>
           <span class="speech__cursor"></span>
         </div>
       </div>
@@ -83,14 +109,14 @@
         <p class="intro__line">
           <span>Пишите в</span>
           <a class="ilink" href="https://t.me/mr_chiller312" target="_blank" rel="noopener">Telegram
-            <svg viewBox="0 0 16 16" aria-hidden="true" fill="#7D7D75"><path d="M2 7h8v2H2zM8 3h2v2H8zM8 11h2v2H8zM10 5h2v2h-2zM10 9h2v2h-2zM12 7h2v2h-2z"/></svg></a>
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M2 7h8v2H2zM8 3h2v2H8zM8 11h2v2H8zM10 5h2v2h-2zM10 9h2v2h-2zM12 7h2v2h-2z"/></svg></a>
           <span>или на почту</span>
           <button class="ilink js-copy" type="button" data-copy="khaimuldin.maxat@gmail.com" title="Скопировать адрес">
-            <svg viewBox="0 0 16 16" aria-hidden="true" fill="#7D7D75"><path d="M5 1h10v2H5zM5 3h2v2H5zM13 3h2v8h-2zM1 5h10v2H1zM1 7h2v8H1zM9 7h2v8H9zM11 9h2v2h-2zM3 13h6v2H3z"/></svg>khaimuldin.maxat@gmail.com.</button>
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 1h10v2H5zM5 3h2v2H5zM13 3h2v8h-2zM1 5h10v2H1zM1 7h2v8H1zM9 7h2v8H9zM11 9h2v2h-2zM3 13h6v2H3z"/></svg>khaimuldin.maxat@gmail.com.</button>
           <span class="copy-hint" aria-live="polite"></span>
         </p>
         <p><a class="ilink" href="cv/Maxat-Khaimuldin-CV.pdf" target="_blank" rel="noopener">Скачать CV
-          <svg viewBox="0 0 16 16" aria-hidden="true" fill="#7D7D75"><path d="M2 7h8v2H2zM8 3h2v2H8zM8 11h2v2H8zM10 5h2v2h-2zM10 9h2v2h-2zM12 7h2v2h-2z"/></svg></a></p>
+          <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M2 7h8v2H2zM8 3h2v2H8zM8 11h2v2H8zM10 5h2v2h-2zM10 9h2v2h-2zM12 7h2v2h-2z"/></svg></a></p>
       </section>
 
       <div class="home-sections">
@@ -131,19 +157,29 @@
       <div class="pond" aria-hidden="true">
         <div class="pond__scene">
           <div class="stage" data-w="1200" data-h="180">
-            <img class="spr" src="assets/img/px/water-spot.png" alt="" width="69" height="9" style="left:725px;top:66px">
-            <img class="spr" src="assets/img/px/water-spot.png" alt="" width="69" height="9" style="left:40px;top:150px">
-            <img class="spr" src="assets/img/px/water-spot.png" alt="" width="69" height="9" style="left:1090px;top:150px">
+            <img class="spr water" src="assets/img/px/water-spot.png" alt="" width="69" height="9" style="left:725px;top:66px">
+            <img class="spr water" src="assets/img/px/water-spot.png" alt="" width="69" height="9" style="left:40px;top:150px">
+            <img class="spr water" src="assets/img/px/water-spot.png" alt="" width="69" height="9" style="left:1090px;top:150px">
             <div class="spr lily lily--free" style="left:196px;top:42px;--d:-0.0s"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"></div>
             <div class="spr lily lily--free" style="left:840px;top:28px;--d:-0.5s"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"></div>
             <div class="spr lily lily--free" style="left:450px;top:110px;--d:-1.0s"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"></div>
+            <span class="pond-glow night-only" style="left:88px;top:25px;background:#f4f1ea"></span>
             <div class="spr lily lily--note" style="left:60px;top:22px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-white.png" alt="" width="93" height="51"></div>
+            <span class="pond-glow night-only" style="left:348px;top:33px;background:#f6b8c8"></span>
             <div class="spr lily lily--note" style="left:320px;top:30px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-pink-notched.png" alt="" width="93" height="51"></div>
+            <span class="pond-glow night-only" style="left:608px;top:21px;background:#f7e08a"></span>
             <div class="spr lily lily--note" style="left:580px;top:18px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-yellow.png" alt="" width="93" height="51"></div>
+            <span class="pond-glow night-only" style="left:1108px;top:23px;background:#b8dcf4"></span>
             <div class="spr lily lily--note" style="left:1080px;top:20px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-blue.png" alt="" width="93" height="51"></div>
+            <span class="pond-glow night-only" style="left:218px;top:121px;background:#d4c2f0"></span>
             <div class="spr lily lily--note" style="left:190px;top:118px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-lilac-notched.png" alt="" width="93" height="51"></div>
+            <span class="pond-glow night-only" style="left:738px;top:123px;background:#f6b8c8"></span>
             <div class="spr lily lily--note" style="left:710px;top:120px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-pink-notched.png" alt="" width="93" height="51"></div>
+            <span class="pond-glow night-only" style="left:998px;top:115px;background:#d4c2f0"></span>
             <div class="spr lily lily--note" style="left:970px;top:112px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-lilac.png" alt="" width="93" height="51"></div>
+            <span class="spr firefly night-only" style="left:150px;top:95px" data-on="1"><img src="assets/img/px/firefly-on.png" alt="" width="15" height="15"></span>
+            <span class="spr firefly night-only" style="left:640px;top:80px" data-on="0"><img src="assets/img/px/firefly-off.png" alt="" width="15" height="15"></span>
+            <span class="spr firefly night-only" style="left:900px;top:135px" data-on="1"><img src="assets/img/px/firefly-on.png" alt="" width="15" height="15"></span>
           </div>
         </div>
       </div>

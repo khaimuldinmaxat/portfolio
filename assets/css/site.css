@@ -27,6 +27,18 @@
   --ease: cubic-bezier(.2, .7, .2, 1);
 }
 
+/* Ночь: режим Dark коллекции Portfolio в Figma */
+html[data-theme="dark"] {
+  --text: #ecebe6;
+  --text-2: #8f91a8;
+  --bg: #16182a;
+  --subtle: #20233a;
+  --border: #262a44;
+  --spots: #6e3516;
+  color-scheme: dark;
+}
+html[data-theme="dark"] .only-light, html:not([data-theme="dark"]) .only-dark { display: none !important; }
+
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
@@ -77,7 +89,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .sidebar__name .ru { display: none; }
 .sidebar.is-open .sidebar__name .ru { display: inline; }
 .sidebar.is-open .sidebar__name .en { display: none; }
-.chev { width: 16px; height: 16px; flex: none; transition: transform 150ms ease; }
+.chev { width: 16px; height: 16px; flex: none; color: var(--text-2); transition: transform 150ms ease; }
 .is-closed > * > .chev, .sidebar:not(.is-open) .sidebar__name .chev { transform: rotate(180deg); }
 .sidebar:not(.is-open) .sidebar__contacts { display: none; }
 
@@ -114,7 +126,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     width: 8px;
     height: 10px;
     margin-top: -5px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='10' viewBox='0 0 8 10' shape-rendering='crispEdges'%3E%3Cpath fill='%23151513' d='M0 0h2v10H0zM2 2h2v6H2zM4 4h2v2H4z'/%3E%3C/svg%3E") no-repeat;
+    background: var(--text);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='10' viewBox='0 0 8 10' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h2v10H0zM2 2h2v6H2zM4 4h2v2H4z'/%3E%3C/svg%3E") no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='10' viewBox='0 0 8 10' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h2v10H0zM2 2h2v6H2zM4 4h2v2H4z'/%3E%3C/svg%3E") no-repeat;
     opacity: 0;
     transition: opacity 150ms ease-out, transform 150ms ease-out;
   }
@@ -122,10 +136,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .sidebar__cases.is-closed .sidebar__case-list { display: none; }
 .sidebar__menu { display: flex; flex-direction: column; gap: 12px; }
+.sidebar__theme { width: 100%; }
 
 /* ---------- Ссылки в тексте ---------- */
 .ilink { display: inline-flex; align-items: center; gap: 4px; font-weight: 500; transition: color 150ms ease; }
-.ilink svg { width: 16px; height: 16px; flex: none; }
+.ilink svg { width: 16px; height: 16px; flex: none; color: var(--text-2); }
 .ilink:hover { color: var(--text-2); }
 .copy-hint { color: var(--text-2); font-weight: 400; opacity: 0; transition: opacity 150ms ease; }
 .copy-hint.is-on { opacity: 1; }
@@ -171,11 +186,29 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .fly.is-gone { visibility: hidden; }
 .tongue { position: absolute; left: 0; top: 0; width: 1200px; height: 402px; pointer-events: none; }
 
+/* Ночь: спрайты сцены приглушены до 0.6, звёзды, светлячки, свечение цветка и реплика — нет.
+   Днём летают стрекозы, ночью светлячки. */
+.night-only { display: none; }
+html[data-theme="dark"] .night-only { display: block; }
+html[data-theme="dark"] .day-only { display: none; }
+html[data-theme="dark"] .hero, html[data-theme="dark"] .reeds, html[data-theme="dark"] .lily,
+html[data-theme="dark"] .pond__scene .water { opacity: .6; }
+.star, .lily-glow, .firefly img { image-rendering: pixelated; }
+.star--big { width: 9px; height: 9px; }
+.star--small { width: 3px; height: 3px; }
+.lily-glow { width: 60px; height: 42px; }
+.firefly { width: 15px; height: 15px; cursor: pointer; will-change: transform; }
+.firefly img { width: 15px; height: 15px; }
+.firefly::before { content: ""; position: absolute; inset: -12px; }
+.firefly.is-gone { visibility: hidden; }
+.pond-glow { position: absolute; width: 36px; height: 21px; border-radius: 50%; opacity: .35; filter: blur(6px); }
+
 /* Реплика: пиксельный текст печатается по букве */
 .speech { width: 143px; height: 18px; color: var(--text); transition: opacity 150ms ease; }
 .speech.is-hidden { opacity: 0; }
 .speech__clip { position: absolute; left: .73px; top: 3.75px; height: 14px; width: 132px; overflow: hidden; }
-.speech__clip svg { display: block; width: 132px; height: 14px; }
+.speech__clip svg { display: block; }
+.speech__clip svg[hidden] { display: none; }
 .speech__cursor { position: absolute; left: 137px; top: 1.5px; width: 6px; height: 15px; background: currentColor; }
 .speech.is-idle .speech__cursor { animation: blink 1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
@@ -195,7 +228,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .waves { background: var(--wave-base, var(--spots)); }
 .waves__fx { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
 .waves__phones { position: absolute; inset: 0; }
-.phone { position: absolute; top: calc(10 / 420 * 100%); width: calc(216 / 672 * 100%); height: auto; transition: transform .5s cubic-bezier(.23, 1, .32, 1); }
+.phone { position: absolute; top: calc(5 / 420 * 100%); width: calc(216 / 672 * 100%); height: auto; transition: transform .5s cubic-bezier(.23, 1, .32, 1); }
 .phone:nth-child(1) { left: calc(28 / 672 * 100%); }
 .phone:nth-child(2) { left: calc(228 / 672 * 100%); }
 .phone:nth-child(3) { left: calc(428 / 672 * 100%); }
