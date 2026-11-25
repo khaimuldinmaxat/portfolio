@@ -330,10 +330,23 @@
     }, rnd(15000, 20000));
   }
   // Сразу после поимки: «...ещё один!» — ловит посетитель, «...наелась, ква?» — ловит лягушка
-  function sayNow(key) { if (PHRASES[key] && !speaking) say(key, schedule); }
+  // Реплики после поимки — не на каждую: первая сразу, дальше не чаще раза в 45 с, иначе это спам
+  const lastSaid = {};
+  function sayNow(key) {
+    const now = Date.now();
+    if (!PHRASES[key] || speaking || now - (lastSaid[key] || -Infinity) < 45000) return;
+    lastSaid[key] = now;
+    say(key, schedule);
+  }
 
+  // Приветствие висит недолго, следом сразу подсказка «лови стрекоз!» или «лови светлячков!»,
+  // чтобы её заметили до того, как пролистают шапку
+  function hint() {
+    const key = isNight() ? 'fireflies' : 'dragonflies';
+    say(PHRASES[key] ? key : pool()[0], schedule);
+  }
   speech.classList.add('is-hidden');
-  setTimeout(() => say('greet', schedule), 700);
+  setTimeout(() => say('greet', () => setTimeout(() => { if (current === 'greet' && !speaking) hint(); }, 2000)), 700);
   // Смена дня и ночи: если висит реплика другого времени суток — сразу заменить подходящей
   document.addEventListener('themechange', () => {
     const w = current && PHRASES[current].when;

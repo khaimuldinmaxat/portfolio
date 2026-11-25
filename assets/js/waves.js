@@ -6,10 +6,11 @@
   const COLS = Math.ceil(W / CELL), ROWS = Math.ceil(H / CELL);
   const CX = W / 2, CY = H / 2;
   const MAXR = Math.hypot(CX, CY) + CELL * 2;
-  const SPEED = 230;  // px/с
-  const THICK = 0.55; // через сколько секунд у круга появляется «дырка», с
-  const EVERY = 1.15; // новая волна каждые, с
-  const START = 7.1;  // кадр, на котором карточка стоит в покое
+  // Медленнее прежнего в 1,4 раза (просьба Максата 26.11); ширина колец, шаг и кадр покоя те же
+  const SPEED = 165;  // px/с (было 230)
+  const THICK = 0.77; // через сколько секунд у круга появляется «дырка», с
+  const EVERY = 1.6;  // новая волна каждые, с
+  const START = 9.9;  // кадр, на котором карточка стоит в покое
   const EASE = 0.35;  // разгон и торможение, с
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

@@ -62,7 +62,7 @@
       items.forEach((i) => i.addEventListener('click', (e) => {
         if (i.dataset.section === 'top') { e.preventDefault(); window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); history.replaceState(null, '', './'); }
         setActive(i);
-        lock = Date.now() + 900; // пока страница доезжает, не перескакивать по пути
+        lock = Date.now() + 1500; // пока страница плавно доезжает, квадрат не перескакивает по пути
       }));
       let lock = 0;
       const sections = ['cases', 'experience'].map((id) => document.getElementById(id)).filter(Boolean);
@@ -75,6 +75,7 @@
         setActive(byId(id));
       }
       window.addEventListener('scroll', () => window.requestAnimationFrame(spy), { passive: true });
+      window.addEventListener('scrollend', () => { lock = 0; });
       if (location.hash) setTimeout(spy, 50);
     }
   }
