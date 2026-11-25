@@ -14,6 +14,7 @@
   const DIR = stage.querySelector('.lily__body').getAttribute('src').replace(/[^/]+$/, '');
   const DATA = DIR.replace('assets/img/px/', 'data/messages.json');
 
+  let anchor = null; // кувшинка, над которой открыта форма
   // Цвета бумаги: светлый / основной / тень. Бумага — светлый тон.
   const PAPER = {
     white: ['#f4f1ea', '#d9d2c3', '#b0a690'], pink: ['#f6b8c8', '#e98aa6', '#c25d80'],
@@ -48,11 +49,14 @@
   let ci = 0;
   function paintPapers() {
     const svg = paperSVG(COLORS[ci]);
-    document.querySelectorAll('.js-paper').forEach((el) => { el.innerHTML = svg; });
+    document.querySelectorAll('.js-paper').forEach((el) => { if (!anchorOpen(el)) el.innerHTML = svg; });
     cursor.innerHTML = svg;
   }
   paintPapers();
   if (!reduce) setInterval(() => { ci = (ci + 1) % COLORS.length; paintPapers(); }, 1600);
+
+  // Над кувшинкой с открытым письмом бумажка цвета письма, а не перебирает цвета
+  function anchorOpen(el) { return anchor && !form.hidden && anchor.contains(el); }
 
   // ---------- Свои сообщения (до проверки) ----------
   function loadMine() {
@@ -72,7 +76,7 @@
     b.style.left = x + 'px';
     b.style.top = y + 'px';
     b.setAttribute('aria-label', 'Открыть сообщение' + (msg.name ? ' от ' + msg.name : ''));
-    b.innerHTML = '<span class="lily__ripple rip">' + [1, 2, 3].map((i) => '<img src="' + DIR + 'lily-ripple-' + i + '.png" alt="">').join('') + '</span><img class="lily__body" alt="" width="93" height="51">';
+    b.innerHTML = '<span class="lily__ripple rip">' + [1, 2, 3].map((i) => '<img src="' + DIR + 'lily-ripple-' + i + '.png?v=2" alt="">').join('') + '</span><img class="lily__body" alt="" width="93" height="51">';
     b.querySelector('img').src = lilySrc(type, 'open', msg.color);
     b.addEventListener('click', (e) => { e.stopPropagation(); openNote(b, msg, own); });
     stage.insertBefore(glow, stage.querySelector('.firefly'));
@@ -105,7 +109,6 @@
     .then((list) => render(Array.isArray(list) ? list : []));
 
   // ---------- Поповеры ----------
-  let anchor = null;
   function place(el, target) {
     el.hidden = false;
     const box = pond.getBoundingClientRect();
@@ -172,8 +175,7 @@
     b.className = 'swatch';
     b.setAttribute('role', 'radio');
     b.setAttribute('aria-label', NAMES[c]);
-    b.style.setProperty('--fill', PAPER[c][0]);
-    b.style.setProperty('--shade', PAPER[c][1]);
+    b.innerHTML = '<svg viewBox="0 0 8 9" aria-hidden="true">' + paperSVG(c) + '</svg>';
     b.addEventListener('click', () => setColor(c));
     sw.appendChild(b);
   });
@@ -182,9 +184,27 @@
   function setColor(c) {
     color = c;
     form.style.setProperty('--paper', PAPER[c][0]);
+    form.style.setProperty('--paper-line', PAPER[c][1]);
+    form.style.setProperty('--paper-ink', PAPER[c][2]);
     sw.querySelectorAll('.swatch').forEach((b, i) => b.setAttribute('aria-checked', String(COLORS[i] === c)));
+    const held = anchor && anchor.querySelector('.js-paper');
+    if (held) held.innerHTML = paperSVG(c);
   }
-  ta.addEventListener('input', () => { count.textContent = ta.value.length + ' / 140'; });
+  // Подпись прижата вправо и растёт по ширине текста; лист растёт по строкам до шести
+  const nameInput = form.elements.name;
+  const ruler = document.createElement('span');
+  ruler.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;font:15px/24px GNF,Inter,sans-serif';
+  form.appendChild(ruler);
+  function fitName() {
+    ruler.textContent = nameInput.value || nameInput.placeholder;
+    nameInput.style.width = Math.ceil(ruler.offsetWidth) + 2 + 'px';
+  }
+  nameInput.addEventListener('input', fitName);
+  function fitText() {
+    ta.style.height = '96px';
+    ta.style.height = Math.min(144, Math.max(96, Math.ceil(ta.scrollHeight / 24) * 24)) + 'px';
+  }
+  ta.addEventListener('input', () => { count.textContent = ta.value.length + ' / 140'; fitText(); });
 
   function openForm(pad) {
     closeAll();
@@ -193,6 +213,8 @@
     setColor(COLORS[ci]); // бумага того цвета, что была в руке
     err.hidden = true;
     place(form, pad);
+    fitName();
+    fitText();
     ta.focus({ preventScroll: true });
   }
   frees.forEach((pad) => {
@@ -242,6 +264,8 @@
     }
     form.reset();
     count.textContent = '0 / 140';
+    fitName();
+    fitText();
     closeAll();
     plant(pad, msg);
   });

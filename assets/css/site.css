@@ -9,6 +9,12 @@
   font-style: normal;
   font-display: swap;
 }
+/* GNF (Nytrock, freeware) — только в письме у пруда. Латиница и кириллица, 15 px = сетка шрифта. */
+@font-face {
+  font-family: "GNF";
+  src: url("../fonts/gnf.woff2") format("woff2");
+  font-display: swap;
+}
 
 :root {
   --text: #151513;
@@ -298,27 +304,30 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 @keyframes note-in { from { opacity: 0; transform: scale(.96); } }
 .note--read { color: #151513; }
 .note--read .note__meta { font-size: 14px; line-height: 21px; }
-.note--form { width: 360px; background: var(--bg); border: 1px solid var(--border); }
-.note__title { font-weight: 500; font-size: 16px; line-height: 24px; }
-.note__paper { display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: 4px; background: var(--paper, #f4f1ea); color: #151513; transition: background .15s ease; }
-.note__paper textarea { font: inherit; font-size: 16px; line-height: 24px; color: inherit; background: none; border: 0; padding: 0; resize: none; height: 72px; outline: none; }
-.note__paper textarea::placeholder { color: rgba(21, 21, 19, .55); }
-.note__paper:focus-within { box-shadow: 0 0 0 2px #151513 inset; }
-.note__count { font-size: 14px; line-height: 21px; }
-.note__field input { width: 100%; font: inherit; font-size: 16px; line-height: 24px; color: var(--text); background: none; border: 1px solid var(--border); border-radius: 4px; padding: 10px 16px; }
-.note__field input::placeholder { color: var(--text-2); }
-.note__field input:focus { outline: 2px solid var(--text); outline-offset: -1px; }
-.note__colors { border: 0; padding: 0; margin: 0; }
-.note__colors legend { padding: 0; margin-bottom: 8px; font-size: 14px; line-height: 21px; color: var(--text-2); }
-.note__swatches { display: flex; gap: 8px; }
-.swatch { width: 24px; height: 24px; border-radius: 12px; border: 1px solid var(--shade); background: var(--fill); padding: 0; cursor: pointer; }
-.swatch[aria-checked="true"] { border: 2px solid var(--text); }
-.swatch:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
-.note__error { font-size: 14px; line-height: 21px; color: #c0392b; }
-.note__actions { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 14px; line-height: 21px; color: var(--text-2); }
-.note__actions .ilink { font-size: 18px; line-height: 28px; color: var(--text); background: none; border: 0; padding: 0; cursor: pointer; }
-.note__actions .ilink:hover, .ilink:hover svg { color: var(--accent); }
-.note__actions .ilink[disabled] { opacity: .5; cursor: default; }
+/* Письмо (вариант А): лист выбранного цвета в пиксельной рамке, строки, шрифт GNF, подпись, бумажки для цвета.
+   Цвета листа — из PAPER в messages.js: --paper светлый, --paper-line основной, --paper-ink тень. */
+.letter { width: 360px; gap: 0; --ink: #26192c; --p: 3px; --c: 6px; background: var(--ink); padding: var(--p); clip-path: polygon(var(--c) 0,calc(100% - var(--c)) 0,calc(100% - var(--c)) var(--p),calc(100% - var(--p)) var(--p),calc(100% - var(--p)) var(--c),100% var(--c),100% calc(100% - var(--c)),calc(100% - var(--p)) calc(100% - var(--c)),calc(100% - var(--p)) calc(100% - var(--p)),calc(100% - var(--c)) calc(100% - var(--p)),calc(100% - var(--c)) 100%,var(--c) 100%,var(--c) calc(100% - var(--p)),var(--p) calc(100% - var(--p)),var(--p) calc(100% - var(--c)),0 calc(100% - var(--c)),0 var(--c),var(--p) var(--c),var(--p) var(--p),var(--c) var(--p)); }
+.letter__sheet { display: flex; flex-direction: column; padding: 20px 20px 16px; background: var(--paper, #f4f1ea); color: var(--ink); clip-path: polygon(var(--c) 0,calc(100% - var(--c)) 0,calc(100% - var(--c)) var(--p),calc(100% - var(--p)) var(--p),calc(100% - var(--p)) var(--c),100% var(--c),100% calc(100% - var(--c)),calc(100% - var(--p)) calc(100% - var(--c)),calc(100% - var(--p)) calc(100% - var(--p)),calc(100% - var(--c)) calc(100% - var(--p)),calc(100% - var(--c)) 100%,var(--c) 100%,var(--c) calc(100% - var(--p)),var(--p) calc(100% - var(--p)),var(--p) calc(100% - var(--c)),0 calc(100% - var(--c)),0 var(--c),var(--p) var(--c),var(--p) var(--p),var(--c) var(--p)); transition: background .15s ease;
+  font-family: "GNF", "Inter", system-ui, sans-serif; font-size: 15px; line-height: 24px; }
+.letter__body textarea { display: block; width: 100%; height: 96px; max-height: 144px; font: inherit; color: inherit; border: 0; padding: 0; resize: none; outline: none; overflow-y: auto;
+  background: repeating-linear-gradient(transparent 0 21px, var(--paper-line, #d9d2c3) 21px 24px); background-attachment: local; }
+.letter__body textarea::placeholder, .letter__sign input::placeholder { color: var(--paper-ink, #b0a690); opacity: 1; }
+.letter__sign { display: flex; justify-content: flex-end; gap: 6px; margin-top: 4px; color: var(--paper-ink, #b0a690); }
+.letter__sign input { width: 150px; min-width: 24px; max-width: 100%; font: inherit; color: var(--ink); background: none; border: 0; padding: 0; outline: none; text-align: left; }
+.letter__bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; margin-top: 16px; }
+.note__swatches { display: flex; gap: 6px; align-items: flex-end; height: 33px; }
+.swatch { width: 24px; height: 27px; padding: 0; border: 0; background: none; cursor: pointer; transition: transform .12s ease; }
+.swatch svg { display: block; width: 24px; height: 27px; image-rendering: pixelated; shape-rendering: crispEdges; }
+.swatch:hover { transform: translateY(-3px); }
+.swatch[aria-checked="true"] { transform: translateY(-6px); }
+.swatch:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.letter__send { --p: 3px; --c: 3px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font: inherit; color: #fff; background: var(--ink); border: 0; cursor: pointer; clip-path: polygon(var(--c) 0,calc(100% - var(--c)) 0,calc(100% - var(--c)) var(--p),calc(100% - var(--p)) var(--p),calc(100% - var(--p)) var(--c),100% var(--c),100% calc(100% - var(--c)),calc(100% - var(--p)) calc(100% - var(--c)),calc(100% - var(--p)) calc(100% - var(--p)),calc(100% - var(--c)) calc(100% - var(--p)),calc(100% - var(--c)) 100%,var(--c) 100%,var(--c) calc(100% - var(--p)),var(--p) calc(100% - var(--p)),var(--p) calc(100% - var(--c)),0 calc(100% - var(--c)),0 var(--c),var(--p) var(--c),var(--p) var(--p),var(--c) var(--p)); }
+.letter__send svg { width: 12px; height: 12px; }
+.letter__send:hover, .letter__send:focus-visible { background: var(--accent); outline: none; }
+.letter__send[disabled] { opacity: .5; cursor: default; }
+.letter__foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; color: var(--paper-ink, #b0a690); }
+.letter__foot .note__error { font: inherit; color: #c0392b; margin-right: auto; }
+.letter__foot:has(.note__error:not([hidden])) .letter__note { display: none; }
 
 .lily--note:hover .lily__body { animation: lily-sway .4s steps(1) 1; }
 @keyframes lily-sway { 0% { transform: translateX(3px); } 50% { transform: translateX(-3px); } 100% { transform: none; } }
