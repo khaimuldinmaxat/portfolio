@@ -258,6 +258,7 @@
     setFrog('idle');
     respawn(c);
     // «...ещё один!» — когда помог посетитель, «...наелась, ква?» — когда поймала сама
+    if (who === 'visitor') caughtOnce = true;
     sayNow(who === 'visitor' ? 'more' : 'frog');
     const next = queue.shift();
     if (next) { await wait(250); hunt(next, 'visitor'); return; }
@@ -325,15 +326,19 @@
     clearTimeout(loopTimer);
     loopTimer = setTimeout(() => {
       const list = pool().filter((k) => k !== current);
-      if (!list.length || speaking) return schedule();
+      if (!caughtOnce || !list.length || speaking) return schedule();
       say(list[Math.floor(Math.random() * list.length)], schedule);
     }, rnd(15000, 20000));
   }
   // Сразу после поимки: «...ещё один!» — ловит посетитель, «...наелась, ква?» — ловит лягушка
   // Реплики после поимки — не на каждую: первая сразу, дальше не чаще раза в 45 с, иначе это спам
+  // Пока посетитель не поймал ни одного насекомого, висит подсказка «лови…» — других реплик нет,
+  // чтобы подсказку не пропустили
+  let caughtOnce = false;
   const lastSaid = {};
   function sayNow(key) {
     const now = Date.now();
+    if (!caughtOnce) return;
     if (!PHRASES[key] || speaking || now - (lastSaid[key] || -Infinity) < 45000) return;
     lastSaid[key] = now;
     say(key, schedule);
@@ -351,6 +356,7 @@
   document.addEventListener('themechange', () => {
     const w = current && PHRASES[current].when;
     if ((w === 'day' || w === 'night') && (w === 'night') !== isNight() && !speaking) {
+      if (!caughtOnce) { hint(); return; }
       const list = pool();
       if (list.length) say(list[Math.floor(Math.random() * list.length)], schedule);
     }
