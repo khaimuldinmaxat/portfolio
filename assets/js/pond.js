@@ -38,7 +38,7 @@
 
   const sprites = {};
   ['head-open', 'head-closed', 'frog-idle', 'frog-blink', 'frog-breath', 'frog-look-left',
-    'frog-mouth-open', 'frog-gulp', 'dragonfly1', 'dragonfly2', 'firefly-on', 'firefly-off'].forEach((n) => {
+    'frog-mouth-open', 'frog-gulp', 'dragonfly1', 'dragonfly2', 'firefly-on'].forEach((n) => {
     const im = new Image();
     im.src = src(n);
     sprites[n] = im;
@@ -101,9 +101,9 @@
       w: kind === 'dragonfly' ? 18 : 15, h: kind === 'dragonfly' ? 9 : 15,
       x, y, x0: x, y0: y, fx: x, fy: y, tx: x, ty: y, t0: 0, dur: 0,
       mode: 'hover', until: performance.now() + rnd(400, 1400),
-      wing: 0, on: el.dataset.on !== '0', phase: Math.random() * 6,
+      wing: 0, phase: Math.random() * 6,
     };
-    el.addEventListener('click', () => catchCreature(c, 'visitor'));
+    el.addEventListener('click', () => catchCreature(c));
     creatures.push(c);
     return c;
   }
@@ -136,24 +136,20 @@
       kick();
     }, rnd(3000, 6000));
   }
-  function catchCreature(c, who) {
+  // Клик по стрекозе или светлячку в шапке — его ловит лягушка (если занята, поймает следующим).
+  // В пруду внизу лягушки нет — там существо просто исчезает.
+  const queue = [];
+  function catchCreature(c) {
     if (c.mode === 'gone' || c.mode === 'held') return;
+    if (c.stage === scene) {
+      c.mode = 'held';
+      if (frogBusy) queue.push(c); else hunt(c, 'visitor');
+      return;
+    }
     c.mode = 'gone';
     c.el.classList.add('is-gone');
     respawn(c);
-    if (who === 'visitor' && c.stage === scene) sayNow('more'); // «...ещё один!»
   }
-
-  // Мерцание светлячков: On / Off раз в 1–2 с, у каждого своя фаза
-  creatures.filter((c) => c.kind === 'firefly').forEach((c) => {
-    (function flicker() {
-      setTimeout(() => {
-        c.on = !c.on;
-        c.img.src = src(c.on ? 'firefly-on' : 'firefly-off');
-        flicker();
-      }, rnd(1000, 2000));
-    })();
-  });
 
   let wingTick = 0, raf = 0;
   const visible = new Map([[scene, true], [pond, true]]);
@@ -242,7 +238,7 @@
       })(t0);
     });
   }
-  async function hunt(c) {
+  async function hunt(c, who) {
     frogBusy = true;
     c.mode = 'held';
     const cx = snap(c.x) + c.w / 2, cy = snap(c.y) + c.h / 2;
@@ -260,17 +256,20 @@
     setFrog('gulp');
     await wait(300);
     setFrog('idle');
+    respawn(c);
+    // «...ещё один!» — когда помог посетитель, «...наелась, ква?» — когда поймала сама
+    sayNow(who === 'visitor' ? 'more' : 'frog');
+    const next = queue.shift();
+    if (next) { await wait(250); hunt(next, 'visitor'); return; }
     frogBusy = false;
     nextHunt = performance.now() + rnd(10000, 20000);
-    respawn(c);
-    sayNow('frog'); // «...наелась, ква?»
   }
   setInterval(() => {
     const now = performance.now();
     if (frogBusy || now < nextHunt || !visible.get(scene) || document.hidden) return;
     const target = creatures.find((c) => c.stage === scene && active(c) && (c.mode === 'hover' || c.mode === 'dart') &&
       Math.hypot(c.x + c.w / 2 - MOUTH.x, c.y + c.h / 2 - MOUTH.y) <= 75);
-    if (target) hunt(target);
+    if (target) hunt(target, 'frog');
   }, 300);
 
   // ---------- Реплики ----------
@@ -292,25 +291,29 @@
   });
   let speaking = false, loopTimer = 0;
 
+  // Реплика остаётся на месте с мигающим курсором, пока её не сменит следующая
+  let current = null;
   function say(key, done) {
     const ph = PHRASES[key];
     if (!ph) { if (done) done(); return; }
     speaking = true;
-    Object.values(PHRASES).forEach((p) => p.svg.toggleAttribute('hidden', p !== ph));
-    speech.style.left = ph.svg.dataset.left + 'px';
-    clip.style.width = '0px';
-    speech.classList.remove('is-hidden', 'is-idle');
-    let i = 0;
-    (function step() {
-      clip.style.width = (i ? ph.edges[i - 1] : 0) + 'px';
-      cursor.style.left = (i ? ph.adv[i - 1] : 0) + 3 + 'px';
-      if (i < ph.edges.length) { i++; setTimeout(step, 40); return; }
-      speech.classList.add('is-idle');
-      setTimeout(() => {
-        speech.classList.add('is-hidden');
-        setTimeout(() => { speaking = false; if (done) done(); }, 150);
-      }, rnd(3000, 4000));
-    })();
+    const start = () => {
+      current = key;
+      Object.values(PHRASES).forEach((p) => p.svg.toggleAttribute('hidden', p !== ph));
+      speech.style.left = ph.svg.dataset.left + 'px';
+      clip.style.width = '0px';
+      speech.classList.remove('is-hidden', 'is-idle');
+      let i = 0;
+      (function step() {
+        clip.style.width = (i ? ph.edges[i - 1] : 0) + 'px';
+        cursor.style.left = (i ? ph.adv[i - 1] : 0) + 3 + 'px';
+        if (i < ph.edges.length) { i++; setTimeout(step, 40); return; }
+        speech.classList.add('is-idle');
+        speaking = false;
+        if (done) done();
+      })();
+    };
+    if (current) { speech.classList.add('is-hidden'); setTimeout(start, 150); } else start();
   }
   function pool() {
     return Object.keys(PHRASES).filter((k) => {
@@ -321,7 +324,7 @@
   function schedule() {
     clearTimeout(loopTimer);
     loopTimer = setTimeout(() => {
-      const list = pool();
+      const list = pool().filter((k) => k !== current);
       if (!list.length || speaking) return schedule();
       say(list[Math.floor(Math.random() * list.length)], schedule);
     }, rnd(15000, 20000));
@@ -331,6 +334,14 @@
 
   speech.classList.add('is-hidden');
   setTimeout(() => say('greet', schedule), 700);
+  // Смена дня и ночи: если висит реплика другого времени суток — сразу заменить подходящей
+  document.addEventListener('themechange', () => {
+    const w = current && PHRASES[current].when;
+    if ((w === 'day' || w === 'night') && (w === 'night') !== isNight() && !speaking) {
+      const list = pool();
+      if (list.length) say(list[Math.floor(Math.random() * list.length)], schedule);
+    }
+  });
 
   // ---------- Смена дня и ночи из меню ----------
   document.addEventListener('themechange', () => {

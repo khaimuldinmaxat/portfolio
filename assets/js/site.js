@@ -1,26 +1,82 @@
-// Боковое меню: имя раскрывает контакты, «Кейсы» сворачивают список. Почта копируется по клику.
+// Боковое меню: раскрывающиеся списки, текущий раздел с оранжевым квадратом. Почта копируется по клику.
 (function () {
   const sidebar = document.querySelector('.sidebar');
-  const nameBtn = document.querySelector('.sidebar__name');
-  if (sidebar && nameBtn) {
-    nameBtn.addEventListener('click', () => {
-      const open = sidebar.classList.toggle('is-open');
-      nameBtn.setAttribute('aria-expanded', String(open));
-    });
-  }
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const cases = document.querySelector('.sidebar__cases');
-  const casesBtn = document.querySelector('.sidebar__cases-btn');
-  if (cases && casesBtn) {
-    casesBtn.addEventListener('click', () => {
-      // В мобильном меню список кейсов скрыт — ведём к блоку кейсов на главной
-      if (window.matchMedia('(max-width: 1023px)').matches) {
-        window.location.href = casesBtn.dataset.href || '#cases';
-        return;
-      }
-      const closed = cases.classList.toggle('is-closed');
-      casesBtn.setAttribute('aria-expanded', String(!closed));
+  // Стрелка раскрывает и сворачивает список. «Кейсы» — ссылка на блок кейсов, список только по стрелке.
+  document.querySelectorAll('.nav-fold').forEach((fold) => {
+    const btn = fold.querySelector('[aria-expanded]');
+    btn.addEventListener('click', () => {
+      const closed = fold.classList.toggle('is-closed');
+      btn.setAttribute('aria-expanded', String(!closed));
     });
+  });
+
+  // ---------- Квадрат текущего раздела ----------
+  // Квадрат 8×8 из 16 пикселей 2×2: на новом пункте собирается по пикселям в случайном порядке,
+  // на старом через мгновение так же рассыпается.
+  if (sidebar) {
+    sidebar.classList.add('js-marks');
+    const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+    function markOf(item) {
+      let m = item.querySelector(':scope > .mark');
+      if (!m) {
+        m = document.createElement('span');
+        m.className = 'mark';
+        m.setAttribute('aria-hidden', 'true');
+        for (let k = 0; k < 16; k++) {
+          const i = document.createElement('i');
+          i.style.left = (k % 4) * 2 + 'px';
+          i.style.top = Math.floor(k / 4) * 2 + 'px';
+          m.appendChild(i);
+        }
+        item.appendChild(m);
+      }
+      return m;
+    }
+    function run(cells, on, total, delay) {
+      if (reduce) { cells.forEach((c) => c.classList.toggle('on', on)); return; }
+      const step = total / cells.length;
+      shuffle(cells.slice()).forEach((c, k) => {
+        clearTimeout(c._t);
+        c._t = setTimeout(() => c.classList.toggle('on', on), delay + k * step);
+      });
+    }
+    let active = sidebar.querySelector('.nav-item[aria-current="page"]');
+    if (active) run(Array.from(markOf(active).children), true, 0, 0);
+    function setActive(item) {
+      if (!item || item === active) return;
+      const old = active;
+      if (old) old.removeAttribute('aria-current');
+      item.setAttribute('aria-current', 'page');
+      active = item;
+      run(Array.from(markOf(item).children), true, 320, 0);
+      if (old) run(Array.from(markOf(old).children), false, 420, 140);
+    }
+
+    // На главной: квадрат у раздела, к которому перешли или до которого докрутили
+    const onHome = !!document.getElementById('cases');
+    if (onHome) {
+      const items = Array.from(sidebar.querySelectorAll('[data-section]'));
+      const byId = (id) => items.find((i) => i.dataset.section === id);
+      items.forEach((i) => i.addEventListener('click', (e) => {
+        if (i.dataset.section === 'top') { e.preventDefault(); window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); history.replaceState(null, '', './'); }
+        setActive(i);
+        lock = Date.now() + 900; // пока страница доезжает, не перескакивать по пути
+      }));
+      let lock = 0;
+      const sections = ['cases', 'experience'].map((id) => document.getElementById(id)).filter(Boolean);
+      function spy() {
+        if (Date.now() < lock) return;
+        const line = window.innerHeight * 0.4;
+        let id = 'top';
+        sections.forEach((sec) => { if (sec.getBoundingClientRect().top < line) id = sec.id; });
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) id = sections.length ? sections[sections.length - 1].id : id;
+        setActive(byId(id));
+      }
+      window.addEventListener('scroll', () => window.requestAnimationFrame(spy), { passive: true });
+      if (location.hash) setTimeout(spy, 50);
+    }
   }
 
   // «Настройки» внизу меню: день ↔ ночь. Выбор запоминается, без него тема идёт по времени устройства.

@@ -29,30 +29,29 @@
 
   <aside class="sidebar" aria-label="Меню">
     <div class="sidebar__top">
-      <div class="sidebar__name-block">
-        <button class="sidebar__name" type="button" aria-expanded="false" aria-controls="contacts">
-          <span><span class="en">Maxat Khaimuldin</span><span class="ru">Максат Хаймулдин</span></span>
-          <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 9H3v2h2zM7 7H5v2h2zM9 5H7v2h2zM11 7H9v2h2zM13 9h-2v2h2z"/></svg>
-        </button>
-        <ul class="sidebar__contacts nav-group" id="contacts">
-          <li><a class="nav-item nav-item--sub" href="https://t.me/mr_chiller312" target="_blank" rel="noopener">Telegram</a></li>
-          <li><a class="nav-item nav-item--sub" href="mailto:khaimuldin.maxat@gmail.com">Почта</a></li>
-          <li><a class="nav-item nav-item--sub" href="https://www.linkedin.com/in/maxat-khaimuldin/" target="_blank" rel="noopener">LinkedIn</a></li>
-        </ul>
-      </div>
+      <a class="nav-item sidebar__logo" href="../" data-section="top">Максат Хаймулдин</a>
       <nav class="sidebar__menu" aria-label="Разделы">
         <div class="nav-group">
-          <a class="nav-item" href="../">Главная</a>
-          <div class="sidebar__cases">
-            <button class="nav-item sidebar__cases-btn" type="button" data-href="../#cases" aria-expanded="true" style="width:100%">
-              <span>Кейсы</span>
-              <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 9H3v2h2zM7 7H5v2h2zM9 5H7v2h2zM11 7H9v2h2zM13 9h-2v2h2z"/></svg>
-            </button>
-            <ul class="sidebar__case-list nav-group">
+          <div class="nav-fold">
+            <div class="nav-row">
+              <a class="nav-item" href="../#cases" data-section="cases">Кейсы</a>
+              <button class="nav-toggle" type="button" aria-expanded="true" aria-controls="nav-cases" aria-label="Список кейсов"><svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 9H3v2h2zM7 7H5v2h2zM9 5H7v2h2zM11 7H9v2h2zM13 9h-2v2h2z"/></svg></button>
+            </div>
+            <ul class="nav-sub" id="nav-cases">
               <li><a class="nav-item nav-item--sub" href="./" aria-current="page">SPOTS</a></li>
             </ul>
           </div>
-          <a class="nav-item" href="../#experience">Опыт</a>
+          <a class="nav-item" href="../#experience" data-section="experience">Опыт</a>
+          <div class="nav-fold is-closed">
+            <button class="nav-item nav-row nav-toggle--row" type="button" aria-expanded="false" aria-controls="nav-contacts">
+              <span>Контакты</span><svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 9H3v2h2zM7 7H5v2h2zM9 5H7v2h2zM11 7H9v2h2zM13 9h-2v2h2z"/></svg>
+            </button>
+            <ul class="nav-sub" id="nav-contacts">
+              <li><a class="nav-item nav-item--sub" href="https://t.me/mr_chiller312" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a class="nav-item nav-item--sub" href="mailto:khaimuldin.maxat@gmail.com">Почта</a></li>
+              <li><a class="nav-item nav-item--sub" href="https://www.linkedin.com/in/maxat-khaimuldin/" target="_blank" rel="noopener">LinkedIn</a></li>
+            </ul>
+          </div>
         </div>
         <div class="nav-group">
           <a class="nav-item" href="../cv/Maxat-Khaimuldin-CV.pdf" target="_blank" rel="noopener">Скачать CV</a>
