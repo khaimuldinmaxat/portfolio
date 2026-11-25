@@ -57,12 +57,18 @@ h1, h2, h3, h4 { margin: 0; font-weight: 500; }
 ul { margin: 0; padding: 0; list-style: none; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 
-/* Пиксельные курсоры. Картинки в 2×, второе число после файла — точка клика */
-html { cursor: url("../cursors/arrow.png") 0 0, auto; }
-a, button, summary, label, [role="button"] { cursor: url("../cursors/hand.png") 11 1, pointer; }
-:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.on-dark :focus-visible { outline-color: var(--on-dark); }
-.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* Пиксельные курсоры: размер как у рисунка в 1×, на ретине браузер берёт файл @2x.
+   Числа после файла — точка клика в пикселях 1× */
+html {
+  cursor: url("../cursors/arrow.png") 0 0, auto;
+  cursor: -webkit-image-set(url("../cursors/arrow.png") 1x, url("../cursors/arrow@2x.png") 2x) 0 0, auto;
+  cursor: image-set(url("../cursors/arrow.png") 1x, url("../cursors/arrow@2x.png") 2x) 0 0, auto;
+}
+a, button, summary, label, [role="button"] {
+  cursor: url("../cursors/hand.png") 5 0, pointer;
+  cursor: -webkit-image-set(url("../cursors/hand.png") 1x, url("../cursors/hand@2x.png") 2x) 5 0, pointer;
+  cursor: image-set(url("../cursors/hand.png") 1x, url("../cursors/hand@2x.png") 2x) 5 0, pointer;
+}
 
 .container {
   width: min(var(--container), calc(100% - 2 * min(var(--gutter), 6vw)));
