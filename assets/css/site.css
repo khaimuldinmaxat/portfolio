@@ -319,8 +319,8 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 .swatch:hover { transform: translateY(-3px); }
 .swatch[aria-checked="true"] { transform: translateY(-6px); }
 .swatch:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.letter__send { --p: 3px; --c: 3px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font: inherit; color: #fff; background: var(--ink); border: 0; cursor: pointer; clip-path: polygon(var(--c) 0,calc(100% - var(--c)) 0,calc(100% - var(--c)) var(--p),calc(100% - var(--p)) var(--p),calc(100% - var(--p)) var(--c),100% var(--c),100% calc(100% - var(--c)),calc(100% - var(--p)) calc(100% - var(--c)),calc(100% - var(--p)) calc(100% - var(--p)),calc(100% - var(--c)) calc(100% - var(--p)),calc(100% - var(--c)) 100%,var(--c) 100%,var(--c) calc(100% - var(--p)),var(--p) calc(100% - var(--p)),var(--p) calc(100% - var(--c)),0 calc(100% - var(--c)),0 var(--c),var(--p) var(--c),var(--p) var(--p),var(--c) var(--p)); }
-.letter__send svg { width: 12px; height: 12px; }
+.letter__send { --p: 3px; --c: 3px; display: inline-flex; align-items: center; justify-content: center; width: 39px; height: 39px; padding: 0; font: inherit; color: #fff; background: var(--ink); border: 0; cursor: pointer; clip-path: polygon(var(--c) 0,calc(100% - var(--c)) 0,calc(100% - var(--c)) var(--p),calc(100% - var(--p)) var(--p),calc(100% - var(--p)) var(--c),100% var(--c),100% calc(100% - var(--c)),calc(100% - var(--p)) calc(100% - var(--c)),calc(100% - var(--p)) calc(100% - var(--p)),calc(100% - var(--c)) calc(100% - var(--p)),calc(100% - var(--c)) 100%,var(--c) 100%,var(--c) calc(100% - var(--p)),var(--p) calc(100% - var(--p)),var(--p) calc(100% - var(--c)),0 calc(100% - var(--c)),0 var(--c),var(--p) var(--c),var(--p) var(--p),var(--c) var(--p)); }
+.letter__send svg { width: 18px; height: 18px; }
 .letter__send:hover, .letter__send:focus-visible { background: var(--accent); outline: none; }
 .letter__send[disabled] { opacity: .5; cursor: default; }
 .letter .note__error { margin-top: 12px; font: inherit; color: #c0392b; }
