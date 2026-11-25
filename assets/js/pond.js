@@ -276,23 +276,19 @@
   // ---------- Реплики ----------
   // Печатаются по букве (40 мс на символ), мигающий курсор, висят 3–4 с, исчезают за 150 мс.
   // Сначала приветствие, дальше раз в 15–20 с случайная реплика по времени суток.
-  // Каждая реплика — текст шрифтом GNF из Figma (кривые), для печати по букве хранится
-  // правый край каждого символа. Реплики без готового текста из Figma не показываются.
   const speech = scene.querySelector('.speech');
   const clip = speech.querySelector('.speech__clip');
   const cursor = speech.querySelector('.speech__cursor');
-  const X0 = 0.73;
-  const PHRASES = {
-    // «...привет, я максат!» (буквы с трекингом −1 %, как в шапке)
-    greet: { gap: 4.35, edges: [1.46, 4.24, 7.02, 15.66, 24.3, 32.94, 41.58, 50.22, 58.86, 61.64, 61.64,
-      74.52, 74.52, 87.41, 96.04, 103.22, 111.86, 120.5, 129.14, 131.92] },
-    // «...лови светлячков!» — только ночью
-    fireflies: { gap: 4.5, when: 'night', edges: [1.46, 4.39, 7.32, 16.11, 24.9, 33.69, 42.48, 42.48,
-      55.66, 64.45, 73.24, 82.03, 90.82, 99.61, 106.93, 114.26, 123.05, 131.84, 134.77] },
-  };
-  Object.keys(PHRASES).forEach((k) => {
-    PHRASES[k].svg = clip.querySelector('[data-phrase="' + k + '"]');
-    if (!PHRASES[k].svg) delete PHRASES[k];
+  // Каждая реплика — текст шрифтом GNF в кривых. data-edges — правый край каждого символа
+  // (до него открываем текст), data-adv — где кончается символ (за ним через 3 px курсор).
+  // data-when: day / night — по времени суток, catch — только сразу после поимки.
+  const PHRASES = {};
+  clip.querySelectorAll('svg[data-phrase]').forEach((svg) => {
+    PHRASES[svg.dataset.phrase] = {
+      svg, when: svg.dataset.when || '',
+      edges: svg.dataset.edges.split(',').map(Number),
+      adv: svg.dataset.adv.split(',').map(Number),
+    };
   });
   let speaking = false, loopTimer = 0;
 
@@ -300,15 +296,14 @@
     const ph = PHRASES[key];
     if (!ph) { if (done) done(); return; }
     speaking = true;
-    Object.values(PHRASES).forEach((p) => { p.svg.hidden = p !== ph; });
+    Object.values(PHRASES).forEach((p) => p.svg.toggleAttribute('hidden', p !== ph));
     speech.style.left = ph.svg.dataset.left + 'px';
     clip.style.width = '0px';
     speech.classList.remove('is-hidden', 'is-idle');
     let i = 0;
     (function step() {
-      const w = i ? ph.edges[i - 1] : 0;
-      clip.style.width = w + 'px';
-      cursor.style.left = X0 + w + (i ? ph.gap : 0) + 'px';
+      clip.style.width = (i ? ph.edges[i - 1] : 0) + 'px';
+      cursor.style.left = (i ? ph.adv[i - 1] : 0) + 3 + 'px';
       if (i < ph.edges.length) { i++; setTimeout(step, 40); return; }
       speech.classList.add('is-idle');
       setTimeout(() => {
@@ -320,7 +315,7 @@
   function pool() {
     return Object.keys(PHRASES).filter((k) => {
       const w = PHRASES[k].when;
-      return k !== 'greet' && (!w || (w === 'night') === isNight());
+      return k !== 'greet' && w !== 'catch' && (!w || (w === 'night') === isNight());
     });
   }
   function schedule() {
@@ -331,7 +326,7 @@
       say(list[Math.floor(Math.random() * list.length)], schedule);
     }, rnd(15000, 20000));
   }
-  // Реакция на поимку: ждёт текст из Figma, пока такой реплики нет — молчим
+  // Сразу после поимки: «...ещё один!» — ловит посетитель, «...наелась, ква?» — ловит лягушка
   function sayNow(key) { if (PHRASES[key] && !speaking) say(key, schedule); }
 
   speech.classList.add('is-hidden');

@@ -206,7 +206,7 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 /* Реплика: пиксельный текст печатается по букве */
 .speech { width: 143px; height: 18px; color: var(--text); transition: opacity 150ms ease; }
 .speech.is-hidden { opacity: 0; }
-.speech__clip { position: absolute; left: .73px; top: 3.75px; height: 14px; width: 132px; overflow: hidden; }
+.speech__clip { position: absolute; left: 0; top: 0; height: 18px; width: 136px; overflow: hidden; }
 .speech__clip svg { display: block; }
 .speech__clip svg[hidden] { display: none; }
 .speech__cursor { position: absolute; left: 137px; top: 1.5px; width: 6px; height: 15px; background: currentColor; }
