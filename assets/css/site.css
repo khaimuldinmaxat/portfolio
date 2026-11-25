@@ -302,8 +302,6 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 .note[hidden] { display: none; }
 .note.is-open { animation: note-in .18s ease-out; }
 @keyframes note-in { from { opacity: 0; transform: scale(.96); } }
-.note--read { color: #151513; }
-.note--read .note__meta { font-size: 14px; line-height: 21px; }
 /* Письмо (вариант А): лист выбранного цвета в пиксельной рамке, строки, шрифт GNF, подпись, бумажки для цвета.
    Цвета листа — из PAPER в messages.js: --paper светлый, --paper-line основной, --paper-ink тень. */
 .letter { width: 360px; gap: 0; --ink: #26192c; --p: 3px; --c: 6px; background: var(--ink); padding: var(--p); clip-path: polygon(var(--c) 0,calc(100% - var(--c)) 0,calc(100% - var(--c)) var(--p),calc(100% - var(--p)) var(--p),calc(100% - var(--p)) var(--c),100% var(--c),100% calc(100% - var(--c)),calc(100% - var(--p)) calc(100% - var(--c)),calc(100% - var(--p)) calc(100% - var(--p)),calc(100% - var(--c)) calc(100% - var(--p)),calc(100% - var(--c)) 100%,var(--c) 100%,var(--c) calc(100% - var(--p)),var(--p) calc(100% - var(--p)),var(--p) calc(100% - var(--c)),0 calc(100% - var(--c)),0 var(--c),var(--p) var(--c),var(--p) var(--p),var(--c) var(--p)); }
@@ -325,9 +323,11 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 .letter__send svg { width: 12px; height: 12px; }
 .letter__send:hover, .letter__send:focus-visible { background: var(--accent); outline: none; }
 .letter__send[disabled] { opacity: .5; cursor: default; }
-.letter__foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; color: var(--paper-ink, #b0a690); }
-.letter__foot .note__error { font: inherit; color: #c0392b; margin-right: auto; }
-.letter__foot:has(.note__error:not([hidden])) .letter__note { display: none; }
+.letter .note__error { margin-top: 12px; font: inherit; color: #c0392b; }
+.note--read.letter { width: 320px; }
+.letter__text { white-space: pre-wrap; overflow-wrap: anywhere; background: repeating-linear-gradient(transparent 0 21px, var(--paper-line, #d9d2c3) 21px 24px); }
+.letter__meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 4px; color: var(--paper-ink, #b0a690); }
+.letter__meta b { flex: none; align-self: flex-end; white-space: nowrap; font-weight: inherit; color: var(--ink); }
 
 .lily--note:hover .lily__body { animation: lily-sway .4s steps(1) 1; }
 @keyframes lily-sway { 0% { transform: translateX(3px); } 50% { transform: translateX(-3px); } 100% { transform: none; } }

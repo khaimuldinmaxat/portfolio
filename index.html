@@ -23,7 +23,7 @@
   <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
   <link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/site.css?v=202611260132">
+  <link rel="stylesheet" href="assets/css/site.css?v=202611260140">
 </head>
 <body>
 <div class="layout">
@@ -182,26 +182,22 @@
           <div class="letter__sheet">
             <label class="letter__body">
               <span class="visually-hidden">Текст сообщения</span>
-              <textarea name="message" maxlength="140" rows="4" placeholder="напишите пару слов…" required></textarea>
+              <textarea name="message" maxlength="140" rows="4" placeholder="привет, максат!" required></textarea>
             </label>
             <label class="letter__sign">
               <span aria-hidden="true">—</span>
               <span class="visually-hidden">Имя</span>
-              <input name="name" type="text" maxlength="40" placeholder="подпись, по желанию" autocomplete="name">
+              <input name="name" type="text" maxlength="40" placeholder="подпись" autocomplete="name">
             </label>
             <div class="letter__bar">
               <div class="note__swatches"></div>
               <button class="letter__send" type="submit">посадить <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M2 7h8v2H2zM8 3h2v2H8zM8 11h2v2H8zM10 5h2v2h-2zM10 9h2v2h-2zM12 7h2v2h-2z"/></svg></button>
             </div>
-            <div class="letter__foot">
-              <span class="letter__note">всем — после проверки</span>
-              <p class="note__error" role="alert" hidden></p>
-              <span class="note__count" aria-live="polite">0 / 140</span>
-            </div>
+            <p class="note__error" role="alert" hidden></p>
           </div>
           <input class="visually-hidden" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
         </form>
-        <div class="note note--read" id="pond-note" hidden role="dialog" aria-label="Сообщение"></div>
+        <div class="note note--read letter" id="pond-note" hidden role="dialog" aria-label="Сообщение"></div>
       </section>
       <footer class="footer col">
         <span>Astana, Kazakhstan</span>
@@ -211,9 +207,9 @@
   </main>
 
 </div>
-<script src="assets/js/site.js?v=202611260132"></script>
-<script src="assets/js/pond.js?v=202611260132"></script>
-<script src="assets/js/waves.js?v=202611260132"></script>
-<script src="assets/js/messages.js?v=202611260132"></script>
+<script src="assets/js/site.js?v=202611260140"></script>
+<script src="assets/js/pond.js?v=202611260140"></script>
+<script src="assets/js/waves.js?v=202611260140"></script>
+<script src="assets/js/messages.js?v=202611260140"></script>
 </body>
 </html>

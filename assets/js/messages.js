@@ -132,18 +132,29 @@
   const DATE = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long' });
   function openNote(lily, msg, own) {
     closeAll();
-    card.style.background = PAPER[msg.color][0];
+    const [L, M, S] = PAPER[msg.color];
+    card.style.setProperty('--paper', L);
+    card.style.setProperty('--paper-line', M);
+    card.style.setProperty('--paper-ink', S);
     card.textContent = '';
+    const sheet = document.createElement('div');
+    sheet.className = 'letter__sheet';
     const text = document.createElement('p');
+    text.className = 'letter__text';
     text.textContent = msg.text;
     const meta = document.createElement('p');
-    meta.className = 'note__meta';
-    if (own) meta.textContent = 'Видно только вам, пока я его не проверю';
-    else {
-      const d = msg.date ? DATE.format(new Date(msg.date + 'T12:00:00')) : '';
-      meta.textContent = [msg.name, d].filter(Boolean).join(' · ');
+    meta.className = 'letter__meta';
+    const left = document.createElement('span');
+    if (own) left.textContent = 'видно только вам, пока я его не проверю';
+    else if (msg.date) left.textContent = DATE.format(new Date(msg.date + 'T12:00:00'));
+    meta.append(left);
+    if (msg.name) {
+      const sign = document.createElement('b');
+      sign.textContent = '— ' + msg.name;
+      meta.append(sign);
     }
-    card.append(text, meta);
+    sheet.append(text, meta);
+    card.append(sheet);
     place(card, lily);
     if (!reduce) {
       lily.classList.remove('lily--planting');
@@ -164,7 +175,6 @@
 
   // ---------- Форма ----------
   const ta = form.querySelector('textarea');
-  const count = form.querySelector('.note__count');
   const err = form.querySelector('.note__error');
   const submit = form.querySelector('[type="submit"]');
   const sw = form.querySelector('.note__swatches');
@@ -204,7 +214,7 @@
     ta.style.height = '96px';
     ta.style.height = Math.min(144, Math.max(96, Math.ceil(ta.scrollHeight / 24) * 24)) + 'px';
   }
-  ta.addEventListener('input', () => { count.textContent = ta.value.length + ' / 140'; fitText(); });
+  ta.addEventListener('input', fitText);
 
   function openForm(pad) {
     closeAll();
@@ -263,7 +273,6 @@
         { duration: 220, easing: 'ease-in' }).finished;
     }
     form.reset();
-    count.textContent = '0 / 140';
     fitName();
     fitText();
     closeAll();
