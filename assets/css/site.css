@@ -75,6 +75,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   position: sticky;
   top: 0;
   flex: 0 0 var(--sidebar);
+  width: var(--sidebar);
+  min-width: 0;
   height: 100vh;
   padding: 23px 35px;
   border-right: 1px solid var(--border);
@@ -86,7 +88,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   flex-direction: column;
   justify-content: space-between;
 }
-.sidebar__top { display: flex; flex-direction: column; gap: 24px; }
+.sidebar__top { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
 .sidebar__logo { color: var(--text); justify-content: flex-start; gap: 8px; white-space: nowrap; }
 .sidebar__face { width: 24px; height: 24px; flex: none; image-rendering: pixelated; }
 .sidebar__menu { display: flex; flex-direction: column; gap: 12px; }
@@ -111,7 +113,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .nav-toggle { display: flex; align-items: center; justify-content: flex-end; height: 38px; padding-left: 12px; }
 .nav-toggle:hover .chev, .nav-toggle--row:hover .chev { color: var(--text); }
 .chev { width: 16px; height: 16px; flex: none; color: var(--text-2); transition: color 150ms ease; }
-.nav-fold.is-closed .chev { transform: rotate(180deg); }
 .nav-fold.is-closed .nav-sub { display: none; }
 
 /* Текущий пункт — оранжевый квадрат 8×8 слева. С JS он собирается и рассыпается по пикселям (menu-mark). */

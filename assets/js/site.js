@@ -4,11 +4,46 @@
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Стрелка раскрывает и сворачивает список. «Кейсы» — ссылка на блок кейсов, список только по стрелке.
+  // Как у Мартина: стрелка схлопывается в точку и вырастает в другую сторону (точка → 3 пикселя → 5),
+  // список при открытии вырастает по высоте и проявляется, при закрытии гаснет и схлопывается.
+  const PX = (pts) => pts.map(([x, y]) => 'M' + x + ' ' + y + 'h2v2h-2z').join('');
+  const CHEV = {
+    up: [PX([[7, 7]]), PX([[5, 8], [7, 6], [9, 8]]), PX([[3, 9], [5, 7], [7, 5], [9, 7], [11, 9]])],
+    down: [PX([[7, 7]]), PX([[5, 6], [7, 8], [9, 6]]), PX([[3, 5], [5, 7], [7, 9], [9, 7], [11, 5]])],
+  };
+  function drawChev(svg, dir, animate) {
+    const path = svg.querySelector('path');
+    clearTimeout(svg._t1); clearTimeout(svg._t2);
+    if (!animate || reduce) { path.setAttribute('d', CHEV[dir][2]); return; }
+    path.setAttribute('d', CHEV[dir][0]);
+    svg._t1 = setTimeout(() => path.setAttribute('d', CHEV[dir][1]), 40);
+    svg._t2 = setTimeout(() => path.setAttribute('d', CHEV[dir][2]), 90);
+  }
   document.querySelectorAll('.nav-fold').forEach((fold) => {
     const btn = fold.querySelector('[aria-expanded]');
+    const list = fold.querySelector('.nav-sub');
+    const chev = btn.querySelector('.chev');
+    drawChev(chev, fold.classList.contains('is-closed') ? 'down' : 'up', false);
     btn.addEventListener('click', () => {
-      const closed = fold.classList.toggle('is-closed');
-      btn.setAttribute('aria-expanded', String(!closed));
+      const closing = !fold.classList.contains('is-closed');
+      btn.setAttribute('aria-expanded', String(!closing));
+      drawChev(chev, closing ? 'down' : 'up', true);
+      if (list._anim) list._anim.cancel();
+      if (reduce) { fold.classList.toggle('is-closed', closing); return; }
+      if (closing) {
+        const h = list.offsetHeight;
+        list.style.overflow = 'hidden';
+        list._anim = list.animate([{ height: h + 'px', opacity: 1 }, { height: '0px', opacity: 0 }],
+          { duration: 220, easing: 'ease-in' });
+        list._anim.onfinish = () => { fold.classList.add('is-closed'); list.style.overflow = ''; list._anim = null; };
+      } else {
+        fold.classList.remove('is-closed');
+        const h = list.offsetHeight;
+        list.style.overflow = 'hidden';
+        list._anim = list.animate([{ height: '0px', opacity: 0 }, { height: h + 'px', opacity: 1 }],
+          { duration: 220, easing: 'ease-out' });
+        list._anim.onfinish = () => { list.style.overflow = ''; list._anim = null; };
+      }
     });
   });
 
