@@ -142,7 +142,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
    Сцена живёт в своих координатах из макета (1200×400 и 1200×180),
    pond.js масштабирует её под ширину колонки. */
 .stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; transform: translateX(var(--x, 0px)) scale(var(--s, 1)); }
-.scene .stage { width: 1200px; height: 400px; }
+.scene .stage { width: 1200px; height: 340px; }
 .pond__scene .stage { width: 1200px; height: 180px; }
 .spr { position: absolute; display: block; }
 .stage img, .stage canvas { image-rendering: pixelated; }
@@ -166,7 +166,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @keyframes fr2b { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 1; } }
 
 /* ---------- Главная: шапка-пруд ---------- */
-.scene { position: relative; width: 100%; aspect-ratio: 1200 / 400; overflow: hidden; }
+.scene { position: relative; width: 100%; aspect-ratio: 1200 / 340; overflow: hidden; }
 .hero { width: 210px; height: 225px; }
 .hero__head { width: 210px; height: 225px; }
 .hero__ripple { left: 0; top: 192px; width: 210px; height: 33px; }
@@ -190,7 +190,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .fly::before { content: ""; position: absolute; inset: -15px -12px; }
 .fly.is-right img { transform: scaleX(-1); }
 .fly.is-gone { visibility: hidden; }
-.tongue { position: absolute; left: 0; top: 0; width: 1200px; height: 402px; pointer-events: none; }
+.tongue { position: absolute; left: 0; top: 0; width: 1200px; height: 342px; pointer-events: none; }
 
 /* Ночь: спрайты сцены приглушены до 0.6, звёзды, светлячки, свечение цветка и реплика — нет.
    Днём летают стрекозы, ночью светлячки. */
@@ -366,7 +366,7 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 }
 @media (max-width: 720px) {
   body { font-size: 16px; line-height: 24px; }
-  .scene { aspect-ratio: auto; height: 220px; }
+  .scene { aspect-ratio: auto; height: 187px; }
   .speech { display: none; }
   .pond__scene { aspect-ratio: auto; height: 110px; }
   .case { padding-top: 40px; }

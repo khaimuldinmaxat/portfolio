@@ -80,8 +80,8 @@
   })();
 
   // ---------- Летающие: днём стрекозы, ночью светлячки ----------
-  // Зона полёта в шапке — овал над водой и головой (слой «Flight zone»: 331,0 · 530×170).
-  const HEAD_ZONE = { oval: true, cx: 596, cy: 85, rx: 265, ry: 85 };
+  // Зона полёта в шапке — овал над водой и головой (слой «Flight zone»: 331,0 · 530×110, нижний край у лягушки).
+  const HEAD_ZONE = { oval: true, cx: 596, cy: 55, rx: 265, ry: 55 };
   const POND_ZONE = { oval: false, x0: 20, y0: 10, x1: 1160, y1: 150 };
   function pointIn(zone, w, h, k) {
     if (zone.oval) {
@@ -126,7 +126,7 @@
       if (z.oval) {
         const fromLeft = Math.random() < 0.5;
         c.x = fromLeft ? z.cx - z.rx - 30 : z.cx + z.rx + 12;
-        c.y = rnd(20, 120);
+        c.y = rnd(10, 80);
       } else {
         c.x = Math.random() < 0.5 ? -30 : 1200;
         c.y = rnd(z.y0, z.y1 - c.h);
@@ -198,8 +198,8 @@
   const canvas = scene.querySelector('.tongue');
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
-  const MOUTH = { x: 576 + 9 * 3 + 1.5, y: 132 + 8 * 3 + 1.5 }; // центр рта в кадре Mouth open
-  const M = { x: 201, y: 52 };                                   // то же в пикселях спрайта
+  const MOUTH = { x: 576 + 9 * 3 + 1.5, y: 72 + 8 * 3 + 1.5 }; // центр рта в кадре Mouth open
+  const M = { x: 201, y: 32 };                                   // то же в пикселях спрайта
   let nextHunt = performance.now() + rnd(6000, 12000);
 
   function drawTongue(len, prey) {
