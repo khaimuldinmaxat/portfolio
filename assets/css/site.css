@@ -257,7 +257,11 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 
 /* ---------- Низ ---------- */
 .bottom { padding: 40px 0 80px; display: flex; flex-direction: column; gap: 40px; }
-.pond { padding: 40px 0; }
+.pond { position: relative; padding: 40px 0; display: flex; flex-direction: column; gap: 32px; }
+.pond__title { font-weight: 500; display: flex; align-items: center; gap: 10px; }
+.pond__hint { font-size: 16px; line-height: 24px; color: var(--text-2); }
+.pond__paper { width: 16px; height: 18px; flex: none; }
+.pond__paper, .lily__paper, .pond-cursor { shape-rendering: crispEdges; image-rendering: pixelated; }
 .pond__scene { position: relative; width: 100%; aspect-ratio: 1200 / 180; overflow: hidden; }
 
 /* Футер-пруд. Кувшинки без цветка ждут: покачиваются и неспешно крутят рябь.
@@ -265,7 +269,48 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 .lily--free .lily__body { animation: lily-wait 1.6s steps(1) infinite; animation-delay: var(--d, 0s); }
 @keyframes lily-wait { 50% { transform: translateY(-3px); } }
 .lily--free .lily__ripple { animation: frames3 2.1s steps(3) infinite; animation-delay: var(--d, 0s); }
-.lily--free:hover .lily__ripple { animation-duration: .48s; }
+/* Кувшинка без цветка — кнопка: при наведении или фокусе рябь быстрее, над листом бумажка,
+   курсор становится бумажкой. Клик, Enter или пробел открывают форму. */
+.lily--free { padding: 0; border: 0; background: none; cursor: none; }
+.lily--free:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.lily--free.is-awake .lily__ripple { animation-duration: .48s; }
+.lily__paper { position: absolute; left: 35px; top: -24px; width: 24px; height: 27px; opacity: 0; transform: translateY(6px); transition: opacity .18s ease-out, transform .18s ease-out; pointer-events: none; }
+.lily--free.is-awake .lily__paper { opacity: 1; transform: none; }
+.pond-cursor { position: fixed; left: 0; top: 0; width: 16px; height: 18px; pointer-events: none; z-index: 30; display: none; }
+.lily--note { cursor: pointer; padding: 0; border: 0; background: none; }
+.lily[hidden] { display: none; }
+.lily--note:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.lily--planting .lily__ripple { animation: frames3 .48s steps(3) 1; }
+.pond-drop { position: absolute; width: 6px; height: 6px; pointer-events: none; }
+
+/* Поповеры пруда: открытое сообщение и форма. Появление 180 мс от кувшинки, закрытие — клик мимо или Esc. */
+.note { position: absolute; z-index: 20; width: 320px; max-width: calc(100vw - 32px); padding: 20px; border-radius: 4px; display: flex; flex-direction: column; gap: 16px; transform-origin: 50% 100%; }
+.note[hidden] { display: none; }
+.note.is-open { animation: note-in .18s ease-out; }
+@keyframes note-in { from { opacity: 0; transform: scale(.96); } }
+.note--read { color: #151513; }
+.note--read .note__meta { font-size: 14px; line-height: 21px; }
+.note--form { width: 360px; background: var(--bg); border: 1px solid var(--border); }
+.note__title { font-weight: 500; font-size: 16px; line-height: 24px; }
+.note__paper { display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: 4px; background: var(--paper, #f4f1ea); color: #151513; transition: background .15s ease; }
+.note__paper textarea { font: inherit; font-size: 16px; line-height: 24px; color: inherit; background: none; border: 0; padding: 0; resize: none; height: 72px; outline: none; }
+.note__paper textarea::placeholder { color: rgba(21, 21, 19, .55); }
+.note__paper:focus-within { box-shadow: 0 0 0 2px #151513 inset; }
+.note__count { font-size: 14px; line-height: 21px; }
+.note__field input { width: 100%; font: inherit; font-size: 16px; line-height: 24px; color: var(--text); background: none; border: 1px solid var(--border); border-radius: 4px; padding: 10px 16px; }
+.note__field input::placeholder { color: var(--text-2); }
+.note__field input:focus { outline: 2px solid var(--text); outline-offset: -1px; }
+.note__colors { border: 0; padding: 0; margin: 0; }
+.note__colors legend { padding: 0; margin-bottom: 8px; font-size: 14px; line-height: 21px; color: var(--text-2); }
+.note__swatches { display: flex; gap: 8px; }
+.swatch { width: 24px; height: 24px; border-radius: 12px; border: 1px solid var(--shade); background: var(--fill); padding: 0; cursor: pointer; }
+.swatch[aria-checked="true"] { border: 2px solid var(--text); }
+.swatch:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.note__error { font-size: 14px; line-height: 21px; color: #c0392b; }
+.note__actions { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 14px; line-height: 21px; color: var(--text-2); }
+.note__actions .ilink { font-size: 18px; line-height: 28px; color: var(--text); background: none; border: 0; padding: 0; cursor: pointer; }
+.note__actions .ilink:hover { color: var(--text-2); }
+.note__actions .ilink[disabled] { opacity: .5; cursor: default; }
 .lily--note:hover .lily__ripple { animation: frames3 .48s steps(3) 1; }
 .lily--note:hover .lily__body { animation: lily-sway .4s steps(1) 1; }
 @keyframes lily-sway { 0% { transform: translateX(3px); } 50% { transform: translateX(-3px); } 100% { transform: none; } }
@@ -325,6 +370,10 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
   .intro br { display: none; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .note.is-open { animation: none; }
+  .lily__paper { transition: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }

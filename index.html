@@ -154,35 +154,54 @@
     </div>
 
     <div class="bottom">
-      <div class="pond" aria-hidden="true">
+      <section class="pond" aria-labelledby="pond-title">
+        <div class="pond__cta col">
+          <p class="pond__title" id="pond-title">Хотите оставить мне сообщение? <svg class="pond__paper js-paper" viewBox="0 0 8 9" aria-hidden="true"></svg></p>
+          <p class="pond__hint">Нажмите на любую кувшинку без цветка — и на ней распустится ваш</p>
+        </div>
         <div class="pond__scene">
           <div class="stage" data-w="1200" data-h="180">
             <img class="spr water" src="assets/img/px/water-spot.png" alt="" width="69" height="9" style="left:725px;top:66px">
             <img class="spr water" src="assets/img/px/water-spot.png" alt="" width="69" height="9" style="left:40px;top:150px">
             <img class="spr water" src="assets/img/px/water-spot.png" alt="" width="69" height="9" style="left:1090px;top:150px">
-            <div class="spr lily lily--free" style="left:196px;top:42px;--d:-0.0s"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"></div>
-            <div class="spr lily lily--free" style="left:840px;top:28px;--d:-0.5s"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"></div>
-            <div class="spr lily lily--free" style="left:450px;top:110px;--d:-1.0s"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"></div>
-            <span class="pond-glow night-only" style="left:88px;top:25px;background:#f4f1ea"></span>
-            <div class="spr lily lily--note" style="left:60px;top:22px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-white.png" alt="" width="93" height="51"></div>
-            <span class="pond-glow night-only" style="left:348px;top:33px;background:#f6b8c8"></span>
-            <div class="spr lily lily--note" style="left:320px;top:30px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-pink-notched.png" alt="" width="93" height="51"></div>
-            <span class="pond-glow night-only" style="left:608px;top:21px;background:#f7e08a"></span>
-            <div class="spr lily lily--note" style="left:580px;top:18px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-yellow.png" alt="" width="93" height="51"></div>
-            <span class="pond-glow night-only" style="left:1108px;top:23px;background:#b8dcf4"></span>
-            <div class="spr lily lily--note" style="left:1080px;top:20px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-blue.png" alt="" width="93" height="51"></div>
-            <span class="pond-glow night-only" style="left:218px;top:121px;background:#d4c2f0"></span>
-            <div class="spr lily lily--note" style="left:190px;top:118px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-lilac-notched.png" alt="" width="93" height="51"></div>
-            <span class="pond-glow night-only" style="left:738px;top:123px;background:#f6b8c8"></span>
-            <div class="spr lily lily--note" style="left:710px;top:120px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-pink-notched.png" alt="" width="93" height="51"></div>
-            <span class="pond-glow night-only" style="left:998px;top:115px;background:#d4c2f0"></span>
-            <div class="spr lily lily--note" style="left:970px;top:112px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-lilac.png" alt="" width="93" height="51"></div>
-            <span class="spr firefly night-only" style="left:150px;top:95px" data-on="1"><img src="assets/img/px/firefly-on.png" alt="" width="15" height="15"></span>
-            <span class="spr firefly night-only" style="left:640px;top:80px" data-on="0"><img src="assets/img/px/firefly-off.png" alt="" width="15" height="15"></span>
-            <span class="spr firefly night-only" style="left:900px;top:135px" data-on="1"><img src="assets/img/px/firefly-on.png" alt="" width="15" height="15"></span>
+            <button class="spr lily lily--free" type="button" style="left:196px;top:42px;--d:-0.0s" aria-label="Оставить сообщение" data-free="0">
+              <span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"><svg class="lily__paper js-paper" viewBox="0 0 8 9" aria-hidden="true"></svg>
+            </button>
+            <button class="spr lily lily--free" type="button" style="left:840px;top:28px;--d:-0.5s" aria-label="Оставить сообщение" data-free="1">
+              <span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"><svg class="lily__paper js-paper" viewBox="0 0 8 9" aria-hidden="true"></svg>
+            </button>
+            <button class="spr lily lily--free" type="button" style="left:450px;top:110px;--d:-1.0s" aria-label="Оставить сообщение" data-free="2">
+              <span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"><svg class="lily__paper js-paper" viewBox="0 0 8 9" aria-hidden="true"></svg>
+            </button>
+            <span class="spr firefly night-only" style="left:150px;top:95px" data-on="1" aria-hidden="true"><img src="assets/img/px/firefly-on.png" alt="" width="15" height="15"></span>
+            <span class="spr firefly night-only" style="left:640px;top:80px" data-on="0" aria-hidden="true"><img src="assets/img/px/firefly-off.png" alt="" width="15" height="15"></span>
+            <span class="spr firefly night-only" style="left:900px;top:135px" data-on="1" aria-hidden="true"><img src="assets/img/px/firefly-on.png" alt="" width="15" height="15"></span>
           </div>
         </div>
-      </div>
+        <form class="note note--form" id="pond-form" hidden novalidate>
+          <p class="note__title">Сообщение</p>
+          <label class="note__paper">
+            <span class="visually-hidden">Текст сообщения</span>
+            <textarea name="message" maxlength="140" rows="3" placeholder="Напишите пару слов" required></textarea>
+            <span class="note__count" aria-live="polite">0 / 140</span>
+          </label>
+          <label class="note__field">
+            <span class="visually-hidden">Имя</span>
+            <input name="name" type="text" maxlength="40" placeholder="Имя, по желанию" autocomplete="name">
+          </label>
+          <fieldset class="note__colors">
+            <legend>Цвет бумаги</legend>
+            <div class="note__swatches"></div>
+          </fieldset>
+          <input class="visually-hidden" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="note__error" role="alert" hidden></p>
+          <div class="note__actions">
+            <span>Всем — после проверки</span>
+            <button class="ilink" type="submit">Посадить <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M2 7h8v2H2zM8 3h2v2H8zM8 11h2v2H8zM10 5h2v2h-2zM10 9h2v2h-2zM12 7h2v2h-2z"/></svg></button>
+          </div>
+        </form>
+        <div class="note note--read" id="pond-note" hidden role="dialog" aria-label="Сообщение"></div>
+      </section>
       <footer class="footer col">
         <span>Astana, Kazakhstan</span>
         <span>2026</span>
@@ -194,5 +213,6 @@
 <script src="assets/js/site.js"></script>
 <script src="assets/js/pond.js"></script>
 <script src="assets/js/waves.js"></script>
+<script src="assets/js/messages.js"></script>
 </body>
 </html>
