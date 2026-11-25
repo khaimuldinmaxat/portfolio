@@ -130,12 +130,54 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .copy-hint { color: var(--text-2); font-weight: 400; opacity: 0; transition: opacity 150ms ease; }
 .copy-hint.is-on { opacity: 1; }
 
-/* ---------- Главная: пиксельная сцена ---------- */
-.scene { position: relative; width: 100%; aspect-ratio: 1200 / 400; }
-.scene img { width: 100%; height: 100%; }
-.speech { position: absolute; left: calc(681 / 1200 * 100%); top: calc(246 / 400 * 100%); width: calc(143 / 1200 * 100%); display: flex; align-items: center; }
-.speech img { width: calc(134 / 143 * 100%); height: auto; }
-.speech__cursor { width: calc(6 / 143 * 100%); aspect-ratio: 6 / 15; margin-left: calc(3 / 143 * 100%); background: var(--text); animation: blink 1s steps(1) infinite; }
+/* ---------- Пиксельный мир: общие правила ----------
+   Спрайты нарисованы в пикселях 1:1 и растянуты ×3 (как в Figma), без сглаживания.
+   Сцена живёт в своих координатах из макета (1200×400 и 1200×180),
+   pond.js масштабирует её под ширину колонки. */
+.stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; transform: translateX(var(--x, 0px)) scale(var(--s, 1)); }
+.scene .stage { width: 1200px; height: 400px; }
+.pond__scene .stage { width: 1200px; height: 180px; }
+.spr { position: absolute; display: block; }
+.stage img, .stage canvas, .lily__ripple, .hero__ripple { image-rendering: pixelated; }
+.stage img { max-width: none; }
+
+/* Рябь: полоса из трёх кадров, кадр сменяется шагом */
+.lily__ripple, .hero__ripple { position: absolute; background-repeat: no-repeat; background-size: 300% 100%; }
+@keyframes frames3 { to { background-position-x: 150%; } }
+
+/* ---------- Главная: шапка-пруд ---------- */
+.scene { position: relative; width: 100%; aspect-ratio: 1200 / 400; overflow: hidden; }
+.hero { width: 210px; height: 225px; }
+.hero__head { width: 210px; height: 225px; }
+.hero__ripple { left: 0; top: 192px; width: 210px; height: 33px; background-image: url("../img/px/ripple.png"); animation: frames3 1.2s steps(3) infinite; }
+.hero__frog { position: absolute; left: 81px; top: -3px; width: 57px; height: 42px; }
+.hero__frog.is-mirrored { transform: scaleX(-1); }
+
+.reeds { width: 39px; height: 72px; }
+.reeds img { width: 39px; height: 72px; }
+.reeds__wave { position: absolute; left: 0; top: 69px; width: 39px; height: 3px; background: url("../img/px/reeds-left-wave.png") 0 0 / 200% 100% no-repeat; image-rendering: pixelated; animation: frames2 .8s steps(2) infinite; }
+@keyframes frames2 { to { background-position-x: 200%; } }
+
+.lily { width: 93px; height: 51px; }
+.lily__ripple { inset: 0; background-image: url("../img/px/lily-ripple.png"); }
+.lily__body { position: absolute; left: 0; top: 0; width: 93px; height: 51px; }
+.scene .lily__ripple { animation: frames3 1.2s steps(3) infinite; }
+
+/* Стрекозы: ловятся кликом, зона нажатия больше самой стрекозы */
+.fly { width: 18px; height: 9px; cursor: pointer; will-change: transform; }
+.fly img { width: 18px; height: 9px; }
+.fly::before { content: ""; position: absolute; inset: -15px -12px; }
+.fly.is-right img { transform: scaleX(-1); }
+.fly.is-gone { visibility: hidden; }
+.tongue { position: absolute; left: 0; top: 0; width: 1200px; height: 402px; pointer-events: none; }
+
+/* Реплика: пиксельный текст печатается по букве */
+.speech { width: 143px; height: 18px; color: var(--text); transition: opacity 150ms ease; }
+.speech.is-hidden { opacity: 0; }
+.speech__clip { position: absolute; left: .73px; top: 3.75px; height: 14px; width: 132px; overflow: hidden; }
+.speech__clip svg { display: block; width: 132px; height: 14px; }
+.speech__cursor { position: absolute; left: 137px; top: 1.5px; width: 6px; height: 15px; background: currentColor; }
+.speech.is-idle .speech__cursor { animation: blink 1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
 /* ---------- Главная: блоки ---------- */
@@ -147,9 +189,18 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cases { display: flex; flex-direction: column; gap: 28px; }
 .case-card { display: flex; flex-direction: column; gap: 16px; transition: transform 160ms var(--ease); }
 .case-card:active { transform: scale(.98); }
-.case-card__preview { aspect-ratio: 16 / 10; background: var(--subtle); overflow: hidden; }
-.case-card__preview img { width: 100%; height: 100%; object-fit: cover; transition: filter 150ms ease; }
-.case-card:hover .case-card__preview img { filter: brightness(.94); }
+.case-card__preview { position: relative; aspect-ratio: 16 / 10; background: var(--subtle); overflow: hidden; }
+
+/* Превью кейса: пиксельные волны (waves.js) и экраны поверх них */
+.waves { background: var(--wave-base, var(--spots)); }
+.waves__fx { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+.waves__phones { position: absolute; inset: 0; }
+.phone { position: absolute; top: calc(10 / 420 * 100%); width: calc(216 / 672 * 100%); height: auto; transition: transform .5s cubic-bezier(.23, 1, .32, 1); }
+.phone:nth-child(1) { left: calc(28 / 672 * 100%); }
+.phone:nth-child(2) { left: calc(228 / 672 * 100%); }
+.phone:nth-child(3) { left: calc(428 / 672 * 100%); }
+.case-card:hover .phone, .case-card:focus-visible .phone { transform: translateY(-6px); }
+.case-card:hover .phone--mid, .case-card:focus-visible .phone--mid { transform: translateY(-10px); }
 .case-card__title { display: flex; justify-content: space-between; gap: 10px; }
 .case-card__title b { font-weight: 500; }
 .muted { color: var(--text-2); }
@@ -174,8 +225,17 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* ---------- Низ ---------- */
 .bottom { padding: 40px 0 80px; display: flex; flex-direction: column; gap: 40px; }
 .pond { padding: 40px 0; }
-.pond__scene { width: 100%; aspect-ratio: 1200 / 180; }
-.pond__scene img { width: 100%; height: 100%; }
+.pond__scene { position: relative; width: 100%; aspect-ratio: 1200 / 180; overflow: hidden; }
+
+/* Футер-пруд. Кувшинки без цветка ждут: покачиваются и неспешно крутят рябь.
+   Кувшинки с цветком откликаются на наведение: рябь и покачивание. */
+.lily--free .lily__body { animation: lily-wait 1.6s steps(1) infinite; animation-delay: var(--d, 0s); }
+@keyframes lily-wait { 50% { transform: translateY(-3px); } }
+.lily--free .lily__ripple { animation: frames3 2.1s steps(3) infinite; animation-delay: var(--d, 0s); }
+.lily--free:hover .lily__ripple { animation-duration: .48s; }
+.lily--note:hover .lily__ripple { animation: frames3 .48s steps(3) 1; }
+.lily--note:hover .lily__body { animation: lily-sway .4s steps(1) 1; }
+@keyframes lily-sway { 0% { transform: translateX(3px); } 50% { transform: translateX(-3px); } 100% { transform: none; } }
 .footer { display: flex; justify-content: space-between; font-size: 14px; line-height: 21px; letter-spacing: -0.01em; color: var(--text-2); }
 
 /* ---------- Кейс ---------- */
@@ -219,11 +279,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 @media (max-width: 720px) {
   body { font-size: 16px; line-height: 24px; }
-  .scene { aspect-ratio: auto; height: 220px; overflow: hidden; }
-  .scene img { width: auto; height: 100%; max-width: none; position: absolute; left: 50%; transform: translateX(-50%); }
+  .scene { aspect-ratio: auto; height: 220px; }
   .speech { display: none; }
-  .pond__scene { aspect-ratio: auto; height: 110px; overflow: hidden; position: relative; }
-  .pond__scene img { width: auto; max-width: none; height: 100%; position: absolute; left: 50%; transform: translateX(-50%); }
+  .pond__scene { aspect-ratio: auto; height: 110px; }
   .case { padding-top: 40px; }
   .quotes__row { flex-direction: column; }
   .stats { flex-wrap: wrap; row-gap: 24px; }

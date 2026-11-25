@@ -56,14 +56,30 @@
 
   <main class="main">
     <div class="scene" aria-hidden="true">
-      <img class="pixel" src="assets/img/v2/scene-header.png" alt="" width="1200" height="400">
-      <div class="speech"><img src="assets/img/v2/speech.png" alt="" width="134" height="18"><span class="speech__cursor"></span></div>
+      <div class="stage" data-w="1200" data-h="400">
+        <div class="spr hero" style="left:495px;top:135px">
+          <img class="hero__head" src="assets/img/px/head-open.png" alt="" width="210" height="225">
+          <span class="hero__ripple"></span>
+          <img class="hero__frog" src="assets/img/px/frog-idle.png" alt="" width="57" height="42">
+        </div>
+        <div class="spr reeds" style="left:292px;top:119px"><img src="assets/img/px/reeds-left.png" alt="" width="39" height="72"><i class="reeds__wave"></i></div>
+        <div class="spr reeds" style="left:1003px;top:274px"><img src="assets/img/px/reeds-right.png" alt="" width="39" height="72"><i class="reeds__wave"></i></div>
+        <div class="spr lily" style="left:120px;top:244px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"></div>
+        <div class="spr lily" style="left:803px;top:146px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/flower-pink-header.png" alt="" width="93" height="51"></div>
+        <span class="spr fly" style="left:531px;top:98px"><img src="assets/img/px/dragonfly1.png" alt="" width="18" height="9"></span>
+        <span class="spr fly" style="left:672px;top:69px"><img src="assets/img/px/dragonfly2.png" alt="" width="18" height="9"></span>
+        <canvas class="tongue" width="400" height="134"></canvas>
+        <div class="spr speech" style="left:681px;top:246px">
+          <span class="speech__clip"><svg width="132" height="14" viewBox="0 0 132 14"><path fill="currentColor" d="M0 8.78906H1.46484V10.2539H0V8.78906ZM2.77969 8.78906H4.24453V10.2539H2.77969V8.78906ZM5.55937 8.78906H7.02422V10.2539H5.55937V8.78906ZM8.33906 10.2539V2.92969H15.6633V10.2539H14.1984V4.39453H9.80391V10.2539H8.33906ZM16.9781 2.92969H22.8375V4.39453H24.3023V8.78906H22.8375V10.2539H18.443V13.1836H16.9781V2.92969ZM22.8375 4.39453H18.443V8.78906H22.8375V4.39453ZM31.4766 2.92969H32.9414V10.2539H27.082V8.78906H31.4766V2.92969ZM27.082 2.92969H25.6172V8.78906H27.082V2.92969ZM40.1156 2.92969V4.39453H35.7211V5.85938H40.1156V7.32422H35.7211V8.78906H40.1156V10.2539H34.2562V2.92969H40.1156ZM40.1156 4.39453V5.85938H41.5805V4.39453H40.1156ZM40.1156 7.32422V8.78906H41.5805V7.32422H40.1156ZM42.8953 4.39453H44.3602V5.85938H48.7547V4.39453H50.2195V7.32422H44.3602V8.78906H42.8953V4.39453ZM44.3602 2.92969H48.7547V4.39453H44.3602V2.92969ZM44.3602 8.78906H50.2195V10.2539H44.3602V8.78906ZM51.5344 2.92969H58.8586V4.39453H55.9289V10.2539H54.4641V4.39453H51.5344V2.92969ZM60.1734 8.78906H61.6383V11.7188H60.1734V8.78906ZM68.6625 2.92969H74.5219V10.2539H73.057V7.32422H68.6625V5.85938H67.1977V4.39453H68.6625V2.92969ZM68.6625 4.39453V5.85938H73.057V4.39453H68.6625ZM68.6625 7.32422V10.2539H67.1977V7.32422H68.6625ZM80.0813 2.92969H81.5461V4.39453H83.0109V5.85938H81.5461V10.2539H80.0813V2.92969ZM84.4758 4.39453H85.9406V2.92969H87.4055V10.2539H85.9406V5.85938H84.4758V4.39453ZM83.0109 5.85938H84.4758V7.32422H83.0109V5.85938ZM94.5797 4.39453H96.0445V10.2539H90.1852V8.78906H94.5797V7.32422H90.1852V5.85938H94.5797V4.39453ZM94.5797 4.39453V2.92969H90.1852V4.39453H94.5797ZM90.1852 7.32422H88.7203V8.78906H90.1852V7.32422ZM101.754 2.92969V4.39453H103.219V2.92969H101.754ZM101.754 8.78906V10.2539H103.219V8.78906H101.754ZM100.289 7.32422V8.78906H101.754V7.32422H100.289ZM100.289 4.39453V5.85938H101.754V4.39453H100.289ZM98.8242 2.92969V5.85938H100.289V7.32422H98.8242V10.2539H97.3594V2.92969H98.8242ZM105.998 2.92969H110.393V4.39453H105.998V2.92969ZM110.393 4.39453H111.858V5.85938H110.393V4.39453ZM110.393 7.32422H111.858V8.78906H110.393V7.32422ZM105.998 8.78906H110.393V10.2539H105.998V8.78906ZM105.998 4.39453V8.78906H104.534V4.39453H105.998ZM119.032 4.39453H120.497V10.2539H114.637V8.78906H119.032V7.32422H114.637V5.85938H119.032V4.39453ZM119.032 4.39453V2.92969H114.637V4.39453H119.032ZM114.637 7.32422H113.173V8.78906H114.637V7.32422ZM121.812 2.92969H129.136V4.39453H126.206V10.2539H124.741V4.39453H121.812V2.92969ZM130.451 0H131.916V7.32422H130.451V0ZM130.451 8.78906H131.916V10.2539H130.451V8.78906Z"/></svg></span>
+          <span class="speech__cursor"></span>
+        </div>
+      </div>
     </div>
 
     <div class="col">
       <section class="intro">
         <h1 class="row__name">Максат Хаймулдин</h1>
-        <p>Продуктовый дизайнер с фокусом на мобильных продуктах<br>и AI-инструментах, с щепоткой сваги</p>
+        <p>Продуктовый дизайнер с фокусом на мобильных продуктах <br>и AI-инструментах, с щепоткой сваги</p>
         <p class="intro__line">
           <span>Пишите в</span>
           <a class="ilink" href="https://t.me/mr_chiller312" target="_blank" rel="noopener">Telegram
@@ -82,8 +98,13 @@
           <h2 class="section-header">Кейсы</h2>
           <div class="cases">
             <a class="case-card" href="spots/">
-              <div class="case-card__preview">
-                <img src="assets/img/v2/spots-cover-672.webp" srcset="assets/img/v2/spots-cover-672.webp 672w, assets/img/v2/spots-cover-1344.webp 1344w" sizes="(max-width: 720px) 100vw, 672px" alt="Три экрана приложения SPOTS: главная, онбординг и страница сообщества" width="672" height="420">
+              <div class="case-card__preview waves" data-colors="#ffb373,#ffa254">
+                <canvas class="waves__fx" aria-hidden="true"></canvas>
+                <div class="waves__phones">
+                  <img class="phone" src="assets/img/v2/phone-main-1x.webp" srcset="assets/img/v2/phone-main-1x.webp 216w, assets/img/v2/phone-main.webp 432w" sizes="(max-width: 720px) 33vw, 216px" alt="Главный экран SPOTS с подборкой событий" width="216" height="420">
+                  <img class="phone phone--mid" src="assets/img/v2/phone-onboarding-1x.webp" srcset="assets/img/v2/phone-onboarding-1x.webp 216w, assets/img/v2/phone-onboarding.webp 432w" sizes="(max-width: 720px) 33vw, 216px" alt="Онбординг SPOTS: выбор сообществ" width="216" height="420">
+                  <img class="phone" src="assets/img/v2/phone-community-1x.webp" srcset="assets/img/v2/phone-community-1x.webp 216w, assets/img/v2/phone-community.webp 432w" sizes="(max-width: 720px) 33vw, 216px" alt="Страница сообщества в SPOTS" width="216" height="420">
+                </div>
               </div>
               <div>
                 <p class="case-card__title"><b>SPOTS</b><span class="muted">B2C · Mobile · 2026</span></p>
@@ -108,7 +129,23 @@
 
     <div class="bottom">
       <div class="pond" aria-hidden="true">
-        <div class="pond__scene"><img class="pixel" src="assets/img/v2/scene-pond.png" alt="" width="1200" height="180"></div>
+        <div class="pond__scene">
+          <div class="stage" data-w="1200" data-h="180">
+            <img class="spr" src="assets/img/px/water-spot.png" alt="" width="69" height="9" style="left:725px;top:66px">
+            <img class="spr" src="assets/img/px/water-spot.png" alt="" width="69" height="9" style="left:40px;top:150px">
+            <img class="spr" src="assets/img/px/water-spot.png" alt="" width="69" height="9" style="left:1090px;top:150px">
+            <div class="spr lily lily--free" style="left:196px;top:42px;--d:-0.0s"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"></div>
+            <div class="spr lily lily--free" style="left:840px;top:28px;--d:-0.5s"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"></div>
+            <div class="spr lily lily--free" style="left:450px;top:110px;--d:-1.0s"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/pad.png" alt="" width="93" height="51"></div>
+            <div class="spr lily lily--note" style="left:60px;top:22px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-white.png" alt="" width="93" height="51"></div>
+            <div class="spr lily lily--note" style="left:320px;top:30px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-pink-notched.png" alt="" width="93" height="51"></div>
+            <div class="spr lily lily--note" style="left:580px;top:18px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-yellow.png" alt="" width="93" height="51"></div>
+            <div class="spr lily lily--note" style="left:1080px;top:20px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-blue.png" alt="" width="93" height="51"></div>
+            <div class="spr lily lily--note" style="left:190px;top:118px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-lilac-notched.png" alt="" width="93" height="51"></div>
+            <div class="spr lily lily--note" style="left:710px;top:120px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-pink-notched.png" alt="" width="93" height="51"></div>
+            <div class="spr lily lily--note" style="left:970px;top:112px"><span class="lily__ripple"></span><img class="lily__body" src="assets/img/px/note-lilac.png" alt="" width="93" height="51"></div>
+          </div>
+        </div>
       </div>
       <footer class="footer col">
         <span>Astana, Kazakhstan</span>
@@ -119,5 +156,7 @@
 
 </div>
 <script src="assets/js/site.js"></script>
+<script src="assets/js/pond.js"></script>
+<script src="assets/js/waves.js"></script>
 </body>
 </html>
