@@ -97,11 +97,14 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .sidebar__top { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
 .sidebar__logo { color: var(--text); justify-content: flex-start; }
 .sidebar__menu { display: flex; flex-direction: column; gap: 12px; }
-.sidebar__tools { display: flex; gap: 8px; padding: 7px 0; margin-left: -4px; }
-.tool { position: relative; display: grid; place-items: center; width: 24px; height: 24px; color: var(--text-2); transition: color 150ms ease; }
-.tool::before { content: ""; position: absolute; inset: -4px; }
-.tool:hover, .tool:focus-visible { color: var(--text); }
-.tool__ico { width: 16px; height: 16px; }
+.sidebar__tools { display: flex; gap: 8px; padding: 3px 0; margin-left: -2px; }
+.tool { position: relative; display: grid; place-items: center; width: 32px; height: 32px; color: var(--text); transition: color 150ms ease; }
+
+.tool:hover, .tool:focus-visible { color: var(--accent); }
+.tool__ico { width: 28px; height: 28px; }
+/* Солнце и луна цветные; при наведении чуть приподнимаются */
+.tool__ico--sun, .tool__ico--moon { transition: transform 150ms ease; }
+.js-theme:hover .tool__ico { transform: translateY(-2px); }
 .tool[aria-pressed="true"] .tool__ico--off, .tool[aria-pressed="false"] .tool__ico--on { display: none; }
 /* Тема: днём солнце, ночью луна — показывает, что сейчас */
 html[data-theme="dark"] .tool__ico--sun, html:not([data-theme="dark"]) .tool__ico--moon { display: none; }
@@ -238,7 +241,8 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 
 /* ---------- Главная: блоки ---------- */
 .intro { display: flex; flex-direction: column; gap: 28px; }
-.sticker { display: inline-block; width: 30px; height: 30px; margin: -2px 0; vertical-align: -8px; image-rendering: pixelated; }
+/* Стикер ростом чуть больше строчных букв: 30 px исходника показываем в 24 px */
+.sticker { display: inline-block; width: 24px; height: 24px; vertical-align: -5px; }
 .intro__line { display: flex; flex-wrap: wrap; align-items: center; column-gap: 4px; }
 .home-sections { display: flex; flex-direction: column; gap: 40px; margin-top: 40px; }
 .section-header { padding: 14px 0; font-weight: 500; }
