@@ -227,6 +227,7 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 
 /* ---------- Главная: блоки ---------- */
 .intro { display: flex; flex-direction: column; gap: 28px; }
+.sticker { display: inline-block; width: 30px; height: 30px; margin: -2px 0; vertical-align: -8px; image-rendering: pixelated; }
 .intro__line { display: flex; flex-wrap: wrap; align-items: center; column-gap: 4px; }
 .home-sections { display: flex; flex-direction: column; gap: 40px; margin-top: 40px; }
 .section-header { padding: 14px 0; font-weight: 500; }
