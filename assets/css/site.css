@@ -103,6 +103,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .tool:hover, .tool:focus-visible { color: var(--text); }
 .tool__ico { width: 16px; height: 16px; }
 .tool[aria-pressed="true"] .tool__ico--off, .tool[aria-pressed="false"] .tool__ico--on { display: none; }
+/* Тема: днём солнце, ночью луна — показывает, что сейчас */
+html[data-theme="dark"] .tool__ico--sun, html:not([data-theme="dark"]) .tool__ico--moon { display: none; }
 
 .nav-group { display: flex; flex-direction: column; }
 .nav-item {
@@ -185,9 +187,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 .reeds { width: 39px; height: 72px; }
 .reeds > img { width: 39px; height: 72px; }
+/* Пятна ряби без растений: слабая «дышащая» рябь — штрихи на пиксель в стороны и смена двух голубых, 0,9 с на кадр */
+.water { width: 75px; height: 9px; }
+.water img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; animation: 1.8s steps(1) infinite fr2a; animation-delay: var(--d, 0s); }
+.water img + img { opacity: 0; animation-name: fr2b; }
 .reeds__wave { left: 0; top: 69px; width: 39px; height: 3px; }
 .reeds__wave img { animation: .8s steps(1) infinite fr2a; }
-.reeds__wave img + img { animation-name: fr2b; }
+.reeds__wave img + img { opacity: 0; animation-name: fr2b; }
 
 .lily { width: 93px; height: 51px; }
 .lily__ripple { inset: 0; }

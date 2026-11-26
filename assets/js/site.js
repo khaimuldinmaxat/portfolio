@@ -3,7 +3,7 @@
   const sidebar = document.querySelector('.sidebar');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Стрелка раскрывает и сворачивает список. «Кейсы» — ссылка на блок кейсов, список только по стрелке.
+  // Строка «Кейсы» и «Контакты» раскрывает и сворачивает список. «Кейсы» на главной при раскрытии ещё и ведёт к кейсам.
   // Как у Мартина: стрелка схлопывается в точку и вырастает в другую сторону (точка → 3 пикселя → 5),
   // список при открытии вырастает по высоте и проявляется, при закрытии гаснет и схлопывается.
   const PX = (pts) => pts.map(([x, y]) => 'M' + x + ' ' + y + 'h2v2h-2z').join('');
@@ -95,6 +95,13 @@
       const items = Array.from(sidebar.querySelectorAll('[data-section]'));
       const byId = (id) => items.find((i) => i.dataset.section === id);
       items.forEach((i) => i.addEventListener('click', (e) => {
+        // «Кейсы» — кнопка-строка: при сворачивании никуда не ведёт, при раскрытии плавно едет к блоку кейсов
+        if (i.matches('button[aria-expanded="false"]')) return;
+        if (i.tagName === 'BUTTON') {
+          const target = document.getElementById(i.dataset.section);
+          if (target) target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+          history.replaceState(null, '', '#' + i.dataset.section);
+        }
         if (i.dataset.section === 'top') { e.preventDefault(); window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); history.replaceState(null, '', './'); }
         setActive(i);
         lock = Date.now() + 1500; // пока страница плавно доезжает, квадрат не перескакивает по пути
