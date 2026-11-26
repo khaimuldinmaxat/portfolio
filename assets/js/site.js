@@ -26,6 +26,9 @@
     drawChev(chev, fold.classList.contains('is-closed') ? 'down' : 'up', false);
     btn.addEventListener('click', () => {
       const closing = !fold.classList.contains('is-closed');
+      // «Кейсы» открыты, а посетитель в другом разделе — клик ведёт к кейсам, список не сворачивается
+      if (closing && btn.dataset.section && document.getElementById(btn.dataset.section) &&
+          btn.getAttribute('aria-current') !== 'page') return;
       btn.setAttribute('aria-expanded', String(!closing));
       drawChev(chev, closing ? 'down' : 'up', true);
       if (list._anim) list._anim.cancel();
