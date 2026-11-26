@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <script>
-    // Ночь — тёмная тема по времени устройства (с 20:00 до 6:00). Выбор в меню «Настройки» запоминается.
+    // Ночь — тёмная тема по времени устройства (с 20:00 до 6:00). Выбор кнопкой внизу меню запоминается.
     (function () {
       var h = new Date().getHours(), t = null;
       try { t = localStorage.getItem('theme'); } catch (e) {}
@@ -22,7 +22,7 @@
   <link rel="icon" href="../assets/icons/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
   <link rel="preload" href="../assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/css/site.css?v=202611262344">
+  <link rel="stylesheet" href="../assets/css/site.css?v=202611262350">
 </head>
 <body>
 <div class="layout">
@@ -58,10 +58,10 @@
         </div>
       </nav>
     </div>
-    <button class="nav-item sidebar__theme js-theme" type="button" aria-label="Переключить день и ночь">
-      <span>Настройки</span>
-      <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 1h2v2h-2zM7 1h2v2h-2zM9 1h2v2h-2zM3 3h2v2h-2zM9 3h2v2h-2zM11 3h2v2h-2zM1 5h2v2h-2zM1 7h2v2h-2zM1 9h2v2h-2zM9 5h2v2h-2zM11 5h2v2h-2zM13 5h2v2h-2zM9 7h2v2h-2zM11 7h2v2h-2zM13 7h2v2h-2zM9 9h2v2h-2zM11 9h2v2h-2zM13 9h2v2h-2zM3 11h2v2h-2zM9 11h2v2h-2zM11 11h2v2h-2zM5 13h2v2h-2zM7 13h2v2h-2zM9 13h2v2h-2z"/></svg>
-    </button>
+    <div class="sidebar__tools">
+      <button class="tool js-sound" type="button" aria-pressed="false" aria-label="Звук" title="Звук"><svg class="tool__ico tool__ico--on" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M6 0h2v2h-2zM4 2h2v2h-2zM6 2h2v2h-2zM12 2h2v2h-2zM0 4h2v2h-2zM2 4h2v2h-2zM4 4h2v2h-2zM6 4h2v2h-2zM14 4h2v2h-2zM0 6h2v2h-2zM2 6h2v2h-2zM4 6h2v2h-2zM6 6h2v2h-2zM10 6h2v2h-2zM14 6h2v2h-2zM0 8h2v2h-2zM2 8h2v2h-2zM4 8h2v2h-2zM6 8h2v2h-2zM10 8h2v2h-2zM14 8h2v2h-2zM0 10h2v2h-2zM2 10h2v2h-2zM4 10h2v2h-2zM6 10h2v2h-2zM14 10h2v2h-2zM4 12h2v2h-2zM6 12h2v2h-2zM12 12h2v2h-2zM6 14h2v2h-2z"/></svg><svg class="tool__ico tool__ico--off" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M6 0h2v2h-2zM4 2h2v2h-2zM6 2h2v2h-2zM0 4h2v2h-2zM2 4h2v2h-2zM4 4h2v2h-2zM6 4h2v2h-2zM10 4h2v2h-2zM14 4h2v2h-2zM0 6h2v2h-2zM2 6h2v2h-2zM4 6h2v2h-2zM6 6h2v2h-2zM12 6h2v2h-2zM0 8h2v2h-2zM2 8h2v2h-2zM4 8h2v2h-2zM6 8h2v2h-2zM10 8h2v2h-2zM14 8h2v2h-2zM0 10h2v2h-2zM2 10h2v2h-2zM4 10h2v2h-2zM6 10h2v2h-2zM4 12h2v2h-2zM6 12h2v2h-2zM6 14h2v2h-2z"/></svg></button>
+      <button class="tool js-theme" type="button" aria-label="День и ночь" title="День и ночь"><svg class="tool__ico" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M5 1h2v2h-2zM7 1h2v2h-2zM9 1h2v2h-2zM3 3h2v2h-2zM9 3h2v2h-2zM11 3h2v2h-2zM1 5h2v2h-2zM1 7h2v2h-2zM1 9h2v2h-2zM9 5h2v2h-2zM11 5h2v2h-2zM13 5h2v2h-2zM9 7h2v2h-2zM11 7h2v2h-2zM13 7h2v2h-2zM9 9h2v2h-2zM11 9h2v2h-2zM13 9h2v2h-2zM3 11h2v2h-2zM9 11h2v2h-2zM11 11h2v2h-2zM5 13h2v2h-2zM7 13h2v2h-2zM9 13h2v2h-2z"/></svg></button>
+    </div>
   </aside>
 
   <main class="main">
@@ -181,6 +181,6 @@
   </main>
 
 </div>
-<script src="../assets/js/site.js?v=202611262344"></script>
+<script src="../assets/js/site.js?v=202611262350"></script>
 </body>
 </html>

@@ -97,7 +97,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .sidebar__top { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
 .sidebar__logo { color: var(--text); justify-content: flex-start; }
 .sidebar__menu { display: flex; flex-direction: column; gap: 12px; }
-.sidebar__theme { width: 100%; color: var(--text); }
+.sidebar__tools { display: flex; gap: 8px; padding: 7px 0; margin-left: -4px; }
+.tool { position: relative; display: grid; place-items: center; width: 24px; height: 24px; color: var(--text-2); transition: color 150ms ease; }
+.tool::before { content: ""; position: absolute; inset: -4px; }
+.tool:hover, .tool:focus-visible { color: var(--text); }
+.tool__ico { width: 16px; height: 16px; }
+.tool[aria-pressed="true"] .tool__ico--off, .tool[aria-pressed="false"] .tool__ico--on { display: none; }
 
 .nav-group { display: flex; flex-direction: column; }
 .nav-item {

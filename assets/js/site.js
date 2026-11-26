@@ -115,10 +115,26 @@
     }
   }
 
-  // «Настройки» внизу меню: день ↔ ночь. Выбор запоминается, без него тема идёт по времени устройства.
+  // Звук внизу меню: включить / выключить. По умолчанию выключен, выбор запоминается.
+  // Самих звуков пока нет — другие скрипты слушают событие soundchange и читают html[data-sound].
+  const root = document.documentElement;
+  let soundOn = false;
+  try { soundOn = localStorage.getItem('sound') === 'on'; } catch (e) {}
+  root.dataset.sound = soundOn ? 'on' : 'off';
+  document.querySelectorAll('.js-sound').forEach((btn) => {
+    btn.setAttribute('aria-pressed', String(soundOn));
+    btn.addEventListener('click', () => {
+      soundOn = !soundOn;
+      root.dataset.sound = soundOn ? 'on' : 'off';
+      document.querySelectorAll('.js-sound').forEach((b) => b.setAttribute('aria-pressed', String(soundOn)));
+      try { localStorage.setItem('sound', soundOn ? 'on' : 'off'); } catch (e) {}
+      document.dispatchEvent(new CustomEvent('soundchange', { detail: soundOn }));
+    });
+  });
+
+  // Кнопка внизу меню: день ↔ ночь. Выбор запоминается, без него тема идёт по времени устройства.
   document.querySelectorAll('.js-theme').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const root = document.documentElement;
       const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
       root.dataset.theme = next;
       try { localStorage.setItem('theme', next); } catch (e) {}
