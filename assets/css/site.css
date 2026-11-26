@@ -94,7 +94,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   flex-direction: column;
   justify-content: space-between;
 }
-.sidebar__top { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.sidebar__top { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 .sidebar__logo { color: var(--text); justify-content: flex-start; }
 .sidebar__menu { display: flex; flex-direction: column; gap: 12px; }
 /* Между иконками 35 px — как отступ меню слева (у кнопки 32 px, у иконки 28 px) */
