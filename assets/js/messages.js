@@ -76,8 +76,9 @@
     b.className = 'spr lily lily--note';
     b.style.left = x + 'px';
     b.style.top = y + 'px';
+    b.style.setProperty('--d', (-Math.random() * 2).toFixed(2) + 's'); // своя фаза покачивания и ряби
     b.setAttribute('aria-label', 'Открыть сообщение' + (msg.name ? ' от ' + msg.name : ''));
-    b.innerHTML = '<span class="lily__ripple rip">' + [1, 2, 3].map((i) => '<img src="' + DIR + 'lily-ripple-' + i + '.png?v=2" alt="">').join('') + '</span><img class="lily__body" alt="" width="93" height="51">';
+    b.innerHTML = '<span class="lily__ripple rip rip--loop">' + [1, 2, 3].map((i) => '<img src="' + DIR + 'lily-ripple-' + i + '.png?v=2" alt="">').join('') + '</span><img class="lily__body" alt="" width="93" height="51">';
     b.querySelector('.lily__body').src = lilySrc(type, 'open', msg.color);
     // Повторный клик по тому же цветку закрывает письмо
     b.addEventListener('click', (e) => { e.stopPropagation(); if (!card.hidden && noteLily === b) closeAll(); else openNote(b, msg, own); });

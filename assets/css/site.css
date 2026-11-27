@@ -300,10 +300,14 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 .lily--free .lily__body { animation: lily-wait 1.6s steps(1) infinite; animation-delay: var(--d, 0s); }
 @keyframes lily-wait { 50% { transform: translateY(-3px); } }
 .lily--free .lily__ripple { --dur: 2.1s; }
-.lily--note:hover .lily__ripple img, .lily--planting .lily__ripple img { animation-duration: .48s; animation-timing-function: steps(1); animation-iteration-count: 1; }
-.lily--note:hover .lily__ripple img:nth-child(1), .lily--planting .lily__ripple img:nth-child(1) { animation-name: fr1; }
-.lily--note:hover .lily__ripple img:nth-child(2), .lily--planting .lily__ripple img:nth-child(2) { animation-name: fr2; }
-.lily--note:hover .lily__ripple img:nth-child(3), .lily--planting .lily__ripple img:nth-child(3) { animation-name: fr3; }
+/* Цветы-письма в покое живут как кувшинки без цветка: медленная рябь и покачивание; при наведении рябь быстрее */
+.lily--note .lily__ripple { --dur: 2.1s; }
+.lily--note .lily__body { animation: lily-wait 1.6s steps(1) infinite; animation-delay: var(--d, 0s); }
+.lily--note:hover .lily__ripple, .lily--note:focus-visible .lily__ripple { --dur: .48s; }
+.lily--planting .lily__ripple img { animation-duration: .48s; animation-timing-function: steps(1); animation-iteration-count: 1; }
+.lily--planting .lily__ripple img:nth-child(1) { animation-name: fr1; }
+.lily--planting .lily__ripple img:nth-child(2) { animation-name: fr2; }
+.lily--planting .lily__ripple img:nth-child(3) { animation-name: fr3; }
 /* Кувшинка без цветка — кнопка: при наведении или фокусе рябь быстрее, над листом бумажка,
    курсор становится бумажкой. Клик, Enter или пробел открывают форму. */
 .lily--free { padding: 0; border: 0; background: none; cursor: none; }
