@@ -145,8 +145,10 @@
     const meta = document.createElement('p');
     meta.className = 'letter__meta';
     const left = document.createElement('span');
-    if (own) left.textContent = 'видно только вам, пока я его не проверю';
-    else if (msg.date) left.textContent = DATE.format(new Date(msg.date + 'T12:00:00'));
+    // Своё письмо выглядит как обычное: с датой отправки. Пока я его не проверю, оно лежит только
+    // в браузере посетителя (localStorage) — другим его не видно, но говорить об этом не нужно
+    const when = own ? (msg.sent ? new Date(msg.sent) : null) : (msg.date ? new Date(msg.date + 'T12:00:00') : null);
+    if (when) left.textContent = DATE.format(when);
     meta.append(left);
     if (msg.name) {
       const sign = document.createElement('b');
