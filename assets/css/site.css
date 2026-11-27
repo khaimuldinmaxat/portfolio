@@ -99,15 +99,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .sidebar__menu { display: flex; flex-direction: column; gap: 16px; }
 /* Иконки HackerNoon Pixel Icon Library (CC BY 4.0, подпись в футере): сетка 24, показываем 20 px */
 .sidebar__tools { display: flex; align-items: center; gap: 0; padding: 7px 0; min-height: 38px; }
-/* «Настройки →» указывает на иконки. Видимые промежутки слово–стрелка, стрелка–иконка и между иконками — по 10 px
+/* «Настройки →» указывает на иконки. Видимые промежутки слово–стрелка, стрелка–иконка и между иконками — по 12 px,
+   правый край последней иконки на линии стрелок «Кейсов» и «Контактов»: справа отступ 35, как слева
    (с учётом пустых краёв у самих картинок) */
-.sidebar__tools-label { display: inline-flex; align-items: center; gap: 7px; margin-right: 7px; font-size: 16px; line-height: 24px; color: var(--text-2); white-space: nowrap; }
+.sidebar__tools-label { display: inline-flex; align-items: center; gap: 9px; margin-right: 9px; font-size: 16px; line-height: 24px; color: var(--text-2); white-space: nowrap; }
 .sidebar__tools-label svg { width: 16px; height: 16px; flex: none; }
 .tool { position: relative; flex: none; display: grid; place-items: center; width: 20px; height: 20px; color: var(--text-2); transition: color 150ms ease; }
 
 .tool:hover, .tool:focus-visible { color: var(--text); }
 .tool__ico { width: 20px; height: 20px; shape-rendering: crispEdges; }
-.tool + .tool { margin-left: 8px; }
+.tool + .tool { margin-left: 10px; }
 .tool::before { content: ""; position: absolute; inset: -6px; } /* площадь нажатия 32 px */
 /* При наведении иконка чуть приподнимается */
 .tool__ico { transition: transform 150ms ease; }
