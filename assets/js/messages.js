@@ -78,7 +78,7 @@
     b.style.top = y + 'px';
     b.setAttribute('aria-label', 'Открыть сообщение' + (msg.name ? ' от ' + msg.name : ''));
     b.innerHTML = '<span class="lily__ripple rip">' + [1, 2, 3].map((i) => '<img src="' + DIR + 'lily-ripple-' + i + '.png?v=2" alt="">').join('') + '</span><img class="lily__body" alt="" width="93" height="51">';
-    b.querySelector('img').src = lilySrc(type, 'open', msg.color);
+    b.querySelector('.lily__body').src = lilySrc(type, 'open', msg.color);
     // Повторный клик по тому же цветку закрывает письмо
     b.addEventListener('click', (e) => { e.stopPropagation(); if (!card.hidden && noteLily === b) closeAll(); else openNote(b, msg, own); });
     stage.insertBefore(glow, stage.querySelector('.firefly'));
@@ -297,7 +297,7 @@
     const x = parseFloat(pad.style.left), y = parseFloat(pad.style.top);
     pad.hidden = true;
     const flower = makeFlower(x, y, 'notched', msg, true);
-    const img = flower.querySelector('img');
+    const img = flower.querySelector('.lily__body');
     if (reduce) return;
     img.src = DIR + 'pad.png';
     const drop = document.createElement('span');
