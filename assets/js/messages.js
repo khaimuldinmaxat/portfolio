@@ -15,6 +15,7 @@
   const DATA = DIR.replace('assets/img/px/', 'data/messages.json');
 
   let anchor = null; // кувшинка, над которой открыта форма
+  let noteLily = null; // цветок, чьё письмо сейчас открыто
   // Цвета бумаги: светлый / основной / тень. Бумага — светлый тон.
   const PAPER = {
     white: ['#f4f1ea', '#d9d2c3', '#b0a690'], pink: ['#f6b8c8', '#e98aa6', '#c25d80'],
@@ -78,7 +79,8 @@
     b.setAttribute('aria-label', 'Открыть сообщение' + (msg.name ? ' от ' + msg.name : ''));
     b.innerHTML = '<span class="lily__ripple rip">' + [1, 2, 3].map((i) => '<img src="' + DIR + 'lily-ripple-' + i + '.png?v=2" alt="">').join('') + '</span><img class="lily__body" alt="" width="93" height="51">';
     b.querySelector('img').src = lilySrc(type, 'open', msg.color);
-    b.addEventListener('click', (e) => { e.stopPropagation(); openNote(b, msg, own); });
+    // Повторный клик по тому же цветку закрывает письмо
+    b.addEventListener('click', (e) => { e.stopPropagation(); if (!card.hidden && noteLily === b) closeAll(); else openNote(b, msg, own); });
     stage.insertBefore(glow, stage.querySelector('.firefly'));
     stage.insertBefore(b, stage.querySelector('.firefly'));
     return b;
@@ -127,11 +129,13 @@
   function closeAll() {
     form.hidden = true;
     card.hidden = true;
+    noteLily = null;
     if (anchor) { anchor.classList.remove('is-awake'); anchor = null; }
   }
   const DATE = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long' });
   function openNote(lily, msg, own) {
     closeAll();
+    noteLily = lily;
     const [L, M, S] = PAPER[msg.color];
     card.style.setProperty('--paper', L);
     card.style.setProperty('--paper-line', M);
@@ -236,7 +240,12 @@
     pad.addEventListener('pointermove', (e) => { cursor.style.transform = 'translate(' + (e.clientX - 4) + 'px,' + (e.clientY - 16) + 'px)'; });
     pad.addEventListener('focus', () => wake(true));
     pad.addEventListener('blur', () => wake(false));
-    pad.addEventListener('click', (e) => { e.stopPropagation(); cursor.style.display = 'none'; openForm(pad); });
+    // Повторный клик по той же кувшинке закрывает форму (написанное не стирается)
+    pad.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!form.hidden && anchor === pad) { closeAll(); return; }
+      cursor.style.display = 'none'; openForm(pad);
+    });
   });
 
   form.addEventListener('submit', async (e) => {
