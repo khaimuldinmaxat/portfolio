@@ -345,7 +345,10 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 .letter__send:hover, .letter__send:focus-visible { background: var(--accent); outline: none; }
 .letter__send[disabled] { opacity: .5; cursor: default; }
 .letter .note__error { margin-top: 12px; font: inherit; color: #c0392b; }
-.note--read.letter { width: 320px; }
+/* Открытое письмо того же размера, что форма: 360 в ширину, вместо бумажек и кнопки — ещё две строки листа */
+.note--read.letter { width: 360px; }
+.note--read .letter__sheet { padding-bottom: 23px; }
+.note--read .letter__text { min-height: 144px; }
 .letter__text { white-space: pre-wrap; overflow-wrap: anywhere; background: repeating-linear-gradient(transparent 0 21px, var(--paper-line, #d9d2c3) 21px 24px); }
 .letter__meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 4px; color: var(--paper-ink, #b0a690); }
 .letter__meta b { flex: none; align-self: flex-end; white-space: nowrap; font-weight: inherit; color: var(--ink); }
