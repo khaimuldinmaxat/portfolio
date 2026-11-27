@@ -98,15 +98,17 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .sidebar__logo { color: var(--text); justify-content: flex-start; }
 .sidebar__menu { display: flex; flex-direction: column; gap: 16px; }
 /* Иконки HackerNoon Pixel Icon Library (CC BY 4.0, подпись в футере): 24 px, сетка 1:1, кнопка 32 px */
-.sidebar__tools { display: flex; align-items: center; gap: 0; padding: 3px 0; }
-/* «Настройки →» указывает на иконки; видимые промежутки: слово–стрелка 4, стрелка–иконка и между иконками 8.
-   Правый край второй иконки совпадает со стрелками «Кейсов» и «Контактов» */
-.sidebar__tools-label { display: inline-flex; align-items: center; gap: 4px; margin-right: 4px; font-size: 16px; line-height: 24px; color: var(--text-2); white-space: nowrap; }
+.sidebar__tools { display: flex; align-items: center; gap: 0; padding: 7px 0; }
+/* «Настройки →» указывает на иконки. Видимые промежутки слово–стрелка, стрелка–иконка и между иконками — по 10 px
+   (с учётом пустых краёв у самих картинок) */
+.sidebar__tools-label { display: inline-flex; align-items: center; gap: 7px; margin-right: 7px; font-size: 16px; line-height: 24px; color: var(--text-2); white-space: nowrap; }
 .sidebar__tools-label svg { width: 16px; height: 16px; flex: none; }
-.tool { position: relative; flex: none; display: grid; place-items: center; width: 32px; height: 32px; color: var(--text-2); transition: color 150ms ease; }
+.tool { position: relative; flex: none; display: grid; place-items: center; width: 24px; height: 24px; color: var(--text-2); transition: color 150ms ease; }
 
 .tool:hover, .tool:focus-visible { color: var(--text); }
 .tool__ico { width: 24px; height: 24px; shape-rendering: crispEdges; }
+.tool + .tool { margin-left: 8px; }
+.tool::before { content: ""; position: absolute; inset: -4px; } /* площадь нажатия 32 px */
 /* При наведении иконка чуть приподнимается */
 .tool__ico { transition: transform 150ms ease; }
 .tool:hover .tool__ico, .tool:focus-visible .tool__ico { transform: translateY(-2px); }
