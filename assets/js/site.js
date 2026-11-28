@@ -3,7 +3,7 @@
   const sidebar = document.querySelector('.sidebar');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Строка «Кейсы» и «Контакты» раскрывает и сворачивает список. «Кейсы» на главной при раскрытии ещё и ведёт к кейсам.
+  // Строка «Кейсы» и «Контакты» раскрывает и сворачивает список. «Кейсы» на главной при каждом клике ещё и ведёт к кейсам.
   // Как у Мартина: стрелка схлопывается в точку и вырастает в другую сторону (точка → 3 пикселя → 5),
   // список при открытии вырастает по высоте и проявляется, при закрытии гаснет и схлопывается.
   const PX = (pts) => pts.map(([x, y]) => 'M' + x + ' ' + y + 'h2v2h-2z').join('');
@@ -26,9 +26,6 @@
     drawChev(chev, fold.classList.contains('is-closed') ? 'down' : 'up', false);
     btn.addEventListener('click', () => {
       const closing = !fold.classList.contains('is-closed');
-      // «Кейсы» открыты, а посетитель в другом разделе — клик ведёт к кейсам, список не сворачивается
-      if (closing && btn.dataset.section && document.getElementById(btn.dataset.section) &&
-          btn.getAttribute('aria-current') !== 'page') return;
       btn.setAttribute('aria-expanded', String(!closing));
       drawChev(chev, closing ? 'down' : 'up', true);
       if (list._anim) list._anim.cancel();
@@ -98,8 +95,7 @@
       const items = Array.from(sidebar.querySelectorAll('[data-section]'));
       const byId = (id) => items.find((i) => i.dataset.section === id);
       items.forEach((i) => i.addEventListener('click', (e) => {
-        // «Кейсы» — кнопка-строка: при сворачивании никуда не ведёт, при раскрытии плавно едет к блоку кейсов
-        if (i.matches('button[aria-expanded="false"]')) return;
+        // «Кейсы» — кнопка-строка: каждый клик и раскрывает/сворачивает список, и ведёт к блоку кейсов
         if (i.tagName === 'BUTTON') {
           const target = document.getElementById(i.dataset.section);
           if (target) target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
