@@ -166,3 +166,16 @@
     });
   });
 })();
+
+// Видео концептов играют, только пока видны на экране. При «уменьшить движение» остаётся постер.
+(() => {
+  const vids = document.querySelectorAll('video.js-autoplay');
+  if (!vids.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(({ target: v, isIntersecting }) => {
+      if (isIntersecting) { if (v.preload === 'none') v.preload = 'auto'; v.play().catch(() => {}); }
+      else v.pause();
+    });
+  }, { rootMargin: '200px 0px' });
+  vids.forEach((v) => io.observe(v));
+})();
