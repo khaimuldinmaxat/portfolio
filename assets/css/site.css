@@ -129,6 +129,8 @@ html[data-theme="dark"] .tool__ico--sun, html:not([data-theme="dark"]) .tool__ic
   transition: color 150ms ease;
 }
 .nav-item:hover, .nav-item[aria-current="page"], .sidebar__logo { color: var(--text); }
+/* «Обо мне» — пункт до появления страницы: не нажимается и не темнеет при наведении */
+.nav-item--soon, .nav-item--soon:hover { color: var(--text-2); cursor: default; }
 .nav-item--sub { padding: 4px 0; }
 .nav-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
 .nav-row > .nav-item { flex: 1; }
