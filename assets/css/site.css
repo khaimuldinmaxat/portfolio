@@ -258,6 +258,23 @@ html[data-theme="dark"] .pond__scene .water { opacity: .6; }
 .section-header { padding: 14px 0; font-weight: 500; }
 
 .cases { display: flex; flex-direction: column; gap: 28px; }
+/* Концепты: плитка без пустот на сетке из 12 колонок (промежуток 16). Ряд 1: 5 + 7, ряд 2: 7 + 5.
+   В каждом ряду плитки одной высоты, под картинкой подпись «Название ▪ год». Пустые плитки — заглушки до новых шотов */
+.shots { display: grid; grid-template-columns: repeat(12, 1fr); gap: 28px 16px; }
+.shot { display: flex; flex-direction: column; gap: 12px; margin: 0; }
+.shot__media { position: relative; height: 420px; background: var(--subtle); overflow: hidden; }
+.shot__media img, .shot__media video { display: block; width: 100%; height: 100%; object-fit: contain; }
+.shot__cap { font-size: 16px; line-height: 24px; }
+.shot--a { grid-column: span 5; }
+.shot--b { grid-column: span 7; }
+.shot--c { grid-column: span 7; }
+.shot--d { grid-column: span 5; }
+.shot--c .shot__media, .shot--d .shot__media { height: 260px; }
+@media (max-width: 720px) {
+  .shots { grid-template-columns: 1fr; }
+  .shot--a, .shot--b, .shot--c, .shot--d { grid-column: auto; }
+  .shot--empty .shot__media { height: 200px; }
+}
 .case-card { display: flex; flex-direction: column; gap: 16px; transition: transform 160ms var(--ease); }
 .case-card:active { transform: scale(.98); }
 .case-card__preview { position: relative; aspect-ratio: 16 / 10; background: var(--subtle); overflow: hidden; }

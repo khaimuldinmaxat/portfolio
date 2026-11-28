@@ -110,7 +110,7 @@
         lock = Date.now() + 1500; // пока страница плавно доезжает, квадрат не перескакивает по пути
       }));
       let lock = 0;
-      const sections = ['cases', 'experience'].map((id) => document.getElementById(id)).filter(Boolean);
+      const sections = ['cases', 'concepts', 'experience'].map((id) => document.getElementById(id)).filter(Boolean);
       function spy() {
         if (Date.now() < lock) return;
         const line = window.innerHeight * 0.4;
